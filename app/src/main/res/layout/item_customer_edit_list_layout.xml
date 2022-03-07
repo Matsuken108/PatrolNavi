@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:background="@color/black"
+    android:padding="10dp">
+
+
+    <TextView
+        android:id="@+id/tv_customer_edit_list_date_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/et_hint_date"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_customer_edit_list_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/tv_customer_edit_list_date_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_customer_edit_list_course_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:text="@string/et_hint_course"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/tv_customer_edit_list_date"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_customer_edit_list_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/tv_customer_edit_list_course_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_customer_edit_list_no_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:text="@string/et_hint_no"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/tv_customer_edit_list_course"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_customer_edit_list_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/tv_customer_edit_list_no_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_customer_edit_list_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/et_hint_name"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_customer_edit_list_date_title" />
+
+    <TextView
+        android:id="@+id/tv_customer_edit_list_first_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/tv_customer_edit_list_name_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_customer_edit_list_course_title" />
+
+    <TextView
+        android:id="@+id/tv_customer_edit_list_last_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/tv_customer_edit_list_first_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_customer_edit_list_course_title" />
+</androidx.constraintlayout.widget.ConstraintLayout>

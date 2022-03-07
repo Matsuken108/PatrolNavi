@@ -1,0 +1,144 @@
+<resources>
+    <string name="app_name">PatrolNavi</string>
+
+    <string name="content_description">image</string>
+    <string name="title_login">ログイン</string>
+    <string name="et_hint_email_id">mailアドレス</string>
+    <string name="et_hint_password">パスワード</string>
+    <string name="et_hint_confirm_password">パスワード確認</string>
+    <string name="lbl_forgot_password">パスワードをお忘れの方</string>
+    <string name="btn_login">ログイン</string>
+    <string name="don_t_have_an_account">アカウントをお持ちでない方</string>
+    <string name="register"><u>新規登録</u></string>
+    <string name="please_wait">しばらくお待ちください&#8230;</string>
+    <string name="please_click_back_again_to_exit">終了するにはもう一度戻るをクリックしてください</string>
+    <string name="forgot_password_screen">パスワードの再発行</string>
+    <string name="msg_forgot_password">e-mailアドレスを入力後、送信ボタンを押すとパスワードがリセットされます</string>
+    <string name="btn_submit">送信</string>
+    <string name="email_id">メールアドレス</string>
+
+    <string name="err_msg_enter_first_name">苗字を入力してください</string>
+    <string name="err_msg_enter_last_name">名前を入力してください</string>
+    <string name="err_msg_enter_email">メールアドレスを入力してください</string>
+    <string name="err_msg_enter_mobile_number">電話番号を入力してください</string>
+    <string name="err_msg_enter_password">パスワードを入力してください</string>
+    <string name="err_msg_password_and_confirm_password_mismatch">パスワードが一致してません</string>
+    <string name="err_msg_agree_terms_and_condition">利用規約に同意してください</string>
+
+    <string name="email_sent_success">確認メールを送信しました</string>
+
+    <string name="create_an_account">新規登録</string>
+    <string name="hint_first_name">例：山本</string>
+    <string name="hint_last_name">例：太郎</string>
+    <string name="i_agree_to_the_terms_and_condition">利用規約に合意します</string>
+    <string name="btn_register">登録</string>
+    <string name="already_have_an_account">既にアカウントをお持ちの方</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_complete_profile">プロフィール入力</string>
+    <string name="et_hint_mobile_number">電話番号</string>
+    <string name="et_hint_date">曜日</string>
+    <string name="et_hint_course">コース</string>
+    <string name="et_hint_no">No</string>
+    <string name="et_hint_name">名前</string>
+    <string name="hint_memo">Memo</string>
+    <string name="hint_lat">緯度</string>
+    <string name="hint_lng">経度</string>
+    <string name="btn_save">保存</string>
+    <string name="btn_edit">修正</string>
+    <string name="register_success">新規登録完了</string>
+    <string name="title_edit_profile">プロフィール入力完了</string>
+    <string name="msg_profile_update_success">プロフィール更新が完了しました</string>
+
+    <string name="title_course_setting">コース設定</string>
+    <string name="btn_intent_set">コース設定</string>
+    <string name="btn_intent_edit">コース修正</string>
+    <string name="hint_date_set">曜日設定</string>
+    <string name="hint_course_set">コース設定</string>
+
+    <string name="title_course_edit">コース修正</string>
+    <string name="no_course_found">設定がありません</string>
+    <string name="tv_add_customer_title">お客様追加</string>
+    <string name="tv_customer_details_title">お客様情報</string>
+
+    <string name="tv_customer_list_layout_title">お客様リスト</string>
+
+    <string name="err_msg_select_installation_image">設置場所写真を挿入してください</string>
+    <string name="err_msg_enter_customer_date">曜日を入力してください</string>
+    <string name="err_msg_enter_customer_course">コースを入力してください</string>
+    <string name="err_msg_enter_customer_no">Noを入力してください</string>
+    <string name="err_msg_enter_customer_first_name">苗字を入力してください</string>
+    <string name="err_msg_enter_customer_last_name">名前を入力してください</string>
+    <string name="err_msg_enter_customer_lat">緯度を入力してください</string>
+    <string name="err_msg_enter_customer_lng">軽度を入力してください</string>
+    <string name="err_msg_enter_customer_memo">メモを入力してください</string>
+    <string name="customer_uploaded_success_message">お客様入力が完了しました</string>
+    <string name="no_customer_added_yet">お客様入力が完了してません</string>
+    <string name="add_customer_title">お客様追加</string>
+    <string name="edit_customer_title">お客様情報編集</string>
+    <string name="delete_customer_title">お客様情報削除</string>
+    <string name="delete_dialog_title">お客様情報削除</string>
+    <string name="delete_dialog_message">お客様情報を削除しますか？</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="tv_edit_customer_title">お客様情報修正</string>
+    <string name="msg_customer_details_update_success">お客様情報の更新が完了しました</string>
+    <string name="btn_update">更新</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">CustomerList</string>
+    <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_setting">Setting</string>
+    <string name="title_map">Map</string>
+    <string name="btn_start_navi">ナビ開始</string>
+    <string name="tv_no">No</string>
+    <string name="tv_name">名前</string>
+    <string name="btn_map">Map</string>
+    <string name="set">設定</string>
+    <string name="latLng_add">設定</string>
+    <string name="message_latLng_add">設定しますか？</string>
+    <string name="btn_intent_solicitation">拡販マップ</string>
+    <string name="title_activity_solicitation_maps">SolicitationMapsActivity</string>
+    <string name="setting_groups">グループ設定</string>
+    <string name="groups_name">グループ名</string>
+    <string name="err_msg_enter_groups_pass">パスワードを入力してください</string>
+    <string name="err_msg_enter_groups_name">グループ名を入力してください</string>
+    <string name="err_msg_enter_groups_user_name">グループで表示するあなたの名前を入力してください</string>
+    <string name="btn_navi_start">ナビ開始</string>
+    <string name="name_group">グループ名</string>
+    <string name="tv_setting_groups">グループを設定してください</string>
+    <string name="btn_add_groups">追加</string>
+    <string name="btn_join_groups">既存グループに参加</string>
+    <string name="invitation_code">招待コード</string>
+    <string name="hint_your_name">グループで表示するあなたの名前</string>
+    <string name="add_groups">グループ追加</string>
+    <string name="btn_add">追加</string>
+    <string name="details_groups">グループ詳細</string>
+    <string name="btn_delete">削除</string>
+    <string name="err_msg_enter_customer_groups_pass">グループパスワードを入力してください</string>
+    <string name="add_groups_title">グループ追加</string>
+    <string name="add_groups_users_title">メンバー追加</string>
+    <string name="hint_groups_pass">グループパスワード</string>
+    <string name="hint_groups_id">グループID</string>
+    <string name="groups_users">グループメンバー</string>
+    <string name="join_groups_title">既存のグループに参加</string>
+    <string name="join_groups">参加</string>
+    <string name="err_msg_enter_groups_id">グループIDを入力してください</string>
+    <string name="hint_groups_lat">地図の中央設定(緯度)</string>
+    <string name="hint_groups_lng">地図の中央設定(経度)</string>
+    <string name="title_activity_add_groups_maps">AddGroupsMapsActivity</string>
+    <string name="edit_groups">グループ修正</string>
+    <string name="edit_groups_title">グループ修正</string>
+    <string name="err_msg_enter_groups_lat">緯度を入力してください</string>
+    <string name="err_msg_enter_groups_lng">経度を入力してください</string>
+    <string name="title_activity_edit_groups_maps">EditGroupsMapsActivity</string>
+    <string name="my_page">マイページ</string>
+    <string name="edit_user_profile_title">プロフィール修正</string>
+    <string name="edit_groups_users_title">ユーザー修正</string>
+    <string name="delete_belonging_groups_title">グループ削除</string>
+    <string name="delete_dialog_belonging_groups_users_title">グループ削除</string>
+    <string name="delete_dialog_belonging_groups_users_message">グループを削除しましか？</string>
+
+
+</resources>

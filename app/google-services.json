@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "896470054931",
+    "project_id": "patrolnavi-e7dea",
+    "storage_bucket": "patrolnavi-e7dea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896470054931:android:8b7d408c32b6196c5567e6",
+        "android_client_info": {
+          "package_name": "com.patrolnavi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896470054931-gcr9dv5tb0l9rfgfgiti2u0e9jm073ik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.patrolnavi",
+            "certificate_hash": "77e494a17b907e229d405201411bb877b114b3c3"
+          }
+        },
+        {
+          "client_id": "896470054931-2p4s2f5gds9qo8p2sl5ql9l0t74hski3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeSg6ummen7IxEsZdBnUwUilmjyn4KvvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896470054931-2p4s2f5gds9qo8p2sl5ql9l0t74hski3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
