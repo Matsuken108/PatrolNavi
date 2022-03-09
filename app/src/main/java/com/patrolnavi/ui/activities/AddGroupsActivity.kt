@@ -103,8 +103,22 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
                     true
                 )
                 false
-
             }
+            TextUtils.isEmpty(et_add_groups_lat.text.toString().trim { it <= ' ' }) -> {
+                showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_customer_lat),
+                    true
+                )
+                false
+            }
+            TextUtils.isEmpty(et_add_groups_lng.text.toString().trim { it <= ' ' }) -> {
+                showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_customer_lng),
+                    true
+                )
+                false
+            }
+
             else -> {
                 true
             }
@@ -117,8 +131,8 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         val groups = Groups(
             et_add_groups_name.text.toString().trim { it <= ' ' },
             et_add_groups_pass.text.toString().trim { it <= ' ' },
-            mGroupsLat,
-            mGroupsLng,
+            et_add_groups_lat.text.toString().trim { it <= ' ' },
+            et_add_groups_lng.text.toString().trim { it <= ' ' },
             FirestoreClass().getCurrentUserID()
         )
 

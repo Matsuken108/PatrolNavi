@@ -33,12 +33,12 @@ private var list: ArrayList<GroupsUsers>
         val model = list[position]
 
         if (holder is MyViewHolder) {
-            holder.itemView.tv_groups_user_name_list.text = model.name
+            holder.itemView.tv_groups_user_name_list.text = model.user_name
 
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, DetailsGroupsUsersActivity::class.java)
                 intent.putExtra(Constants.EXTRA_GROUPS_USER_ID, model.user_id)
-                intent.putExtra(Constants.EXTRA_GROUPS_USER_NAME, model.name)
+                intent.putExtra(Constants.EXTRA_GROUPS_USER_NAME, model.user_name)
                 context.startActivity(intent)
             }
         }

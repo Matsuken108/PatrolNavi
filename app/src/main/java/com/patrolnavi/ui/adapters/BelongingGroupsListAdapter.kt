@@ -33,9 +33,9 @@ class BelongingGroupsListAdapter(
         val model = list[position]
 
         if (holder is MyViewHolder) {
-            holder.itemView.tv_belonging_groups_list.text = model.groups_name
+            holder.itemView.tv_belonging_groups_list_name.text = model.groups_name
 
-            holder.itemView.iv_belonging_groups_edit.setOnClickListener {
+            holder.itemView.iv_belonging_groups_list_edit.setOnClickListener {
                 val intent = Intent(context, EditGroupsUsersActivity::class.java)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID,model.groups_id)
                 intent.putExtra(Constants.EXTRA_GROUPS_NAME,model.groups_name)

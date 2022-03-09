@@ -37,6 +37,8 @@ class EditGroupsUsersActivity : BaseActivity() {
 
         setupActionBar()
 
+        getEditGroupsUsersDetails()
+
     }
 
     private fun setupActionBar() {

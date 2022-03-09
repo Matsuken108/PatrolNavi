@@ -159,12 +159,10 @@ class FirestoreClass {
     fun uploadGroupsDetails(activity: AddGroupsActivity, groupsInfo: Groups) {
 
         mFireStore.collection(Constants.GROUPS)
-            .document()
-            .set(groupsInfo, SetOptions.merge())
+            .add(groupsInfo)
             .addOnSuccessListener {
-
                 activity.groupsUploadSuccess()
-                Log.i(activity.javaClass.simpleName, "グループ登録完了")
+                Log.i(activity.javaClass.simpleName, "グループ追加完了")
             }
             .addOnFailureListener { e ->
                 activity.hideProgressDialog()
