@@ -28,9 +28,9 @@ class UserProfileActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
-        if (intent.hasExtra(Constants.EXTRA_USER_DETAILS)) {
-            mUserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
-        }
+//        if (intent.hasExtra(Constants.EXTRA_USER_DETAILS)) {
+//            mUserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
+//        }
 
         setupActionBar()
 
@@ -64,6 +64,7 @@ class UserProfileActivity : BaseActivity() {
 
             R.id.navigation_edit_user_profile -> {
                 val intent = Intent(this@UserProfileActivity, EditUserProfileActivity::class.java)
+                intent.putExtra(Constants.EXTRA_USER_DETAILS,mUserDetails)
                 startActivity(intent)
                 return true
             }

@@ -10,7 +10,7 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/tv_groups_user_name_list"
+        android:id="@+id/tv_edit_groups_user_name_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -19,5 +19,13 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_edit_groups_user_list_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_vector_delete_white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

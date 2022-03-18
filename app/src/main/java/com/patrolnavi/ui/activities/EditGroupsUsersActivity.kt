@@ -119,7 +119,7 @@ class EditGroupsUsersActivity : BaseActivity() {
 
     }
 
-    fun groupsUsersDeleteSuccess() {
+    fun belongingGroupsUsersDeleteSuccess() {
         hideProgressDialog()
 
         Toast.makeText(this, "グループを削除しました", Toast.LENGTH_SHORT).show()

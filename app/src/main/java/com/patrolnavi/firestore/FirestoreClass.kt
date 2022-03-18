@@ -102,7 +102,28 @@ class FirestoreClass {
             }
     }
 
-    fun getBelongingGroupsList(activity:UserProfileActivity){
+    fun uploadBelongingGroups(
+        activity: AddGroupsUsersActivity,
+        groupsId: String,
+        belongingGroupsInfo: BelongingGroups
+    ) {
+        mFireStore.collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .collection(Constants.BELONGING_GROUPS)
+            .add(belongingGroupsInfo)
+            .addOnSuccessListener {
+                activity.belongingGroupsUploadSuccess()
+                Log.i(activity.javaClass.simpleName, "グループ追加完了")
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "グループ追加エラー", e)
+            }
+
+
+    }
+
+    fun getBelongingGroupsList(activity: UserProfileActivity) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .collection(Constants.BELONGING_GROUPS)
@@ -132,6 +153,27 @@ class FirestoreClass {
                 )
             }
     }
+
+    fun deleteBelongingGroupsUsers(
+        activity: EditGroupsUsersActivity,
+        groupsId: String,
+        userId: String
+    ) {
+        mFireStore.collection(Constants.GROUPS)
+            .document(groupsId)
+            .collection(Constants.GROUPS_USERS)
+            .document(userId)
+            .delete()
+            .addOnSuccessListener {
+                activity.belongingGroupsUsersDeleteSuccess()
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
+            }
+
+    }
+
 
     fun updateUserProfileData(
         activity: EditUserProfileActivity,
@@ -225,11 +267,13 @@ class FirestoreClass {
         groupsId: String,
         groupsUsers: GroupsUsers
     ) {
+
+        Log.i(activity.javaClass.simpleName, "AddGroupsUsers : get data groupsId: ${groupsId}")
+
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.GROUPS_USERS)
-            .document(getCurrentUserID())
-            .set(groupsUsers)
+            .add(groupsUsers)
             .addOnSuccessListener {
                 activity.groupsUsersUploadSuccess()
                 Log.i(activity.javaClass.simpleName, "グループユーザー登録完了")
@@ -242,7 +286,7 @@ class FirestoreClass {
 
     fun getGroupsUsersList(activity: DetailsGroupsActivity, groupsId: String) {
         mFireStore.collection(Constants.GROUPS)
-            .document(groupsId)
+            .document("${groupsId}")
             .collection(Constants.GROUPS_USERS)
             .get()
             .addOnSuccessListener { document ->
@@ -302,7 +346,11 @@ class FirestoreClass {
             }
     }
 
-    fun getEditGroupsUsersDetails(activity:EditGroupsUsersActivity,groupsId: String,userId:String){
+    fun getEditGroupsUsersDetails(
+        activity: EditGroupsUsersActivity,
+        groupsId: String,
+        userId: String
+    ) {
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.GROUPS_USERS)
@@ -324,7 +372,8 @@ class FirestoreClass {
             }
     }
 
-    fun deleteBelongingGroupsUsers(activity: EditGroupsUsersActivity,groupsId: String,userId: String){
+
+    fun deleteGroupsUsers(activity: DetailsGroupsUsersActivity, groupsId: String, userId: String) {
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.GROUPS_USERS)
@@ -337,6 +386,7 @@ class FirestoreClass {
                 activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
             }
+
 
     }
 
@@ -400,7 +450,7 @@ class FirestoreClass {
         Log.i(activity.javaClass.simpleName, "Firestore Add groupsId: ${groupsId}")
 
         mFireStore.collection(Constants.GROUPS)
-            .document("${groupsId}")
+            .document(groupsId)
             .collection(Constants.CUSTOMER)
             .add(customerInfo)
             .addOnSuccessListener {
@@ -420,7 +470,7 @@ class FirestoreClass {
         courseSelect: String
     ) {
         mFireStore.collection(Constants.GROUPS)
-            .document(groupsId)
+            .document("${groupsId}")
             .collection(Constants.CUSTOMER)
             .whereEqualTo(Constants.DATE, dateSelect).whereEqualTo(Constants.COURSE, courseSelect)
             .orderBy(Constants.NO)

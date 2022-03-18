@@ -2,6 +2,7 @@ package com.patrolnavi.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -43,6 +44,8 @@ class DetailsGroupsActivity : BaseActivity() {
         if (intent.hasExtra(Constants.EXTRA_GROUPS_LNG)) {
             mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
         }
+
+        Log.i(javaClass.simpleName,"DetailsGroups : ${mGroupsId}")
 
         et_details_groups_name.isEnabled = false
         et_details_groups_name.setText(mGroupsName)

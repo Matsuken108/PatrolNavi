@@ -19,7 +19,7 @@
         android:id="@+id/tv_customer_list_first_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:text="FirstName"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/tv_customer_list_no"

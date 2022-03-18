@@ -63,8 +63,9 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
         et_add_customer_date.setText(mDateSelect)
 //        et_add_customer_course.isEnabled = false
         et_add_customer_course.setText(mCourseSelect)
-
+        et_add_customer_lat.isEnabled = false
         et_add_customer_lat.setText(mlat)
+        et_add_customer_lng.isEnabled = false
         et_add_customer_lng.setText(mlng)
         et_add_customer_no.setText(mNo)
         et_add_customer_first_name.setText(mFirstName)

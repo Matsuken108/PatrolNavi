@@ -11,7 +11,9 @@ import com.patrolnavi.R
 import com.patrolnavi.models.GroupsUsers
 import com.patrolnavi.ui.activities.DetailsGroupsUsersActivity
 import com.patrolnavi.utils.Constants
+import kotlinx.android.synthetic.main.item_edit_groups_users_list_layout.view.*
 import kotlinx.android.synthetic.main.item_groups_users_list_layout.view.*
+import kotlinx.android.synthetic.main.item_groups_users_list_layout.view.tv_groups_user_name_list
 
 open class EditGroupsUsersListAdapter (
 private val context: Context,
@@ -21,7 +23,7 @@ private var list: ArrayList<GroupsUsers>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.item_groups_users_list_layout,
+                R.layout.item_edit_groups_users_list_layout,
                 parent,
                 false
             )
@@ -33,7 +35,7 @@ private var list: ArrayList<GroupsUsers>
         val model = list[position]
 
         if (holder is MyViewHolder) {
-            holder.itemView.tv_groups_user_name_list.text = model.user_name
+            holder.itemView.tv_edit_groups_user_name_list.text = model.user_name
 
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, DetailsGroupsUsersActivity::class.java)

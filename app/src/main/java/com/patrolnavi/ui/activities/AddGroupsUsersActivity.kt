@@ -4,9 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
+import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.Groups
 import com.patrolnavi.models.GroupsUsers
 import com.patrolnavi.utils.Constants
@@ -17,6 +19,10 @@ import kotlinx.android.synthetic.main.activity_details_groups.*
 class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
 
     private var mGroupsId: String = ""
+    private var mGroupsName: String = ""
+    private var mGroupsPass: String = ""
+    private var mGroupsLat: String = ""
+    private var mGroupsLng: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,23 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
         }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_NAME)) {
+            mGroupsName = intent.getStringExtra(Constants.EXTRA_GROUPS_NAME)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_PASS)) {
+            mGroupsPass = intent.getStringExtra(Constants.EXTRA_GROUPS_PASS)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LAT)) {
+            mGroupsLat = intent.getStringExtra(Constants.EXTRA_GROUPS_LAT)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LNG)) {
+            mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
+        }
+
+        Log.i(
+            javaClass.simpleName,
+            "AddGroupsUsers : groupsId:${mGroupsId} groupsName: ${mGroupsName}"
+        )
 
         setupActionBar()
 
@@ -58,9 +81,11 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
 
     private fun validateAddGroupsUsers(): Boolean {
         return when {
-
             TextUtils.isEmpty(et_add_groups_users_name.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(resources.getString(R.string.err_msg_enter_groups_user_name), true)
+                showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_groups_user_name),
+                    true
+                )
                 false
             }
             else -> {
@@ -76,13 +101,55 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
             et_add_groups_users_name.text.toString().trim { it <= ' ' },
             FirestoreClass().getCurrentUserID()
         )
-        FirestoreClass().uploadGroupsUsers(this@AddGroupsUsersActivity, mGroupsId,groupsUsers)
+
+        Log.i(javaClass.simpleName, "AddGroupsUsers : send data")
+
+        FirestoreClass().uploadGroupsUsers(this@AddGroupsUsersActivity, mGroupsId, groupsUsers)
     }
 
     fun groupsUsersUploadSuccess() {
+
+        Log.i(javaClass.simpleName, "AddGroupsUsers : SuccessUpload")
+
+        uploadBelongingGroups()
+//        hideProgressDialog()
+//
+//        val intent = Intent(this@AddGroupsUsersActivity, DetailsGroupsActivity::class.java)
+//        intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+//        intent.putExtra(Constants.EXTRA_GROUPS_NAME, mGroupsName)
+//        intent.putExtra(Constants.EXTRA_GROUPS_PASS, mGroupsPass)
+//        intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+//        intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
+//        startActivity(intent)
+//        finish()
+    }
+
+    private fun uploadBelongingGroups() {
+
+        val belongingGroups = BelongingGroups(
+            mGroupsName,
+            mGroupsId
+        )
+
+        Log.i(javaClass.simpleName, "AddGroupsUsers : SuccessUpload")
+
+        FirestoreClass().uploadBelongingGroups(
+            this@AddGroupsUsersActivity,
+            mGroupsId,
+            belongingGroups
+        )
+    }
+
+    fun belongingGroupsUploadSuccess() {
         hideProgressDialog()
 
-        startActivity(Intent(this@AddGroupsUsersActivity, DetailsGroupsActivity::class.java))
+        val intent = Intent(this@AddGroupsUsersActivity, DetailsGroupsActivity::class.java)
+        intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+        intent.putExtra(Constants.EXTRA_GROUPS_NAME, mGroupsName)
+        intent.putExtra(Constants.EXTRA_GROUPS_PASS, mGroupsPass)
+        intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+        intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
+        startActivity(intent)
         finish()
     }
 

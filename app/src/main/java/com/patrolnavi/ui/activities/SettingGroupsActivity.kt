@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.DocumentId
 import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
+import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.Groups
 import com.patrolnavi.models.GroupsUsers
 import com.patrolnavi.ui.adapters.SettingGroupsListAdapter
@@ -19,7 +20,7 @@ import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.activity_setting_groups.*
 
-class SettingGroupsActivity : BaseActivity(){
+class SettingGroupsActivity : BaseActivity() {
 
     private lateinit var mGroupsList: ArrayList<Groups>
 
@@ -42,6 +43,7 @@ class SettingGroupsActivity : BaseActivity(){
 
         toolbar_setting_groups_activity.setNavigationOnClickListener { onBackPressed() }
     }
+
 
     private fun getGroupsList() {
         showProgressDialog(resources.getString(R.string.please_wait))

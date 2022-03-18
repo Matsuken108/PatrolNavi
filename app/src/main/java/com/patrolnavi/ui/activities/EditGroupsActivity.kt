@@ -94,6 +94,10 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
                 val intent =
                     Intent(this@EditGroupsActivity, AddGroupsUsersActivity::class.java)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+                intent.putExtra(Constants.EXTRA_GROUPS_NAME,mGroupsName)
+                intent.putExtra(Constants.EXTRA_GROUPS_PASS,mGroupsPass)
+                intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+                intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
                 startActivity(intent)
                 return true
             }

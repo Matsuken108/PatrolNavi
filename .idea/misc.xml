@@ -52,6 +52,7 @@
         <entry key="app/src/main/res/layout/item_belonging_groups_layout.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/item_customer_edit_list_layout.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/item_customer_list_layout.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/item_edit_groups_users_list_layout.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/item_groups_setting_list_layout.xml" value="0.27685185185185185" />
         <entry key="app/src/main/res/layout/item_groups_users_list_layout.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/menu/add_customer_menu.xml" value="0.2388888888888889" />
