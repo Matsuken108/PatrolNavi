@@ -20,6 +20,7 @@ import com.patrolnavi.R
 import com.patrolnavi.databinding.ActivitySolicitationMapsBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
+import com.patrolnavi.models.Groups
 import com.patrolnavi.utils.Constants
 import java.util.*
 
@@ -27,10 +28,13 @@ class SolicitationMapsActivity : BaseActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivitySolicitationMapsBinding
+    private lateinit var mGroups: Groups
     private val REQUEST_LOCATION_PERMISSION = 1
     private var mlat: String = ""
     private var mlng: String = ""
     private var mGroupsId: String = ""
+    private var mGroupsLat: String = ""
+    private var mGroupsLng: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,17 +45,29 @@ class SolicitationMapsActivity : BaseActivity(), OnMapReadyCallback {
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
         }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LAT)) {
+            mGroupsLat = intent.getStringExtra(Constants.EXTRA_GROUPS_LAT)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LNG)) {
+            mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
+        }
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-    }
 
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val center = LatLng(34.66871470163587, 133.74921330231805)
+        val groupsLat = mGroupsLat.toDouble()
+        val groupsLng = mGroupsLng.toDouble()
+
+        val center = LatLng(groupsLat, groupsLng)
+
+        Log.i(javaClass.simpleName, "Solicitation Lat : ${groupsLat} Lng ${groupsLng}")
+//        val center = LatLng(34.66871470163587, 133.74921330231805)
 //        mMap.addMarker(MarkerOptions().position(center).title("Center"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15f))
 

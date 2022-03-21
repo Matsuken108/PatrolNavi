@@ -18,13 +18,16 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.patrolnavi.R
 import com.patrolnavi.databinding.ActivityEditGroupsMapsBinding
+import com.patrolnavi.firestore.FirestoreClass
+import com.patrolnavi.models.Groups
 import com.patrolnavi.utils.Constants
 import java.util.*
 
-class EditGroupsMapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class EditGroupsMapsActivity : BaseActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityEditGroupsMapsBinding
+    private lateinit var mGroups : Groups
     private val REQUEST_LOCATION_PERMISSION = 1
     private var mGroupsId: String = ""
     private var mGroupsName: String = ""
@@ -51,12 +54,15 @@ class EditGroupsMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
         }
+
     }
+
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val center = LatLng(34.66871470163587, 133.74921330231805)
+        val center = LatLng(34.67046263273525, 133.74976718426674)
+//        val center = LatLng(mCenterLat, mCenterLng)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15f))
 
         setMapLongClick(mMap)

@@ -21,6 +21,8 @@ class EditCourseActivity : BaseActivity() {
     private var mDateSelect: String = ""
     private var mCourseSelect: String = ""
     private var mGroupsId: String = ""
+    private var mGroupsLat :String =""
+    private var mGroupsLng :String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,12 @@ class EditCourseActivity : BaseActivity() {
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
         }
-
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LAT)) {
+            mGroupsLat = intent.getStringExtra(Constants.EXTRA_GROUPS_LAT)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LNG)) {
+            mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
+        }
         Log.i(javaClass.simpleName, "groupsId: ${mGroupsId}")
 
         setupActionBar()
@@ -74,6 +81,8 @@ class EditCourseActivity : BaseActivity() {
                 intent.putExtra(Constants.EXTRA_DATE_SELECT, mDateSelect)
                 intent.putExtra(Constants.EXTRA_COURSE_SELECT, mCourseSelect)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+                intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+                intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
                 startActivity(intent)
                 return true
             }

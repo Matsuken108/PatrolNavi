@@ -139,6 +139,7 @@
     <string name="delete_belonging_groups_title">グループ削除</string>
     <string name="delete_dialog_belonging_groups_users_title">グループ削除</string>
     <string name="delete_dialog_belonging_groups_users_message">グループを削除しましか？</string>
+    <string name="title_activity_edit_custmer_maps">EditCustmerMapsActivity</string>
 
 
 </resources>

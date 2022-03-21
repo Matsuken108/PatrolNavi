@@ -41,6 +41,8 @@ open class SettingGroupsListAdapter(
                 val intent = Intent(context, SettingCourseActivity::class.java)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID, model.groups_id)
                 intent.putExtra(Constants.EXTRA_GROUPS_NAME, model.name)
+                intent.putExtra(Constants.EXTRA_GROUPS_LAT,model.groups_lat)
+                intent.putExtra(Constants.EXTRA_GROUPS_LNG,model.groups_lng)
                 context.startActivity(intent)
             }
             if(model.owner == FirestoreClass().getCurrentUserID()) {

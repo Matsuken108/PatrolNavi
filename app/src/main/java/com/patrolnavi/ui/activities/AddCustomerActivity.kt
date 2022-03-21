@@ -18,7 +18,7 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
 //    private var mSelectedImageFileURI: Uri? = null
 //    private var mCustomerImageURL:String =""
 
-    private var mGroupsId :String =""
+    private var mGroupsId: String = ""
     private var mDateSelect: String = ""
     private var mCourseSelect: String = ""
     private var mNo: String = ""
@@ -26,6 +26,8 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
     private var mLastName: String = ""
     private var mlat: String = ""
     private var mlng: String = ""
+    private var mGroupsLat: String = ""
+    private var mGroupsLng: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,12 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
         }
         if (intent.hasExtra(Constants.EXTRA_COURSE_SELECT)) {
             mCourseSelect = intent.getStringExtra(Constants.EXTRA_COURSE_SELECT)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LAT)) {
+            mGroupsLat = intent.getStringExtra(Constants.EXTRA_GROUPS_LAT)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LNG)) {
+            mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
         }
         if (intent.hasExtra(Constants.EXTRA_NO_SELECT)) {
             mNo = intent.getStringExtra(Constants.EXTRA_NO_SELECT)!!
@@ -56,7 +64,7 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
             mlng = intent.getStringExtra(Constants.EXTRA_LNG_SELECT)!!
         }
 
-        Log.i(javaClass.simpleName,"Add groupsId: ${mGroupsId}")
+        Log.i(javaClass.simpleName, "Add groupsId: ${mGroupsId}")
 
 
 //        et_add_customer_date.isEnabled = false
@@ -106,12 +114,14 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
 
                     val intent =
                         Intent(this@AddCustomerActivity, AddCustomerMapsActivity::class.java)
-                    intent.putExtra(Constants.EXTRA_GROUPS_ID,mGroupsId)
+                    intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
                     intent.putExtra(Constants.EXTRA_DATE_SELECT, mDateSelect)
                     intent.putExtra(Constants.EXTRA_COURSE_SELECT, mCourseSelect)
-                    intent.putExtra(Constants.EXTRA_NO_SELECT,mNo)
-                    intent.putExtra(Constants.EXTRA_FIRST_NAME,mFirstName)
-                    intent.putExtra(Constants.EXTRA_LAST_NAME,mLastName)
+                    intent.putExtra(Constants.EXTRA_NO_SELECT, mNo)
+                    intent.putExtra(Constants.EXTRA_FIRST_NAME, mFirstName)
+                    intent.putExtra(Constants.EXTRA_LAST_NAME, mLastName)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
 
                     startActivity(intent)
                     finish()
@@ -174,7 +184,7 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
             et_add_customer_lng.text.toString().trim { it <= ' ' },
             et_add_customer_memo.text.toString().trim { it <= ' ' }
         )
-        FirestoreClass().uploadCustomerDetails(this,mGroupsId,customer)
+        FirestoreClass().uploadCustomerDetails(this, mGroupsId, customer)
     }
 
     fun customerUploadSuccess() {

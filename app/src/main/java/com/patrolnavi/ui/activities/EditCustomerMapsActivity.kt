@@ -3,6 +3,7 @@ package com.patrolnavi.ui.activities
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
@@ -16,56 +17,41 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.patrolnavi.R
-import com.patrolnavi.databinding.ActivityAddCustomerMapsBinding
-import com.patrolnavi.firestore.FirestoreClass
+import com.patrolnavi.databinding.ActivityEditCustmerMapsBinding
 import com.patrolnavi.models.Groups
 import com.patrolnavi.utils.Constants
 import java.util.*
 
-class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
+class EditCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var binding: ActivityAddCustomerMapsBinding
+    private lateinit var binding: ActivityEditCustmerMapsBinding
     private lateinit var mGroups: Groups
     private val REQUEST_LOCATION_PERMISSION = 1
     private var mGroupsId: String = ""
-    private var mDateSelect: String = ""
-    private var mCourseSelect: String = ""
-    private var mNo: String = ""
-    private var mFirstName: String = ""
-    private var mLastName: String = ""
-    private var mlat: String = ""
-    private var mlng: String = ""
+    private var mGroupsName: String = ""
+    private var mGroupsPass: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityAddCustomerMapsBinding.inflate(layoutInflater)
+        binding = ActivityEditCustmerMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_NAME)) {
+            mGroupsName = intent.getStringExtra(Constants.EXTRA_GROUPS_NAME)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_PASS)) {
+            mGroupsPass = intent.getStringExtra(Constants.EXTRA_GROUPS_PASS)!!
+        }
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
-        }
-        if (intent.hasExtra(Constants.EXTRA_DATE_SELECT)) {
-            mDateSelect = intent.getStringExtra(Constants.EXTRA_DATE_SELECT)!!
-        }
-        if (intent.hasExtra(Constants.EXTRA_COURSE_SELECT)) {
-            mCourseSelect = intent.getStringExtra(Constants.EXTRA_COURSE_SELECT)!!
-        }
-        if (intent.hasExtra(Constants.EXTRA_NO_SELECT)) {
-            mNo = intent.getStringExtra(Constants.EXTRA_NO_SELECT)!!
-        }
-        if (intent.hasExtra(Constants.EXTRA_FIRST_NAME)) {
-            mFirstName = intent.getStringExtra(Constants.EXTRA_FIRST_NAME)!!
-        }
-        if (intent.hasExtra(Constants.EXTRA_LAST_NAME)) {
-            mLastName = intent.getStringExtra(Constants.EXTRA_LAST_NAME)!!
         }
         if (intent.hasExtra(Constants.EXTRA_GROUPS_LAT)) {
             mGroupsLat = intent.getStringExtra(Constants.EXTRA_GROUPS_LAT)!!
@@ -79,11 +65,10 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val groupsLat = mGroupsLat.toDouble()
-        val groupsLng = mGroupsLng.toDouble()
+        val GroupsLat = mGroupsLat.toDouble()
+        val GroupsLng = mGroupsLng.toDouble()
 
-        val center = LatLng(groupsLat, groupsLng)
-//        mMap.addMarker(MarkerOptions().position(center).title("Center"))
+        val center = LatLng(GroupsLat, GroupsLng)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15f))
 
         setMapLongClick(mMap)
@@ -151,10 +136,10 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
                     .snippet(snippet)
             )
 
-            mlat = latLng.latitude.toString()
-            mlng = latLng.longitude.toString()
+            mGroupsLat = latLng.latitude.toString()
+            mGroupsLng = latLng.longitude.toString()
 
-            Log.i(javaClass.simpleName, "MapsActivity lat : ${mlat} lng : ${mlng}")
+            Log.i(javaClass.simpleName, "MapsActivity lat : ${mGroupsLat} lng : ${mGroupsLng}")
 
             showActionSnackBar()
         }
@@ -164,22 +149,24 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
         val snackBar =
             Snackbar.make(
                 findViewById(android.R.id.content),
-                "lat: ${mlat} lng: ${mlng}",
+                "lat: ${mGroupsLat} lng: ${mGroupsLng}",
 //                R.string.message_latLng_add,
                 Snackbar.LENGTH_LONG
             )
 
         snackBar.setAction(R.string.latLng_add) {
             val intent =
-                Intent(this@AddCustomerMapsActivity, AddCustomerActivity::class.java)
-            intent.putExtra(Constants.EXTRA_GROUPS_ID,mGroupsId)
-            intent.putExtra(Constants.EXTRA_DATE_SELECT, mDateSelect)
-            intent.putExtra(Constants.EXTRA_COURSE_SELECT, mCourseSelect)
-            intent.putExtra(Constants.EXTRA_NO_SELECT, mNo)
-            intent.putExtra(Constants.EXTRA_FIRST_NAME, mFirstName)
-            intent.putExtra(Constants.EXTRA_LAST_NAME, mLastName)
-            intent.putExtra(Constants.EXTRA_LAT_SELECT, mlat)
-            intent.putExtra(Constants.EXTRA_LNG_SELECT, mlng)
+                Intent(this@EditCustomerMapsActivity, EditCustomerActivity::class.java)
+            intent.putExtra(Constants.EXTRA_GROUPS_NAME, mGroupsName)
+            intent.putExtra(Constants.EXTRA_GROUPS_PASS, mGroupsPass)
+            intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+            intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+            intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
+
+            Log.i(
+                javaClass.simpleName,
+                "AddGroupsMap name:${mGroupsName} pass:${mGroupsPass} lat:${mGroupsLat} lng:${mGroupsLng}"
+            )
 
             startActivity(intent)
             finish()
@@ -187,4 +174,3 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
         snackBar.show()
     }
 }
-

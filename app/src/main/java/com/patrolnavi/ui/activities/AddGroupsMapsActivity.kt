@@ -53,7 +53,7 @@ class AddGroupsMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val center = LatLng(34.66871470163587, 133.74921330231805)
+        val center = LatLng(35.681358186751076, 139.7671140689504)
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15f))
 
         setMapLongClick(mMap)

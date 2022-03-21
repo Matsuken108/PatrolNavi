@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
+import com.patrolnavi.models.Groups
 import java.util.*
 
 class MapsFragment() : BaseFragment() {
@@ -32,12 +33,14 @@ class MapsFragment() : BaseFragment() {
     private var mDateSelect: String = ""
     private var mCourseSelect: String = ""
     private var mGroupsId: String = ""
+    private var mGroupsLat: Double = 0.00
+    private var mGroupsLng: Double = 0.00
 
     private val callback = OnMapReadyCallback { googleMap ->
 
         mMap = googleMap
 
-        val center = LatLng(34.66871470163587, 133.74921330231805)
+        val center = LatLng(mGroupsLat,mGroupsLng)
         mMap.addMarker(MarkerOptions().position(center).title("Center"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15f))
 
@@ -104,14 +107,15 @@ class MapsFragment() : BaseFragment() {
         mDateSelect = extras?.getString("dateSelect").toString()
         mCourseSelect = extras?.getString("courseSelect").toString()
         mGroupsId = extras?.getString("groupsId").toString()
+        mGroupsLat = extras?.getString("groupsLat").toString().toDouble()
+        mGroupsLng = extras?.getString("groupsLng").toString().toDouble()
 
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
     private fun getMapsList() {
-        showProgressDialog(resources.getString(R.string.please_wait))
 
-        FirestoreClass().getMapsList(this@MapsFragment, mGroupsId,mDateSelect, mCourseSelect)
+        FirestoreClass().getMapsList(this@MapsFragment, mGroupsId, mDateSelect, mCourseSelect)
     }
 
     override fun onResume() {

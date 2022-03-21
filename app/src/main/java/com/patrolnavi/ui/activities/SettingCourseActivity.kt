@@ -19,6 +19,8 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
 
     private var mGroupsId: String = ""
     private var mGroupsName: String = ""
+    private var mGroupsLat: String = ""
+    private var mGroupsLng: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,12 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
         }
         if (intent.hasExtra(Constants.EXTRA_GROUPS_NAME)) {
             mGroupsName = intent.getStringExtra(Constants.EXTRA_GROUPS_NAME)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LAT)) {
+            mGroupsLat = intent.getStringExtra(Constants.EXTRA_GROUPS_LAT)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LNG)) {
+            mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
         }
 
         window.setFlags(
@@ -68,6 +76,12 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
         if (view != null) {
             when (view.id) {
 
+                R.id.btn_intent_groups_setting -> {
+                    val intent =
+                        Intent(this@SettingCourseActivity, SettingGroupsActivity::class.java)
+                    startActivity(intent)
+                }
+
                 R.id.btn_setting_course -> {
                     if (validateDateCourseSelect()) {
                         setCourseSelect()
@@ -79,16 +93,12 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
                         bundle.putString("dateSelect", mDateSelect)
                         bundle.putString("courseSelect", mCourseSelect)
                         bundle.putString("groupsId", mGroupsId)
+                        bundle.putString("groupsLat",mGroupsLat)
+                        bundle.putString("groupsLng",mGroupsLng)
                         intent.putExtras(bundle)
 
                         startActivity(intent)
                     }
-                }
-
-                R.id.btn_intent_groups_setting -> {
-                    val intent =
-                        Intent(this@SettingCourseActivity, SettingGroupsActivity::class.java)
-                    startActivity(intent)
                 }
 
                 R.id.btn_intent_edit -> {
@@ -99,6 +109,9 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
                         intent.putExtra(Constants.EXTRA_DATE_SELECT, mDateSelect)
                         intent.putExtra(Constants.EXTRA_COURSE_SELECT, mCourseSelect)
                         intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+                        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+                        intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
+
                         startActivity(intent)
                     }
                 }
@@ -106,10 +119,12 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
                     val intent =
                         Intent(this@SettingCourseActivity, SolicitationMapsActivity::class.java)
                     intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
                     startActivity(intent)
                 }
                 R.id.btn_intent_my_page -> {
-                    val intent = Intent(this@SettingCourseActivity,UserProfileActivity::class.java)
+                    val intent = Intent(this@SettingCourseActivity, UserProfileActivity::class.java)
                     startActivity(intent)
                 }
             }

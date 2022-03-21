@@ -286,7 +286,7 @@ class FirestoreClass {
 
     fun getGroupsUsersList(activity: DetailsGroupsActivity, groupsId: String) {
         mFireStore.collection(Constants.GROUPS)
-            .document("${groupsId}")
+            .document(groupsId)
             .collection(Constants.GROUPS_USERS)
             .get()
             .addOnSuccessListener { document ->
@@ -386,9 +386,9 @@ class FirestoreClass {
                 activity.hideProgressDialog()
                 Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
             }
-
-
     }
+
+
 
     fun getJoinGroupsDetails(activity: JoinGroupsActivity, groupsId: String) {
 
@@ -470,7 +470,7 @@ class FirestoreClass {
         courseSelect: String
     ) {
         mFireStore.collection(Constants.GROUPS)
-            .document("${groupsId}")
+            .document(groupsId)
             .collection(Constants.CUSTOMER)
             .whereEqualTo(Constants.DATE, dateSelect).whereEqualTo(Constants.COURSE, courseSelect)
             .orderBy(Constants.NO)
@@ -503,6 +503,8 @@ class FirestoreClass {
         groupsId: String,
         customerId: String
     ) {
+
+        Log.i(activity.javaClass.simpleName,"DetailsCustomer groupsId : ${groupsId}, customerId : ${customerId}")
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.CUSTOMER)
@@ -523,6 +525,27 @@ class FirestoreClass {
                 )
             }
     }
+
+    fun getDetailsCustomerMapsCenter(activity: DetailsCustomerActivity, groupsId: String) {
+        mFireStore.collection(Constants.GROUPS)
+            .document(groupsId)
+            .get()
+            .addOnSuccessListener { document ->
+                Log.i(activity.javaClass.simpleName, document.toString())
+                val groups = document.toObject(Groups::class.java)
+                if (groups != null) {
+                    activity.getDetailsCustomerMapsCenterSuccess(groups)
+                }
+            }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "MapsCenter読み込みエラー"
+                )
+            }
+    }
+
 
     fun updateCustomerDetails(
         activity: EditCustomerActivity,
@@ -674,4 +697,5 @@ class FirestoreClass {
                 )
             }
     }
+    
 }

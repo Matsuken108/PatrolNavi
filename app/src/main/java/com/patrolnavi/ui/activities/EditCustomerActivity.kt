@@ -10,7 +10,6 @@ import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
 import com.patrolnavi.utils.Constants
-import kotlinx.android.synthetic.main.activity_add_customer.*
 import kotlinx.android.synthetic.main.activity_edit_customer.*
 
 class EditCustomerActivity : BaseActivity(), View.OnClickListener {
@@ -77,7 +76,12 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
                 R.id.btn_edit_customer_location -> {
-
+                    val intent =
+                        Intent(this@EditCustomerActivity, EditCustomerMapsActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_GROUPS_ID,mGroupsId)
+                    intent.putExtra(Constants.EXTRA_CUSTOMER_ID,mCustomerId)
+                    intent.putExtra(Constants.EXTRA_CUSTOMER_DETAILS,mCustomerDetails)
+                    startActivity(intent)
                 }
             }
         }

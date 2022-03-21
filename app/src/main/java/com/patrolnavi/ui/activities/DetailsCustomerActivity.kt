@@ -3,12 +3,14 @@ package com.patrolnavi.ui.activities
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
+import com.patrolnavi.models.Groups
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_details_customer.*
 
@@ -17,6 +19,9 @@ class DetailsCustomerActivity : BaseActivity() {
     private var mGroupsId: String = ""
     private var mCustomerId: String = ""
     private lateinit var mCustomerDetails: Customer
+    private lateinit var mGroups: Groups
+    private var mGroupsLat: String = ""
+    private var mGroupsLng: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +32,34 @@ class DetailsCustomerActivity : BaseActivity() {
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
         }
-
         if (intent.hasExtra(Constants.EXTRA_CUSTOMER_ID)) {
             mCustomerId = intent.getStringExtra(Constants.EXTRA_CUSTOMER_ID)!!
         }
+
+        Log.i(javaClass.simpleName,"DetailsCustomer Top groupsId : ${mGroupsId}")
+        
         getCustomerDetails()
+        getGroupsCenter()
+    }
+
+    private fun getGroupsCenter() {
+
+        FirestoreClass().getDetailsCustomerMapsCenter(this@DetailsCustomerActivity, mGroupsId)
+    }
+
+    fun getDetailsCustomerMapsCenterSuccess(groups: Groups) {
+
+        mGroups = groups
+
+        mGroupsLat = mGroups.groups_lat
+        mGroupsLng = mGroups.groups_lng
+
     }
 
     private fun getCustomerDetails() {
         showProgressDialog(resources.getString(R.string.please_wait))
 
-        FirestoreClass().getCustomerDetails(this, mCustomerId, mGroupsId)
+        FirestoreClass().getCustomerDetails(this@DetailsCustomerActivity, mGroupsId, mCustomerId)
     }
 
     fun customerDetailsSuccess(customer: Customer) {
