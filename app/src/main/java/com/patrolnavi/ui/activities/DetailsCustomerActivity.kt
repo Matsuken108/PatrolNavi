@@ -37,8 +37,7 @@ class DetailsCustomerActivity : BaseActivity() {
         }
 
         Log.i(javaClass.simpleName,"DetailsCustomer Top groupsId : ${mGroupsId}")
-        
-        getCustomerDetails()
+
         getGroupsCenter()
     }
 
@@ -54,6 +53,7 @@ class DetailsCustomerActivity : BaseActivity() {
         mGroupsLat = mGroups.groups_lat
         mGroupsLng = mGroups.groups_lng
 
+        getCustomerDetails()
     }
 
     private fun getCustomerDetails() {
@@ -78,9 +78,9 @@ class DetailsCustomerActivity : BaseActivity() {
         tv_customer_details_last_name.isEnabled = false
         tv_customer_details_last_name.setText(customer.lastName)
         tv_customer_details_lat.isEnabled = false
-        tv_customer_details_lat.setText(customer.lat)
+        tv_customer_details_lat.setText(customer.customer_lat)
         tv_customer_details_lng.isEnabled = false
-        tv_customer_details_lng.setText(customer.lng)
+        tv_customer_details_lng.setText(customer.customer_lng)
 //         GlideLoader(context).loadProductPicture(mCustomerDetails.installationImage1,iv_installation_image1)
 //         GlideLoader(context).loadProductPicture(mCustomerDetails.installationImage2,iv_installation_image2)
         tv_customer_details_memo.isEnabled = false
@@ -120,6 +120,8 @@ class DetailsCustomerActivity : BaseActivity() {
                 intent.putExtra(Constants.EXTRA_CUSTOMER_DETAILS, mCustomerDetails)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
                 intent.putExtra(Constants.EXTRA_CUSTOMER_ID, mCustomerId)
+                intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+                intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
                 startActivity(intent)
                 return true
             }

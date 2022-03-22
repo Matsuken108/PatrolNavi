@@ -6,6 +6,7 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.ktx.Firebase
 import com.patrolnavi.models.*
 import com.patrolnavi.ui.activities.*
 import com.patrolnavi.ui.fragments.CustomerListFragment
@@ -198,10 +199,11 @@ class FirestoreClass {
             }
     }
 
-    fun uploadGroupsDetails(activity: AddGroupsActivity, groupsInfo: Groups) {
+    fun uploadGroupsDetails(activity: AddGroupsActivity, groupsId: String,groupsInfo: Groups) {
 
         mFireStore.collection(Constants.GROUPS)
-            .add(groupsInfo)
+            .document(groupsId)
+            .set(groupsInfo)
             .addOnSuccessListener {
                 activity.groupsUploadSuccess()
                 Log.i(activity.javaClass.simpleName, "グループ追加完了")
@@ -444,6 +446,7 @@ class FirestoreClass {
     fun uploadCustomerDetails(
         activity: AddCustomerActivity,
         groupsId: String,
+        customerId: String,
         customerInfo: Customer
     ) {
 
@@ -452,7 +455,8 @@ class FirestoreClass {
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.CUSTOMER)
-            .add(customerInfo)
+            .document(customerId)
+            .set(customerInfo)
             .addOnSuccessListener {
 
                 activity.customerUploadSuccess()

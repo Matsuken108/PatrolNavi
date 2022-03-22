@@ -68,13 +68,13 @@ class CustomerListFragment : BaseFragment() {
 
             btn_start_navi.setOnClickListener {
 
-                val lat1: Double = mCustomerList.get(0).lat.toDouble()
-                val lng1: Double = mCustomerList.get(0).lng.toDouble()
+                val lat1: Double = mCustomerList.get(0).customer_lat.toDouble()
+                val lng1: Double = mCustomerList.get(0).customer_lng.toDouble()
 
                 for (i in 1..mCustomerList.size - 1) {
 
-                    val latx: Double = mCustomerList.get(i).lat.toDouble()
-                    val lngx: Double = mCustomerList.get(i).lng.toDouble()
+                    val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                    val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
 
                     latLngStr = "${latLngStr}+to:${latx},${lngx}"
                 }

@@ -35,8 +35,8 @@ object Constants {
     const val EXTRA_FIRST_NAME: String = "extra_fist_name"
     const val EXTRA_LAST_NAME: String = "extra_last_name"
 
-    const val EXTRA_LAT_SELECT: String = "extra_lat_select"
-    const val EXTRA_LNG_SELECT: String = "extra_lng_select"
+    const val EXTRA_CUSTOMER_LAT: String = "extra_customer_lat"
+    const val EXTRA_CUSTOMER_LNG: String = "extra_customer_lng"
 
     const val PICK_IMAGE_REQUEST_CODE = 2
 

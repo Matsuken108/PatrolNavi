@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import com.google.firebase.firestore.FirebaseFirestore
 import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Groups
@@ -128,15 +129,20 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
     private fun uploadGroupsDetails() {
         showProgressDialog(resources.getString(R.string.please_wait))
 
+        val db = FirebaseFirestore.getInstance()
+        val collection = db.collection(Constants.GROUPS)
+        val groupsId = collection.document().id
+
         val groups = Groups(
             et_add_groups_name.text.toString().trim { it <= ' ' },
             et_add_groups_pass.text.toString().trim { it <= ' ' },
             et_add_groups_lat.text.toString().trim { it <= ' ' },
             et_add_groups_lng.text.toString().trim { it <= ' ' },
-            FirestoreClass().getCurrentUserID()
+            FirestoreClass().getCurrentUserID(),
+            groupsId
         )
 
-        FirestoreClass().uploadGroupsDetails(this@AddGroupsActivity, groups)
+        FirestoreClass().uploadGroupsDetails(this@AddGroupsActivity,groupsId, groups)
     }
 
     fun groupsUploadSuccess() {

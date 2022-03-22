@@ -40,6 +40,8 @@ class MapsFragment() : BaseFragment() {
 
         mMap = googleMap
 
+        Log.i(javaClass.simpleName,"MapsFragment Lat: ${mGroupsLat} Lng: ${mGroupsLng}")
+
         val center = LatLng(mGroupsLat,mGroupsLng)
         mMap.addMarker(MarkerOptions().position(center).title("Center"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(center, 15f))
@@ -115,6 +117,8 @@ class MapsFragment() : BaseFragment() {
 
     private fun getMapsList() {
 
+        showProgressDialog(resources.getString(R.string.please_wait))
+
         FirestoreClass().getMapsList(this@MapsFragment, mGroupsId, mDateSelect, mCourseSelect)
     }
 
@@ -127,12 +131,12 @@ class MapsFragment() : BaseFragment() {
         hideProgressDialog()
 
         for (i in 0..mapsList.size - 1) {
-            val lat: Double = mapsList.get(i).lat.toDouble()
-            val lng: Double = mapsList.get(i).lng.toDouble()
+            val lat: Double = mapsList.get(i).customer_lat.toDouble()
+            val lng: Double = mapsList.get(i).customer_lng.toDouble()
             val marker = LatLng(lat, lng)
             Log.i(
                 javaClass.simpleName,
-                "lat: ${mapsList.get(i).lat} , lng: ${mapsList.get(i).lng} , LatLng: ${marker}"
+                "lat: ${mapsList.get(i).customer_lat} , lng: ${mapsList.get(i).customer_lng} , LatLng: ${marker}"
             )
             mMap.addMarker(
                 MarkerOptions().position(marker)

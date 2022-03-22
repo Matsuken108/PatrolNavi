@@ -26,13 +26,14 @@ class EditCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityEditCustmerMapsBinding
-    private lateinit var mGroups: Groups
     private val REQUEST_LOCATION_PERMISSION = 1
     private var mGroupsId: String = ""
     private var mGroupsName: String = ""
     private var mGroupsPass: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
+    private var mCustomerLat: String = ""
+    private var mCustomerLng: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -136,10 +137,10 @@ class EditCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
                     .snippet(snippet)
             )
 
-            mGroupsLat = latLng.latitude.toString()
-            mGroupsLng = latLng.longitude.toString()
+            mCustomerLat = latLng.latitude.toString()
+            mCustomerLng = latLng.longitude.toString()
 
-            Log.i(javaClass.simpleName, "MapsActivity lat : ${mGroupsLat} lng : ${mGroupsLng}")
+            Log.i(javaClass.simpleName, "MapsActivity lat : ${mCustomerLat} lng : ${mCustomerLng}")
 
             showActionSnackBar()
         }
@@ -149,7 +150,7 @@ class EditCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
         val snackBar =
             Snackbar.make(
                 findViewById(android.R.id.content),
-                "lat: ${mGroupsLat} lng: ${mGroupsLng}",
+                "lat: ${mCustomerLat} lng: ${mCustomerLng}",
 //                R.string.message_latLng_add,
                 Snackbar.LENGTH_LONG
             )
@@ -162,10 +163,12 @@ class EditCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
             intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
             intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
             intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
+            intent.putExtra(Constants.EXTRA_CUSTOMER_LAT,mCustomerLat)
+            intent.putExtra(Constants.EXTRA_CUSTOMER_LNG,mCustomerLng)
 
             Log.i(
                 javaClass.simpleName,
-                "AddGroupsMap name:${mGroupsName} pass:${mGroupsPass} lat:${mGroupsLat} lng:${mGroupsLng}"
+                "AddGroupsMap name:${mGroupsName} pass:${mGroupsPass} lat:${mCustomerLat} lng:${mCustomerLng}"
             )
 
             startActivity(intent)

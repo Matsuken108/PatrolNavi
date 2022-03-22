@@ -17,6 +17,8 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
     private lateinit var mCustomerDetails: Customer
     private var mCustomerId: String = ""
     private var mGroupsId: String = ""
+    private var mGroupsLat: String = ""
+    private var mGroupsLng: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,12 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
         if (intent.hasExtra(Constants.EXTRA_CUSTOMER_ID)) {
             mCustomerId = intent.getStringExtra(Constants.EXTRA_CUSTOMER_ID)!!
         }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LAT)) {
+            mGroupsLat = intent.getStringExtra(Constants.EXTRA_GROUPS_LAT)!!
+        }
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_LNG)) {
+            mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
+        }
 
         Log.i(javaClass.simpleName, "detail:${mCustomerDetails} customerId: ${mCustomerId}")
 
@@ -40,9 +48,9 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
         et_edit_customer_first_name.setText(mCustomerDetails.firstName)
         et_edit_customer_last_name.setText(mCustomerDetails.lastName)
         et_edit_customer_lat.isEnabled = false
-        et_edit_customer_lat.setText(mCustomerDetails.lat)
+        et_edit_customer_lat.setText(mCustomerDetails.customer_lat)
         et_edit_customer_lng.isEnabled = false
-        et_edit_customer_lng.setText(mCustomerDetails.lng)
+        et_edit_customer_lng.setText(mCustomerDetails.customer_lng)
 //        GlideLoader(context).loadProductPicture(mCustomerDetails.installationImage1,iv_installation_image1)
 //        GlideLoader(context).loadProductPicture(mCustomerDetails.installationImage2,iv_installation_image2)
         et_edit_customer_memo.setText(mCustomerDetails.memo)
@@ -81,6 +89,8 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
                     intent.putExtra(Constants.EXTRA_GROUPS_ID,mGroupsId)
                     intent.putExtra(Constants.EXTRA_CUSTOMER_ID,mCustomerId)
                     intent.putExtra(Constants.EXTRA_CUSTOMER_DETAILS,mCustomerDetails)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
                     startActivity(intent)
                 }
             }
@@ -116,12 +126,12 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
         }
 
         val lat = et_edit_customer_lat.text.toString().trim { it <= ' ' }
-        if (lat != mCustomerDetails.lat) {
+        if (lat != mCustomerDetails.customer_lat) {
             customerHashMap[Constants.LATLNG] = lat
         }
 
         val lng = et_edit_customer_lng.text.toString().trim { it <= ' ' }
-        if (lng != mCustomerDetails.lng) {
+        if (lng != mCustomerDetails.customer_lng) {
             customerHashMap[Constants.LATLNG] = lng
         }
 

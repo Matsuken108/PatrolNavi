@@ -34,8 +34,8 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
     private var mNo: String = ""
     private var mFirstName: String = ""
     private var mLastName: String = ""
-    private var mlat: String = ""
-    private var mlng: String = ""
+    private var mCustomerLat: String = ""
+    private var mCustomerLng: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
 
@@ -151,10 +151,10 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
                     .snippet(snippet)
             )
 
-            mlat = latLng.latitude.toString()
-            mlng = latLng.longitude.toString()
+            mCustomerLat = latLng.latitude.toString()
+            mCustomerLng = latLng.longitude.toString()
 
-            Log.i(javaClass.simpleName, "MapsActivity lat : ${mlat} lng : ${mlng}")
+            Log.i(javaClass.simpleName, "MapsActivity lat : ${mCustomerLat} lng : ${mCustomerLng}")
 
             showActionSnackBar()
         }
@@ -164,7 +164,7 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
         val snackBar =
             Snackbar.make(
                 findViewById(android.R.id.content),
-                "lat: ${mlat} lng: ${mlng}",
+                "lat: ${mCustomerLat} lng: ${mCustomerLng}",
 //                R.string.message_latLng_add,
                 Snackbar.LENGTH_LONG
             )
@@ -178,8 +178,8 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
             intent.putExtra(Constants.EXTRA_NO_SELECT, mNo)
             intent.putExtra(Constants.EXTRA_FIRST_NAME, mFirstName)
             intent.putExtra(Constants.EXTRA_LAST_NAME, mLastName)
-            intent.putExtra(Constants.EXTRA_LAT_SELECT, mlat)
-            intent.putExtra(Constants.EXTRA_LNG_SELECT, mlng)
+            intent.putExtra(Constants.EXTRA_CUSTOMER_LAT, mCustomerLat)
+            intent.putExtra(Constants.EXTRA_CUSTOMER_LNG, mCustomerLng)
 
             startActivity(intent)
             finish()

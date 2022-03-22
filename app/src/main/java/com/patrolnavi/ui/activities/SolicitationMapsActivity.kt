@@ -30,8 +30,8 @@ class SolicitationMapsActivity : BaseActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivitySolicitationMapsBinding
     private lateinit var mGroups: Groups
     private val REQUEST_LOCATION_PERMISSION = 1
-    private var mlat: String = ""
-    private var mlng: String = ""
+    private var mCustomerLat: String = ""
+    private var mCustomerLng: String = ""
     private var mGroupsId: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
@@ -136,12 +136,12 @@ class SolicitationMapsActivity : BaseActivity(), OnMapReadyCallback {
         hideProgressDialog()
 
         for (i in 0..mapsList.size - 1) {
-            val lat: Double = mapsList.get(i).lat.toDouble()
-            val lng: Double = mapsList.get(i).lng.toDouble()
+            val lat: Double = mapsList.get(i).customer_lat.toDouble()
+            val lng: Double = mapsList.get(i).customer_lng.toDouble()
             val marker = LatLng(lat, lng)
             Log.i(
                 javaClass.simpleName,
-                "lat: ${mapsList.get(i).lat} , lng: ${mapsList.get(i).lng} , LatLng: ${marker}"
+                "lat: ${mapsList.get(i).customer_lat} , lng: ${mapsList.get(i).customer_lng} , LatLng: ${marker}"
             )
             mMap.addMarker(
                 MarkerOptions().position(marker)
@@ -174,10 +174,10 @@ class SolicitationMapsActivity : BaseActivity(), OnMapReadyCallback {
                     .snippet(snippet)
             )
 
-            mlat = latLng.latitude.toString()
-            mlng = latLng.longitude.toString()
+            mCustomerLat = latLng.latitude.toString()
+            mCustomerLng = latLng.longitude.toString()
 
-            Log.i(javaClass.simpleName, "SolicitationMapsActivity lat : ${mlat} lng : ${mlng}")
+            Log.i(javaClass.simpleName, "SolicitationMapsActivity lat : ${mCustomerLat} lng : ${mCustomerLng}")
 
             showActionSnackBar()
         }
@@ -187,7 +187,7 @@ class SolicitationMapsActivity : BaseActivity(), OnMapReadyCallback {
         val snackBar =
             Snackbar.make(
                 findViewById(android.R.id.content),
-                "lat: ${mlat} lng: ${mlng}",
+                "lat: ${mCustomerLat} lng: ${mCustomerLng}",
 //                R.string.message_latLng_add,
                 Snackbar.LENGTH_LONG
             )
@@ -195,8 +195,8 @@ class SolicitationMapsActivity : BaseActivity(), OnMapReadyCallback {
         snackBar.setAction(R.string.latLng_add) {
             val intent =
                 Intent(this@SolicitationMapsActivity, AddCustomerActivity::class.java)
-            intent.putExtra(Constants.EXTRA_LAT_SELECT, mlat)
-            intent.putExtra(Constants.EXTRA_LNG_SELECT, mlng)
+            intent.putExtra(Constants.EXTRA_CUSTOMER_LAT, mCustomerLat)
+            intent.putExtra(Constants.EXTRA_CUSTOMER_LNG, mCustomerLng)
             startActivity(intent)
             finish()
         }

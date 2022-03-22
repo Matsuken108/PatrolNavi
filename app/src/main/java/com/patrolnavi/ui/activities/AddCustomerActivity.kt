@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
@@ -24,8 +25,8 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
     private var mNo: String = ""
     private var mFirstName: String = ""
     private var mLastName: String = ""
-    private var mlat: String = ""
-    private var mlng: String = ""
+    private var mCustomerLat: String = ""
+    private var mCustomerLng: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
 
@@ -57,11 +58,11 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
         if (intent.hasExtra(Constants.EXTRA_LAST_NAME)) {
             mLastName = intent.getStringExtra(Constants.EXTRA_LAST_NAME)!!
         }
-        if (intent.hasExtra(Constants.EXTRA_LAT_SELECT)) {
-            mlat = intent.getStringExtra(Constants.EXTRA_LAT_SELECT)!!
+        if (intent.hasExtra(Constants.EXTRA_CUSTOMER_LAT)) {
+            mCustomerLat = intent.getStringExtra(Constants.EXTRA_CUSTOMER_LAT)!!
         }
-        if (intent.hasExtra(Constants.EXTRA_LNG_SELECT)) {
-            mlng = intent.getStringExtra(Constants.EXTRA_LNG_SELECT)!!
+        if (intent.hasExtra(Constants.EXTRA_CUSTOMER_LNG)) {
+            mCustomerLng = intent.getStringExtra(Constants.EXTRA_CUSTOMER_LNG)!!
         }
 
         Log.i(javaClass.simpleName, "Add groupsId: ${mGroupsId}")
@@ -72,9 +73,9 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
 //        et_add_customer_course.isEnabled = false
         et_add_customer_course.setText(mCourseSelect)
         et_add_customer_lat.isEnabled = false
-        et_add_customer_lat.setText(mlat)
+        et_add_customer_lat.setText(mCustomerLat)
         et_add_customer_lng.isEnabled = false
-        et_add_customer_lng.setText(mlng)
+        et_add_customer_lng.setText(mCustomerLng)
         et_add_customer_no.setText(mNo)
         et_add_customer_first_name.setText(mFirstName)
         et_add_customer_last_name.setText(mLastName)
@@ -120,8 +121,8 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
                     intent.putExtra(Constants.EXTRA_NO_SELECT, mNo)
                     intent.putExtra(Constants.EXTRA_FIRST_NAME, mFirstName)
                     intent.putExtra(Constants.EXTRA_LAST_NAME, mLastName)
-                    intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
-                    intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
 
                     startActivity(intent)
                     finish()
@@ -174,6 +175,10 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
     private fun uploadCustomerDetails() {
         showProgressDialog(resources.getString(R.string.please_wait))
 
+        val db = FirebaseFirestore.getInstance()
+        val collection = db.collection(Constants.GROUPS).document(mGroupsId).collection(Constants.CUSTOMER)
+        val customerId = collection.document().id
+
         val customer = Customer(
             et_add_customer_date.text.toString().trim { it <= ' ' },
             et_add_customer_course.text.toString().trim { it <= ' ' },
@@ -182,9 +187,11 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
             et_add_customer_last_name.text.toString().trim { it <= ' ' },
             et_add_customer_lat.text.toString().trim { it <= ' ' },
             et_add_customer_lng.text.toString().trim { it <= ' ' },
-            et_add_customer_memo.text.toString().trim { it <= ' ' }
+            et_add_customer_memo.text.toString().trim { it <= ' ' },
+            customerId,
+            mGroupsId
         )
-        FirestoreClass().uploadCustomerDetails(this, mGroupsId, customer)
+        FirestoreClass().uploadCustomerDetails(this, mGroupsId, customerId, customer)
     }
 
     fun customerUploadSuccess() {
