@@ -11,7 +11,6 @@ import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.User
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_edit_user_profile.*
-import kotlinx.android.synthetic.main.activity_user_profile.*
 
 class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
 
@@ -37,14 +36,14 @@ class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
     }
 
     private fun setupActionBar() {
-        setSupportActionBar(toolbar_user_profile_activity)
+        setSupportActionBar(toolbar_edit_user_profile_activity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-        toolbar_user_profile_activity.setNavigationOnClickListener { onBackPressed() }
+        toolbar_edit_user_profile_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onClick(v: View?) {

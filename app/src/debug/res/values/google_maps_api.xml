@@ -1,24 +1,4 @@
 <resources>
-    <!--
-    TODO: Before you run your application, you need a Google Maps API key.
 
-    To get one, follow this link, follow the directions and press "Create" at the end:
-
-    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=77:E4:94:A1:7B:90:7E:22:9D:40:52:01:41:1B:B8:77:B1:14:B3:C3%3Bcom.patrolnavi.ui.activities
-
-    You can also add your credentials to an existing key, using these values:
-
-    Package name:
-    com.patrolnavi.ui.activities
-
-    SHA-1 certificate fingerprint:
-    77:E4:94:A1:7B:90:7E:22:9D:40:52:01:41:1B:B8:77:B1:14:B3:C3
-
-    Alternatively, follow the directions here:
-    https://developers.google.com/maps/documentation/android/start#get-key
-
-    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
-    string in this file.
-    -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDJSrMB3grwWcaNXLPC91b_BsphGQVwCuU</string>
 </resources>

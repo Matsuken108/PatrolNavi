@@ -3,6 +3,7 @@ package com.patrolnavi.ui.activities
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -14,10 +15,10 @@ import kotlinx.android.synthetic.main.activity_details_customer.toolbar_customer
 import kotlinx.android.synthetic.main.activity_details_groups_users.*
 
 class DetailsGroupsUsersActivity : BaseActivity() {
-
-    private var mUserId: String = ""
+    
     private var mGroupsId: String = ""
     private var mGroupsUsersName: String = ""
+    private var mGroupsUserId:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +27,15 @@ class DetailsGroupsUsersActivity : BaseActivity() {
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
         }
-
         if (intent.hasExtra(Constants.EXTRA_GROUPS_USER_NAME)) {
             mGroupsUsersName = intent.getStringExtra(Constants.EXTRA_GROUPS_USER_NAME)!!
         }
-
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_USER_ID)) {
+            mGroupsUserId = intent.getStringExtra(Constants.EXTRA_GROUPS_USER_ID)!!
+        }
         et_details_groups_users_name.setText(mGroupsUsersName)
+
+        Log.i(javaClass.simpleName,"groupsId : ${mGroupsId} groupsUserId : ${mGroupsUserId}")
 
         setupActionBar()
     }
@@ -63,18 +67,18 @@ class DetailsGroupsUsersActivity : BaseActivity() {
         when (id) {
             R.id.navigation_delete_belonging_groups -> {
 
-                deleteGroupsUsers(mUserId)
+                deleteGroupsUsers()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    fun deleteGroupsUsers(userId: String) {
-        showAlertToDeleteBelongingGroupsUsers(userId)
+    fun deleteGroupsUsers() {
+        showAlertToDeleteBelongingGroupsUsers()
     }
 
-    private fun showAlertToDeleteBelongingGroupsUsers(userId: String) {
+    private fun showAlertToDeleteBelongingGroupsUsers() {
         val builder = AlertDialog.Builder(this@DetailsGroupsUsersActivity)
 
         builder.setTitle(resources.getString(R.string.delete_dialog_belonging_groups_users_title))
@@ -84,7 +88,7 @@ class DetailsGroupsUsersActivity : BaseActivity() {
         builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            FirestoreClass().deleteGroupsUsers(this, mGroupsId, userId)
+            FirestoreClass().deleteGroupsUsers(this@DetailsGroupsUsersActivity, mGroupsId,mGroupsUserId)
 
             dialogInterface.dismiss()
         }

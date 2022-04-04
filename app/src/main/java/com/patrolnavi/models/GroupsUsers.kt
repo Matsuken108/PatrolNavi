@@ -5,7 +5,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class GroupsUsers(
-    val user_name: String = "",
+    var groups_id: String = "",
+    val groups_name: String = "",
+    var groups_user_id: String = "",
+    var belonging_groups_id: String = "",
+    val groups_user_name: String = "",
     var user_id: String = "",
     val createdAt: String = "",
 ) : Parcelable

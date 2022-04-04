@@ -7,9 +7,6 @@ import android.view.View
 import android.view.WindowManager
 import com.patrolnavi.R
 import com.patrolnavi.utils.Constants
-import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.android.synthetic.main.activity_edit_customer.*
-import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_setting_course.*
 
 class SettingCourseActivity : BaseActivity(), View.OnClickListener {
@@ -124,7 +121,7 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
                     startActivity(intent)
                 }
                 R.id.btn_intent_my_page -> {
-                    val intent = Intent(this@SettingCourseActivity, UserProfileActivity::class.java)
+                    val intent = Intent(this@SettingCourseActivity, DetailsUserProfileActivity::class.java)
                     startActivity(intent)
                 }
             }

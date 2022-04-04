@@ -2,15 +2,12 @@ package com.patrolnavi.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.patrolnavi.R
 import com.patrolnavi.models.GroupsUsers
-import com.patrolnavi.ui.activities.DetailsGroupsUsersActivity
-import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.item_groups_users_list_layout.view.*
 
 open class GroupsUsersListAdapter(
@@ -33,7 +30,7 @@ open class GroupsUsersListAdapter(
         val model = list[position]
 
         if (holder is MyViewHolder) {
-            holder.itemView.tv_groups_user_name_list.text = model.user_name
+            holder.itemView.tv_groups_user_name_list.text = model.groups_user_name
         }
     }
 

@@ -22,6 +22,7 @@
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_details_groups.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/activity_details_groups_users.xml" value="0.27794871794871795" />
+        <entry key="app/src/main/res/layout/activity_details_user_profile.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_edit_course.xml" value="0.26944444444444443" />
         <entry key="app/src/main/res/layout/activity_edit_customer.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/activity_edit_groups.xml" value="0.27794871794871795" />

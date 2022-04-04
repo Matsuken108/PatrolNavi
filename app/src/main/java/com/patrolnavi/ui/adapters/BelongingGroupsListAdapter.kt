@@ -38,7 +38,9 @@ class BelongingGroupsListAdapter(
             holder.itemView.iv_belonging_groups_list_edit.setOnClickListener {
                 val intent = Intent(context, EditGroupsUsersActivity::class.java)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID,model.groups_id)
-                intent.putExtra(Constants.EXTRA_GROUPS_NAME,model.groups_name)
+                intent.putExtra(Constants.EXTRA_GROUPS_USER_NAME,model.groups_user_name)
+                intent.putExtra(Constants.BELONGING_GROUPS_ID,model.belonging_groups_id)
+                intent.putExtra(Constants.EXTRA_GROUPS_USER_ID,model.groups_user_id)
                 context.startActivity(intent)
             }
 

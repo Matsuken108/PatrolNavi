@@ -22,6 +22,8 @@ class DetailsCustomerActivity : BaseActivity() {
     private lateinit var mGroups: Groups
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
+    private var mDateSelect: String = ""
+    private var mCourseSelect: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +68,9 @@ class DetailsCustomerActivity : BaseActivity() {
         mCustomerDetails = customer
 
         hideProgressDialog()
+
+        mDateSelect = customer.date
+        mCourseSelect = customer.course
 
         tv_customer_details_date.isEnabled = false
         tv_customer_details_date.setText(customer.date)
@@ -168,7 +173,14 @@ class DetailsCustomerActivity : BaseActivity() {
 
         Toast.makeText(this, "お客様情報を削除しました", Toast.LENGTH_SHORT).show()
 
+        val intent = Intent(this@DetailsCustomerActivity, EditCourseActivity::class.java)
+        intent.putExtra(Constants.EXTRA_DATE_SELECT, mDateSelect)
+        intent.putExtra(Constants.EXTRA_COURSE_SELECT, mCourseSelect)
+        intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+        intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
+        startActivity(intent)
+
         finish()
     }
-
 }

@@ -1,12 +1,12 @@
 package com.patrolnavi.firestore
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.google.firebase.ktx.Firebase
 import com.patrolnavi.models.*
 import com.patrolnavi.ui.activities.*
 import com.patrolnavi.ui.fragments.CustomerListFragment
@@ -82,21 +82,21 @@ class FirestoreClass {
             }
     }
 
-    fun getUserProfileDetails(activity: UserProfileActivity) {
+    fun getUserProfileDetails(activityDetails: DetailsUserProfileActivity) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .get()
             .addOnSuccessListener { document ->
-                Log.i(activity.javaClass.simpleName, document.toString())
+                Log.i(activityDetails.javaClass.simpleName, document.toString())
                 val user = document.toObject(User::class.java)
                 if (user != null) {
-                    activity.userProfileGetSuccess(user)
+                    activityDetails.userProfileGetSuccess(user)
                 }
             }
             .addOnFailureListener { e ->
-                activity.hideProgressDialog()
+                activityDetails.hideProgressDialog()
                 Log.e(
-                    activity.javaClass.simpleName,
+                    activityDetails.javaClass.simpleName,
                     "ユーザー情報読み込みエラー",
                     e
                 )
@@ -105,13 +105,14 @@ class FirestoreClass {
 
     fun uploadBelongingGroups(
         activity: AddGroupsUsersActivity,
-        groupsId: String,
-        belongingGroupsInfo: BelongingGroups
+        belongingGroupsInfo: BelongingGroups,
+        belongingGroupsId: String
     ) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .collection(Constants.BELONGING_GROUPS)
-            .add(belongingGroupsInfo)
+            .document(belongingGroupsId)
+            .set(belongingGroupsInfo)
             .addOnSuccessListener {
                 activity.belongingGroupsUploadSuccess()
                 Log.i(activity.javaClass.simpleName, "グループ追加完了")
@@ -124,13 +125,13 @@ class FirestoreClass {
 
     }
 
-    fun getBelongingGroupsList(activity: UserProfileActivity) {
+    fun getBelongingGroupsList(activityDetails: DetailsUserProfileActivity) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .collection(Constants.BELONGING_GROUPS)
             .get()
             .addOnSuccessListener { document ->
-                Log.i(activity.javaClass.simpleName, document.documents.toString())
+                Log.i(activityDetails.javaClass.simpleName, document.documents.toString())
 
                 val belongingGroupsList: ArrayList<BelongingGroups> = ArrayList()
 
@@ -139,7 +140,7 @@ class FirestoreClass {
                     belongingGroups.groups_id = i.id
                     belongingGroupsList.add(belongingGroups)
                 }
-                activity.getBelongingGroupsListSuccess(belongingGroupsList)
+                activityDetails.getBelongingGroupsListSuccess(belongingGroupsList)
                 Log.i(
                     javaClass.simpleName,
                     "belongingGroupsList 読み込み完了"
@@ -147,34 +148,42 @@ class FirestoreClass {
             }
 
             .addOnFailureListener {
-                activity.hideProgressDialog()
+                activityDetails.hideProgressDialog()
                 Log.e(
-                    activity.javaClass.simpleName,
+                    activityDetails.javaClass.simpleName,
                     "belongingGroupsList 読み込みエラー"
                 )
             }
     }
 
     fun deleteBelongingGroupsUsers(
-        activity: EditGroupsUsersActivity,
-        groupsId: String,
-        userId: String
+        activity: Activity,
+        belongingUserId: String
     ) {
-        mFireStore.collection(Constants.GROUPS)
-            .document(groupsId)
-            .collection(Constants.GROUPS_USERS)
-            .document(userId)
+        mFireStore.collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .collection(Constants.BELONGING_GROUPS)
+            .document(belongingUserId)
             .delete()
             .addOnSuccessListener {
-                activity.belongingGroupsUsersDeleteSuccess()
+                when (activity) {
+                    is EditGroupsUsersActivity -> {
+                        activity.belongingGroupsUsersDeleteSuccess()
+                        Log.i(javaClass.simpleName,"BelongingGroups お客様情報削除完了")
+                    }
+
+                }
             }
             .addOnFailureListener { e ->
-                activity.hideProgressDialog()
-                Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
+                when (activity) {
+                    is EditGroupsUsersActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName, "BelongingGroups お客様情報削除エラー", e)
+                    }
+
+                }
             }
-
     }
-
 
     fun updateUserProfileData(
         activity: EditUserProfileActivity,
@@ -199,7 +208,7 @@ class FirestoreClass {
             }
     }
 
-    fun uploadGroupsDetails(activity: AddGroupsActivity, groupsId: String,groupsInfo: Groups) {
+    fun uploadGroupsDetails(activity: AddGroupsActivity, groupsId: String, groupsInfo: Groups) {
 
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
@@ -267,7 +276,8 @@ class FirestoreClass {
     fun uploadGroupsUsers(
         activity: AddGroupsUsersActivity,
         groupsId: String,
-        groupsUsers: GroupsUsers
+        groupsUsers: GroupsUsers,
+        groupsUserId: String
     ) {
 
         Log.i(activity.javaClass.simpleName, "AddGroupsUsers : get data groupsId: ${groupsId}")
@@ -275,7 +285,8 @@ class FirestoreClass {
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.GROUPS_USERS)
-            .add(groupsUsers)
+            .document(groupsUserId)
+            .set(groupsUsers)
             .addOnSuccessListener {
                 activity.groupsUsersUploadSuccess()
                 Log.i(activity.javaClass.simpleName, "グループユーザー登録完了")
@@ -351,18 +362,19 @@ class FirestoreClass {
     fun getEditGroupsUsersDetails(
         activity: EditGroupsUsersActivity,
         groupsId: String,
-        userId: String
+        groupsUserId: String
     ) {
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.GROUPS_USERS)
-            .document(userId)
+            .document(groupsUserId)
             .get()
             .addOnSuccessListener { document ->
                 Log.i(activity.javaClass.simpleName, document.toString())
                 val groupsUsers = document.toObject(GroupsUsers::class.java)
                 if (groupsUsers != null) {
                     activity.groupsUsersDetailsSuccess(groupsUsers)
+                    Log.i(activity.javaClass.simpleName, "ユーザー情報取り込み完了")
                 }
             }
             .addOnFailureListener {
@@ -373,23 +385,44 @@ class FirestoreClass {
                 )
             }
     }
-
-
-    fun deleteGroupsUsers(activity: DetailsGroupsUsersActivity, groupsId: String, userId: String) {
+    
+    fun deleteGroupsUsers(
+        activity: Activity,
+        groupsId: String,
+        groupsUserId: String
+    ) {
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.GROUPS_USERS)
-            .document(userId)
+            .document(groupsUserId)
             .delete()
             .addOnSuccessListener {
-                activity.groupsUsersDeleteSuccess()
+                when(activity){
+                    is DetailsGroupsUsersActivity -> {
+                        activity.groupsUsersDeleteSuccess()
+                        Log.i(javaClass.simpleName,"GroupsUsers お客様情報削除完了")
+                    }
+                    is EditGroupsUsersActivity -> {
+                        activity.deleteGroupsUsersSuccess()
+                        Log.i(javaClass.simpleName,"GroupsUsers お客様情報削除完了")
+                    }
+                }
+
             }
             .addOnFailureListener { e ->
-                activity.hideProgressDialog()
-                Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
+                when(activity){
+                    is DetailsGroupsUsersActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
+                    }
+                    is EditGroupsUsersActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
+                    }
+                }
+
             }
     }
-
 
 
     fun getJoinGroupsDetails(activity: JoinGroupsActivity, groupsId: String) {
@@ -458,8 +491,8 @@ class FirestoreClass {
             .document(customerId)
             .set(customerInfo)
             .addOnSuccessListener {
-
                 activity.customerUploadSuccess()
+                Log.i(activity.javaClass.simpleName, "お客様情報追加完了")
             }
             .addOnFailureListener { e ->
                 activity.hideProgressDialog()
@@ -508,7 +541,10 @@ class FirestoreClass {
         customerId: String
     ) {
 
-        Log.i(activity.javaClass.simpleName,"DetailsCustomer groupsId : ${groupsId}, customerId : ${customerId}")
+        Log.i(
+            activity.javaClass.simpleName,
+            "DetailsCustomer groupsId : ${groupsId}, customerId : ${customerId}"
+        )
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.CUSTOMER)
@@ -701,5 +737,5 @@ class FirestoreClass {
                 )
             }
     }
-    
+
 }

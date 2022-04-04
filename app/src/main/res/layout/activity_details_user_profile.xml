@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.activities.UserProfileActivity">
+    tools:context=".ui.activities.DetailsUserProfileActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_user_profile_activity"

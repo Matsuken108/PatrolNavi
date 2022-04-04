@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
+import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.Groups
 import com.patrolnavi.models.GroupsUsers
 import com.patrolnavi.ui.adapters.EditGroupsUsersListAdapter
@@ -28,7 +29,7 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
     private var mGroupsPass: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
-    private lateinit var mEditGroupsUsersList: ArrayList<GroupsUsers>
+    private lateinit var mGroupsUsersList:ArrayList<GroupsUsers>
     private lateinit var mGroupsDetails: Groups
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,9 +52,10 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
             mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
         }
 
-        et_edit_groups_id.setText(mGroupsId)
         et_edit_groups_name.setText(mGroupsName)
         et_edit_groups_pass.setText(mGroupsPass)
+        et_edit_groups_id.isEnabled = false
+        et_edit_groups_id.setText(mGroupsId)
         et_edit_groups_lat.isEnabled = false
         et_edit_groups_lat.setText(mGroupsLat)
         et_edit_groups_lng.isEnabled = false
@@ -111,12 +113,12 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
         FirestoreClass().getEditGroupsUsersList(this@EditGroupsActivity, mGroupsId)
     }
 
-    fun successEditGroupsUsersList(editGroupsUsersList: ArrayList<GroupsUsers>) {
+    fun successEditGroupsUsersList(GroupsUsersList: ArrayList<GroupsUsers>) {
         hideProgressDialog()
 
-        mEditGroupsUsersList = editGroupsUsersList
+        mGroupsUsersList = GroupsUsersList
 
-        if (editGroupsUsersList.size > 0) {
+        if (GroupsUsersList.size > 0) {
             rv_edit_groups_users_list.visibility = View.VISIBLE
             tv_edit_groups_found.visibility = View.GONE
 
@@ -124,7 +126,7 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
             rv_edit_groups_users_list.setHasFixedSize(true)
 
             val editGroupsUsersUsersAdapter =
-                EditGroupsUsersListAdapter(this@EditGroupsActivity, mEditGroupsUsersList)
+                EditGroupsUsersListAdapter(this@EditGroupsActivity, mGroupsUsersList)
             rv_edit_groups_users_list.adapter = editGroupsUsersUsersAdapter
 
         } else {

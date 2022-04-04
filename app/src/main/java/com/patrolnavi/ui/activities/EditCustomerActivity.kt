@@ -42,9 +42,11 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
 
         Log.i(javaClass.simpleName, "detail:${mCustomerDetails} customerId: ${mCustomerId}")
 
+        val editCustomerNo = mCustomerDetails.no.toString()
+
         et_edit_customer_date.setText(mCustomerDetails.date)
         et_edit_customer_course.setText(mCustomerDetails.course)
-        et_edit_customer_no.setText(mCustomerDetails.no)
+        et_edit_customer_no.setText(editCustomerNo)
         et_edit_customer_first_name.setText(mCustomerDetails.firstName)
         et_edit_customer_last_name.setText(mCustomerDetails.lastName)
         et_edit_customer_lat.isEnabled = false

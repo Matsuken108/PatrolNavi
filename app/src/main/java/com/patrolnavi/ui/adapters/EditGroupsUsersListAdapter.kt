@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.patrolnavi.R
+import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.GroupsUsers
-import com.patrolnavi.ui.activities.DetailsGroupsUsersActivity
+import com.patrolnavi.ui.activities.EditGroupsUsersActivity
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.item_edit_groups_users_list_layout.view.*
-import kotlinx.android.synthetic.main.item_groups_users_list_layout.view.*
-import kotlinx.android.synthetic.main.item_groups_users_list_layout.view.tv_groups_user_name_list
 
 open class EditGroupsUsersListAdapter (
 private val context: Context,
@@ -35,12 +34,14 @@ private var list: ArrayList<GroupsUsers>
         val model = list[position]
 
         if (holder is MyViewHolder) {
-            holder.itemView.tv_edit_groups_user_name_list.text = model.user_name
+            holder.itemView.tv_edit_groups_user_name_list.text = model.groups_user_name
 
-            holder.itemView.setOnClickListener {
-                val intent = Intent(context, DetailsGroupsUsersActivity::class.java)
-                intent.putExtra(Constants.EXTRA_GROUPS_USER_ID, model.user_id)
-                intent.putExtra(Constants.EXTRA_GROUPS_USER_NAME, model.user_name)
+            holder.itemView.iv_edit_groups_user_list_edit.setOnClickListener {
+                val intent = Intent(context, EditGroupsUsersActivity::class.java)
+                intent.putExtra(Constants.EXTRA_GROUPS_ID, model.groups_id)
+                intent.putExtra(Constants.EXTRA_GROUPS_NAME,model.groups_name)
+                intent.putExtra(Constants.BELONGING_GROUPS_ID,model.belonging_groups_id)
+                intent.putExtra(Constants.EXTRA_GROUPS_USER_ID,model.groups_user_id)
                 context.startActivity(intent)
             }
         }
