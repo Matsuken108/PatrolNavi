@@ -39,8 +39,6 @@ open class CustomerEditListAdapter (
             holder.itemView.tv_customer_edit_list_last_name.text = model.lastName
 
             holder.itemView.setOnClickListener {
-                Log.i(javaClass.simpleName,"CustomerEditListAdapter groupsId : ${model.groups_id}")
-
                 val intent = Intent(context, DetailsCustomerActivity::class.java)
                 intent.putExtra(Constants.EXTRA_CUSTOMER_ID,model.customer_id)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID,model.groups_id)

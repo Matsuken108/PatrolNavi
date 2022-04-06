@@ -11,12 +11,21 @@
         android:name="com.patrolnavi.ui.fragments.CustomerListFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_customer_list" >
+        <action
+            android:id="@+id/action_navigation_customer_list_to_detailsCustomerFragment"
+            app:destination="@id/detailsCustomerFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_map"
         android:name="com.patrolnavi.ui.fragments.MapsFragment"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_maps" >
+    </fragment>
+    <fragment
+        android:id="@+id/detailsCustomerFragment"
+        android:name="com.patrolnavi.ui.fragments.DetailsCustomerFragment"
+        android:label="fragment_details_customer"
+        tools:layout="@layout/fragment_details_customer" >
     </fragment>
 
 </navigation>

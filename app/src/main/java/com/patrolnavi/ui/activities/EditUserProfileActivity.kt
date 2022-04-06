@@ -49,7 +49,6 @@ class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
-
                 R.id.btn_edit_user_profile_submit -> {
                     if (validateUserProfileDetails()) {
                         showProgressDialog(resources.getString(R.string.please_wait))

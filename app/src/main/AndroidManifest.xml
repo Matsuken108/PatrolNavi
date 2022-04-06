@@ -120,7 +120,7 @@
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activities.EditGroupsUsersActivity"
+            android:name=".ui.activities.EditBelongingGroupsUserActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

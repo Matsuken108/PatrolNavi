@@ -156,6 +156,29 @@ class FirestoreClass {
             }
     }
 
+    fun updateBelongingGroupsUserDetails(
+        activity: EditBelongingGroupsUserActivity,
+        belongingUserId: String,
+        belongingGroupsUserHashMap: HashMap<String, Any>
+    ) {
+        mFireStore.collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .collection(Constants.BELONGING_GROUPS)
+            .document(belongingUserId)
+            .update(belongingGroupsUserHashMap)
+            .addOnSuccessListener {
+                activity.belongingGroupsUserDetailsUpdateSuccess()
+                Log.i(activity.javaClass.simpleName, "ユーザー情報更新完了")
+            }
+            .addOnFailureListener {
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "ユーザー情報更新エラー"
+                )
+            }
+    }
+
     fun deleteBelongingGroupsUsers(
         activity: Activity,
         belongingUserId: String
@@ -167,20 +190,27 @@ class FirestoreClass {
             .delete()
             .addOnSuccessListener {
                 when (activity) {
-                    is EditGroupsUsersActivity -> {
+                    is EditBelongingGroupsUserActivity -> {
                         activity.belongingGroupsUsersDeleteSuccess()
-                        Log.i(javaClass.simpleName,"BelongingGroups お客様情報削除完了")
+                        Log.i(javaClass.simpleName, "BelongingGroups お客様情報削除完了")
+                    }
+                    is DetailsGroupsUsersActivity -> {
+                        activity.belongingGroupsUsersDeleteSuccess()
+                        Log.i(javaClass.simpleName, "BelongingGroups お客様情報削除完了")
                     }
 
                 }
             }
             .addOnFailureListener { e ->
                 when (activity) {
-                    is EditGroupsUsersActivity -> {
+                    is EditBelongingGroupsUserActivity -> {
                         activity.hideProgressDialog()
                         Log.e(activity.javaClass.simpleName, "BelongingGroups お客様情報削除エラー", e)
                     }
-
+                    is DetailsGroupsUsersActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName, "BelongingGroups お客様情報削除エラー", e)
+                    }
                 }
             }
     }
@@ -359,33 +389,6 @@ class FirestoreClass {
             }
     }
 
-    fun getEditGroupsUsersDetails(
-        activity: EditGroupsUsersActivity,
-        groupsId: String,
-        groupsUserId: String
-    ) {
-        mFireStore.collection(Constants.GROUPS)
-            .document(groupsId)
-            .collection(Constants.GROUPS_USERS)
-            .document(groupsUserId)
-            .get()
-            .addOnSuccessListener { document ->
-                Log.i(activity.javaClass.simpleName, document.toString())
-                val groupsUsers = document.toObject(GroupsUsers::class.java)
-                if (groupsUsers != null) {
-                    activity.groupsUsersDetailsSuccess(groupsUsers)
-                    Log.i(activity.javaClass.simpleName, "ユーザー情報取り込み完了")
-                }
-            }
-            .addOnFailureListener {
-                activity.hideProgressDialog()
-                Log.e(
-                    activity.javaClass.simpleName,
-                    "ユーザー情報取り込みエラー"
-                )
-            }
-    }
-    
     fun deleteGroupsUsers(
         activity: Activity,
         groupsId: String,
@@ -397,25 +400,24 @@ class FirestoreClass {
             .document(groupsUserId)
             .delete()
             .addOnSuccessListener {
-                when(activity){
+                when (activity) {
                     is DetailsGroupsUsersActivity -> {
                         activity.groupsUsersDeleteSuccess()
-                        Log.i(javaClass.simpleName,"GroupsUsers お客様情報削除完了")
+                        Log.i(javaClass.simpleName, "GroupsUsers お客様情報削除完了")
                     }
-                    is EditGroupsUsersActivity -> {
+                    is EditBelongingGroupsUserActivity -> {
                         activity.deleteGroupsUsersSuccess()
-                        Log.i(javaClass.simpleName,"GroupsUsers お客様情報削除完了")
+                        Log.i(javaClass.simpleName, "GroupsUsers お客様情報削除完了")
                     }
                 }
-
             }
             .addOnFailureListener { e ->
-                when(activity){
+                when (activity) {
                     is DetailsGroupsUsersActivity -> {
                         activity.hideProgressDialog()
                         Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
                     }
-                    is EditGroupsUsersActivity -> {
+                    is EditBelongingGroupsUserActivity -> {
                         activity.hideProgressDialog()
                         Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
                     }

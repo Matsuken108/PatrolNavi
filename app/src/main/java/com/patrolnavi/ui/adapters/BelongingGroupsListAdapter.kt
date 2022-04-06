@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.patrolnavi.R
 import com.patrolnavi.models.BelongingGroups
-import com.patrolnavi.ui.activities.DetailsCustomerActivity
-import com.patrolnavi.ui.activities.EditGroupsUsersActivity
+import com.patrolnavi.ui.activities.EditBelongingGroupsUserActivity
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.item_belonging_groups_layout.view.*
-import kotlinx.android.synthetic.main.item_customer_edit_list_layout.view.*
 
 class BelongingGroupsListAdapter(
     private val context: Context,
@@ -36,7 +34,7 @@ class BelongingGroupsListAdapter(
             holder.itemView.tv_belonging_groups_list_name.text = model.groups_name
 
             holder.itemView.iv_belonging_groups_list_edit.setOnClickListener {
-                val intent = Intent(context, EditGroupsUsersActivity::class.java)
+                val intent = Intent(context, EditBelongingGroupsUserActivity::class.java)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID,model.groups_id)
                 intent.putExtra(Constants.EXTRA_GROUPS_USER_NAME,model.groups_user_name)
                 intent.putExtra(Constants.BELONGING_GROUPS_ID,model.belonging_groups_id)

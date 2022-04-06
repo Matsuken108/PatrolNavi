@@ -1,34 +1,37 @@
 package com.patrolnavi.ui.activities
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.GroupsUsers
 import com.patrolnavi.utils.Constants
-import kotlinx.android.synthetic.main.activity_edit_groups_users.*
+import kotlinx.android.synthetic.main.activity_edit_belonging_groups_user.*
+import kotlinx.android.synthetic.main.activity_edit_customer.*
 
-class EditGroupsUsersActivity : BaseActivity() {
+class EditBelongingGroupsUserActivity : BaseActivity(), View.OnClickListener {
 
     private var mGroupsId: String = ""
-    private var mGroupsName: String = ""
+    private var mGroupsUserName: String = ""
     private var mBelongingGroupsId: String = ""
     private var mGroupsUserId: String = ""
-    private lateinit var mGroupsUsersDetails: GroupsUsers
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_groups_users)
+        setContentView(R.layout.activity_edit_belonging_groups_user)
 
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
         }
-        if (intent.hasExtra(Constants.EXTRA_GROUPS_NAME)) {
-            mGroupsName = intent.getStringExtra(Constants.EXTRA_GROUPS_NAME)!!
+        if (intent.hasExtra(Constants.EXTRA_GROUPS_USER_NAME)) {
+            mGroupsUserName = intent.getStringExtra(Constants.EXTRA_GROUPS_USER_NAME)!!
         }
         if (intent.hasExtra(Constants.BELONGING_GROUPS_ID)) {
             mBelongingGroupsId = intent.getStringExtra(Constants.BELONGING_GROUPS_ID)!!
@@ -37,12 +40,15 @@ class EditGroupsUsersActivity : BaseActivity() {
             mGroupsUserId = intent.getStringExtra(Constants.EXTRA_GROUPS_USER_ID)!!
         }
 
-        Log.i(javaClass.simpleName,"groupsId : ${mGroupsId} groupsUserId : ${mGroupsUserId}")
+        Log.i(javaClass.simpleName, "groupsId : ${mGroupsId} groupsUserId : ${mGroupsUserId}")
         Log.i(javaClass.simpleName, "mBelongingGroupsUserId : ${mBelongingGroupsId}")
+
+        et_edit_belonging_groups_user_name.setText(mGroupsUserName)
 
         setupActionBar()
 
-        getEditGroupsUsersDetails()
+        btn_edit_belonging_groups_user_save.setOnClickListener(this@EditBelongingGroupsUserActivity)
+
     }
 
     private fun setupActionBar() {
@@ -78,23 +84,65 @@ class EditGroupsUsersActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getEditGroupsUsersDetails() {
-        showProgressDialog(resources.getString(R.string.please_wait))
+    override fun onClick(view: View?) {
+        if (view != null) {
+            when (view.id) {
+                R.id.btn_edit_belonging_groups_user_save -> {
+                    if (validateBelongingGroupsUserDetails()) {
+                        showProgressDialog(resources.getString(R.string.please_wait))
+                        updateBelongingGroupsUserDetails()
+                    }
+                }
+            }
+        }
+    }
 
-        FirestoreClass().getEditGroupsUsersDetails(
-            this@EditGroupsUsersActivity,
-            mGroupsId,
-            mGroupsUserId
+    private fun validateBelongingGroupsUserDetails(): Boolean {
+        return when {
+            TextUtils.isEmpty(
+                et_edit_belonging_groups_user_name.text.toString().trim { it <= ' ' }) -> {
+                showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_groups_user_name),
+                    true
+                )
+                false
+            }
+            else -> {
+                true
+            }
+        }
+    }
+
+    private fun updateBelongingGroupsUserDetails() {
+        val belongingGroupsUserHashMap = HashMap<String, Any>()
+
+        val groupsUser = et_edit_belonging_groups_user_name.text.toString().trim { it <= ' ' }
+        if (groupsUser != mGroupsUserName) {
+            belongingGroupsUserHashMap[Constants.EXTRA_GROUPS_USER_NAME] = groupsUser
+        }
+        FirestoreClass().updateBelongingGroupsUserDetails(
+            this@EditBelongingGroupsUserActivity,
+            mBelongingGroupsId,
+            belongingGroupsUserHashMap
         )
     }
 
-    fun groupsUsersDetailsSuccess(groupsUsers: GroupsUsers) {
+    fun belongingGroupsUserDetailsUpdateSuccess() {
         hideProgressDialog()
 
-        mGroupsUsersDetails = groupsUsers
+        Toast.makeText(
+            this@EditBelongingGroupsUserActivity,
+            resources.getString(R.string.msg_customer_details_update_success),
+            Toast.LENGTH_SHORT
+        ).show()
 
-        et_edit_groups_users_name.setText(groupsUsers.groups_user_name)
-
+        startActivity(
+            Intent(
+                this@EditBelongingGroupsUserActivity,
+                DetailsGroupsUsersActivity::class.java
+            )
+        )
+        finish()
     }
 
     fun deleteBelongingGroupsUsers() {
@@ -102,7 +150,7 @@ class EditGroupsUsersActivity : BaseActivity() {
     }
 
     private fun showAlertToDeleteBelongingGroupsUsers() {
-        val builder = AlertDialog.Builder(this@EditGroupsUsersActivity)
+        val builder = AlertDialog.Builder(this@EditBelongingGroupsUserActivity)
 
         builder.setTitle(resources.getString(R.string.delete_dialog_belonging_groups_users_title))
         builder.setMessage(resources.getString(R.string.delete_dialog_belonging_groups_users_message))
@@ -129,7 +177,11 @@ class EditGroupsUsersActivity : BaseActivity() {
     }
 
     fun belongingGroupsUsersDeleteSuccess() {
-        FirestoreClass().deleteGroupsUsers(this@EditGroupsUsersActivity, mGroupsId, mGroupsUserId)
+        FirestoreClass().deleteGroupsUsers(
+            this@EditBelongingGroupsUserActivity,
+            mGroupsId,
+            mGroupsUserId
+        )
 
     }
 
@@ -138,6 +190,13 @@ class EditGroupsUsersActivity : BaseActivity() {
 
         Toast.makeText(this, "グループを削除しました", Toast.LENGTH_SHORT).show()
 
+        startActivity(
+            Intent(
+                this@EditBelongingGroupsUserActivity,
+                DetailsUserProfileActivity::class.java
+            )
+        )
         finish()
     }
+    
 }

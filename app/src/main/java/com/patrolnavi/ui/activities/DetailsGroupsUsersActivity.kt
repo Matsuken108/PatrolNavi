@@ -15,10 +15,11 @@ import kotlinx.android.synthetic.main.activity_details_customer.toolbar_customer
 import kotlinx.android.synthetic.main.activity_details_groups_users.*
 
 class DetailsGroupsUsersActivity : BaseActivity() {
-    
+
     private var mGroupsId: String = ""
     private var mGroupsUsersName: String = ""
-    private var mGroupsUserId:String=""
+    private var mBelongingGroupsId:String=""
+    private var mGroupsUserId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +31,16 @@ class DetailsGroupsUsersActivity : BaseActivity() {
         if (intent.hasExtra(Constants.EXTRA_GROUPS_USER_NAME)) {
             mGroupsUsersName = intent.getStringExtra(Constants.EXTRA_GROUPS_USER_NAME)!!
         }
+        if (intent.hasExtra(Constants.BELONGING_GROUPS_ID)) {
+            mBelongingGroupsId = intent.getStringExtra(Constants.BELONGING_GROUPS_ID)!!
+        }
         if (intent.hasExtra(Constants.EXTRA_GROUPS_USER_ID)) {
             mGroupsUserId = intent.getStringExtra(Constants.EXTRA_GROUPS_USER_ID)!!
         }
+        et_details_groups_users_name.isEnabled = false
         et_details_groups_users_name.setText(mGroupsUsersName)
 
-        Log.i(javaClass.simpleName,"groupsId : ${mGroupsId} groupsUserId : ${mGroupsUserId}")
+        Log.i(javaClass.simpleName, "groupsId : ${mGroupsId} groupsUserId : ${mGroupsUserId} neme: ${mGroupsUsersName}")
 
         setupActionBar()
     }
@@ -66,7 +71,6 @@ class DetailsGroupsUsersActivity : BaseActivity() {
         val id = item.itemId
         when (id) {
             R.id.navigation_delete_belonging_groups -> {
-
                 deleteGroupsUsers()
                 return true
             }
@@ -88,7 +92,11 @@ class DetailsGroupsUsersActivity : BaseActivity() {
         builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            FirestoreClass().deleteGroupsUsers(this@DetailsGroupsUsersActivity, mGroupsId,mGroupsUserId)
+            FirestoreClass().deleteGroupsUsers(
+                this@DetailsGroupsUsersActivity,
+                mGroupsId,
+                mGroupsUserId
+            )
 
             dialogInterface.dismiss()
         }
@@ -104,6 +112,12 @@ class DetailsGroupsUsersActivity : BaseActivity() {
     }
 
     fun groupsUsersDeleteSuccess() {
+
+        FirestoreClass().deleteBelongingGroupsUsers(this@DetailsGroupsUsersActivity,mBelongingGroupsId)
+        
+    }
+
+    fun belongingGroupsUsersDeleteSuccess(){
         hideProgressDialog()
 
         Toast.makeText(this, "グループを削除しました", Toast.LENGTH_SHORT).show()
