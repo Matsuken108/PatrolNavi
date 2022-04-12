@@ -140,6 +140,9 @@
     <string name="delete_dialog_belonging_groups_users_title">グループ削除</string>
     <string name="delete_dialog_belonging_groups_users_message">グループを削除しましか？</string>
     <string name="title_activity_edit_custmer_maps">EditCustmerMapsActivity</string>
+    <string name="btn_start_single_navi">単体ナビ開始</string>
+    <string name="btn_start_order_navi">順序ナビ開始</string>
+    <string name="btn_intent_map">マップ表示</string>
 
 
 </resources>

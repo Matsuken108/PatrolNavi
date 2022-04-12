@@ -8,11 +8,11 @@ import android.view.View
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityAddCustomerBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_add_customer.*
-import kotlinx.android.synthetic.main.activity_edit_customer.*
 
 class AddCustomerActivity : BaseActivity(), View.OnClickListener {
 

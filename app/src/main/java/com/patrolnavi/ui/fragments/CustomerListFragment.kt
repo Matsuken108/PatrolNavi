@@ -48,7 +48,7 @@ class CustomerListFragment : BaseFragment() {
         return root
     }
 
-    fun courseSetListUI(customerList: ArrayList<Customer>) {
+    fun courseAllSetListUI(customerList: ArrayList<Customer>) {
         hideProgressDialog()
 
         mCustomerList = customerList
@@ -100,14 +100,14 @@ class CustomerListFragment : BaseFragment() {
     }
 
 
-    private fun getCourseSetList() {
+    private fun getCourseAllSetList() {
         showProgressDialog(resources.getString(R.string.please_wait))
 
-        FirestoreClass().getCourseSetList(this@CustomerListFragment,mGroupsId, mDateSelect, mCourseSelect)
+        FirestoreClass().getCourseAllSetList(this@CustomerListFragment,mGroupsId, mDateSelect, mCourseSelect)
     }
 
     override fun onResume() {
         super.onResume()
-        getCourseSetList()
+        getCourseAllSetList()
     }
 }

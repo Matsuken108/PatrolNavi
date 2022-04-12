@@ -62,8 +62,8 @@ class EditCourseActivity : BaseActivity() {
         toolbar_course_edit_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        return super.onCreateOptionsMenu(menu)
 
         val inflater = menuInflater
 

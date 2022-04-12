@@ -20,6 +20,7 @@
         <entry key="app/src/main/res/layout/activity_create_groups.xml" value="0.27685185185185185" />
         <entry key="app/src/main/res/layout/activity_customer_details.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/activity_details_customer.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_details_groups.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/activity_details_groups_users.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/activity_details_user_profile.xml" value="0.28229166666666666" />
@@ -51,6 +52,7 @@
         <entry key="app/src/main/res/layout/fragment_details_customer.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_maps.xml" value="0.2682291666666667" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.28229166666666666" />
+        <entry key="app/src/main/res/layout/fragment_single_customer_map.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/info_window_layout.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/item_belonging_groups_layout.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/item_customer_edit_list_layout.xml" value="0.28229166666666666" />

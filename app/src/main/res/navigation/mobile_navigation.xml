@@ -26,6 +26,24 @@
         android:name="com.patrolnavi.ui.fragments.DetailsCustomerFragment"
         android:label="fragment_details_customer"
         tools:layout="@layout/fragment_details_customer" >
+        <action
+            android:id="@+id/action_detailsCustomerFragment_to_singleCustomerMapFragment"
+            app:destination="@id/singleCustomerMapFragment" />
+        <argument
+            android:name="customerId"
+            app:argType="string" />
+        <argument
+            android:name="customer"
+            app:argType="com.patrolnavi.models.Customer" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleCustomerMapFragment"
+        android:name="com.patrolnavi.ui.fragments.SingleCustomerMapFragment"
+        android:label="fragment_single_customer_map"
+        tools:layout="@layout/fragment_single_customer_map" >
+        <argument
+            android:name="customer"
+            app:argType="com.patrolnavi.models.Customer" />
     </fragment>
 
 </navigation>

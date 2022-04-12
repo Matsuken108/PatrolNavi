@@ -10,6 +10,7 @@ import com.google.firebase.firestore.SetOptions
 import com.patrolnavi.models.*
 import com.patrolnavi.ui.activities.*
 import com.patrolnavi.ui.fragments.CustomerListFragment
+import com.patrolnavi.ui.fragments.DetailsCustomerFragment
 import com.patrolnavi.ui.fragments.MapsFragment
 import com.patrolnavi.utils.Constants
 
@@ -631,7 +632,7 @@ class FirestoreClass {
             }
     }
 
-    fun getCourseSetList(
+    fun getCourseAllSetList(
         fragment: CustomerListFragment,
         groupsId: String,
         dateSelect: String,
@@ -654,7 +655,7 @@ class FirestoreClass {
                     customer.customer_id = i.id
                     customerList.add(customer)
                 }
-                fragment.courseSetListUI(customerList)
+                fragment.courseAllSetListUI(customerList)
                 Log.i(
                     javaClass.simpleName,
                     "CustomerListFragment date : ${dateSelect} course : ${courseSelect}"
@@ -708,6 +709,46 @@ class FirestoreClass {
                 )
             }
     }
+
+    fun getCourseSetList(
+        fragment: DetailsCustomerFragment,
+        groupsId: String,
+        dateSelect: String,
+        courseSelect: String
+    ) {
+        mFireStore.collection(Constants.GROUPS)
+            .document(groupsId)
+            .collection(Constants.CUSTOMER)
+            .whereEqualTo(Constants.DATE, dateSelect)
+            .whereEqualTo(Constants.COURSE, courseSelect)
+            .orderBy(Constants.NO)
+            .get()
+            .addOnSuccessListener { document ->
+                Log.i(fragment.javaClass.simpleName, document.documents.toString())
+
+                val customerList: ArrayList<Customer> = ArrayList()
+
+                for (i in document.documents) {
+                    val customer = i.toObject(Customer::class.java)!!
+                    customer.customer_id = i.id
+                    customerList.add(customer)
+                }
+                fragment.courseSetListUI(customerList)
+                Log.i(
+                    javaClass.simpleName,
+                    "CustomerListFragment date : ${dateSelect} course : ${courseSelect}"
+                )
+            }
+
+            .addOnFailureListener {
+                fragment.hideProgressDialog()
+                Log.e(
+                    fragment.javaClass.simpleName,
+                    "お客様リスト取り込みエラー"
+                )
+            }
+    }
+
 
     fun getCustomerAll(activity: SolicitationMapsActivity, groupsId: String) {
         mFireStore.collection(Constants.GROUPS)

@@ -2,6 +2,7 @@ package com.patrolnavi.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.time.LocalDate
 
 @Parcelize
 data class GroupsUsers(
@@ -11,5 +12,5 @@ data class GroupsUsers(
     var belonging_groups_id: String = "",
     val groups_user_name: String = "",
     var user_id: String = "",
-    val createdAt: String = "",
+    val createdAt: String = ""
 ) : Parcelable

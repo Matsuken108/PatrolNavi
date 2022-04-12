@@ -1,10 +1,12 @@
 package com.patrolnavi.ui.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import com.google.firebase.firestore.FirebaseFirestore
 import com.patrolnavi.R
 import com.patrolnavi.firestore.FirestoreClass
@@ -12,6 +14,7 @@ import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.GroupsUsers
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_add_groups_users.*
+import java.time.LocalDate
 
 class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
 
@@ -116,7 +119,7 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
             mGroupsUserId,
             mBelongingGroupsId,
             et_add_groups_users_name.text.toString().trim { it <= ' ' },
-            FirestoreClass().getCurrentUserID()
+            FirestoreClass().getCurrentUserID(),
         )
 
         Log.i(javaClass.simpleName, "AddGroupsUsers : send data")
