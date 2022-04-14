@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityEditGroupsBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.Groups
@@ -24,6 +25,8 @@ import kotlinx.android.synthetic.main.activity_edit_groups.*
 
 class EditGroupsActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityEditGroupsBinding
+
     private var mGroupsId: String = ""
     private var mGroupsName: String = ""
     private var mGroupsPass: String = ""
@@ -34,7 +37,8 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_groups)
+        binding = ActivityEditGroupsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!

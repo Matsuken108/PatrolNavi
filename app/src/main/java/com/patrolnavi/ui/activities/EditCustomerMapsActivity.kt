@@ -24,8 +24,9 @@ import java.util.*
 
 class EditCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityEditCustmerMapsBinding
+
+    private lateinit var mMap: GoogleMap
     private val REQUEST_LOCATION_PERMISSION = 1
     private var mGroupsId: String = ""
     private var mGroupsName: String = ""
@@ -37,7 +38,6 @@ class EditCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityEditCustmerMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

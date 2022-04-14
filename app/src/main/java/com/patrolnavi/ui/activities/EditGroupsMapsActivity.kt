@@ -25,8 +25,9 @@ import java.util.*
 
 class EditGroupsMapsActivity : BaseActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityEditGroupsMapsBinding
+
+    private lateinit var mMap: GoogleMap
     private lateinit var mGroups : Groups
     private val REQUEST_LOCATION_PERMISSION = 1
     private var mGroupsId: String = ""

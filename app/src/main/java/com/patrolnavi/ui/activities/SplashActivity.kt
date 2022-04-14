@@ -6,12 +6,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivitySplashBinding
 
 @Suppress
 class SplashActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySplashBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,

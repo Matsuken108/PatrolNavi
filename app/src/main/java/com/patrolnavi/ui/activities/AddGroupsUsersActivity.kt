@@ -9,6 +9,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import com.google.firebase.firestore.FirebaseFirestore
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityAddGroupsUsersBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.GroupsUsers
@@ -17,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_add_groups_users.*
 import java.time.LocalDate
 
 class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityAddGroupsUsersBinding
 
     private var mGroupsId: String = ""
     private var mGroupsName: String = ""
@@ -28,7 +31,8 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_groups_users)
+        binding = ActivityAddGroupsUsersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!

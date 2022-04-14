@@ -7,12 +7,15 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityEditCustomerBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_edit_customer.*
 
 class EditCustomerActivity : BaseActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityEditCustomerBinding
 
     private lateinit var mCustomerDetails: Customer
     private var mCustomerId: String = ""
@@ -22,7 +25,8 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_customer)
+        binding = ActivityEditCustomerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.EXTRA_CUSTOMER_DETAILS)) {
             mCustomerDetails = intent.getParcelableExtra(Constants.EXTRA_CUSTOMER_DETAILS)!!

@@ -21,12 +21,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.patrolnavi.R
+import com.patrolnavi.databinding.FragmentCustomerListBinding
+import com.patrolnavi.databinding.FragmentMapsBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
 import com.patrolnavi.models.Groups
 import java.util.*
 
 class MapsFragment() : BaseFragment() {
+
+    private var _binding : FragmentMapsBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var mMap: GoogleMap
     private val REQUEST_LOCATION_PERMISSION = 1
@@ -100,6 +105,7 @@ class MapsFragment() : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentMapsBinding.inflate(inflater,container,false)
 
         val extras: Bundle?
         val intent = activity?.intent
@@ -112,7 +118,7 @@ class MapsFragment() : BaseFragment() {
         mGroupsLat = extras?.getString("groupsLat").toString().toDouble()
         mGroupsLng = extras?.getString("groupsLng").toString().toDouble()
 
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        return binding.root
     }
 
     private fun getMapsList() {

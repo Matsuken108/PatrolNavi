@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityDetailsGroupsUsersBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_details_customer.*
@@ -16,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_details_groups_users.*
 
 class DetailsGroupsUsersActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityDetailsGroupsUsersBinding
+
     private var mGroupsId: String = ""
     private var mGroupsUsersName: String = ""
     private var mBelongingGroupsId:String=""
@@ -23,7 +26,8 @@ class DetailsGroupsUsersActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details_groups_users)
+        binding = ActivityDetailsGroupsUsersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!

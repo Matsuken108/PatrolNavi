@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityJoinGroupsBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Groups
 import com.patrolnavi.models.GroupsUsers
@@ -21,6 +22,8 @@ import kotlinx.android.synthetic.main.activity_join_groups.*
 
 class JoinGroupsActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityJoinGroupsBinding
+
     private var mGroupsId: String = ""
     private var mGroupsName: String = ""
     private var mGroupsPass: String = ""
@@ -28,7 +31,8 @@ class JoinGroupsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_join_groups)
+        binding = ActivityJoinGroupsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupActionBar()
 

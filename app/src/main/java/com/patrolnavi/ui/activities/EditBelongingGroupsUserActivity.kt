@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityEditBelongingGroupsUserBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.GroupsUsers
 import com.patrolnavi.utils.Constants
@@ -18,6 +19,8 @@ import kotlinx.android.synthetic.main.activity_edit_customer.*
 
 class EditBelongingGroupsUserActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityEditBelongingGroupsUserBinding
+
     private var mGroupsId: String = ""
     private var mGroupsUserName: String = ""
     private var mBelongingGroupsId: String = ""
@@ -25,7 +28,8 @@ class EditBelongingGroupsUserActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_belonging_groups_user)
+        binding = ActivityEditBelongingGroupsUserBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!

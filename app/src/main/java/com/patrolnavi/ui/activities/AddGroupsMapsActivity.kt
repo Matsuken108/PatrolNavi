@@ -23,8 +23,9 @@ import java.util.*
 
 class AddGroupsMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityAddGroupsMapsBinding
+
+    private lateinit var mMap: GoogleMap
     private val REQUEST_LOCATION_PERMISSION = 1
     private var mGroupsName: String = ""
     private var mGroupsPass: String = ""

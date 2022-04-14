@@ -7,15 +7,19 @@ import android.view.View
 import android.view.WindowManager
 import com.google.firebase.auth.FirebaseAuth
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityLoginBinding
 import com.patrolnavi.firestore.FirestoreClass
 import kotlinx.android.synthetic.main.activity_login.*
 
 @Suppress
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,

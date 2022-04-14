@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_add_customer.*
 
 class AddCustomerActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding:ActivityAddCustomerBinding
+
 //    private var mSelectedImageFileURI: Uri? = null
 //    private var mCustomerImageURL:String =""
 
@@ -32,7 +34,8 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_customer)
+        binding = ActivityAddCustomerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
@@ -69,7 +72,7 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
 
 
 //        et_add_customer_date.isEnabled = false
-        et_add_customer_date.setText(mDateSelect)
+        binding.etAddCustomerDate.setText(mDateSelect)
 //        et_add_customer_course.isEnabled = false
         et_add_customer_course.setText(mCourseSelect)
         et_add_customer_lat.isEnabled = false

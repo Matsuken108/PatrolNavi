@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityDetailsGroupsBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.GroupsUsers
 import com.patrolnavi.ui.adapters.GroupsUsersListAdapter
@@ -18,6 +19,8 @@ import kotlinx.android.synthetic.main.activity_setting_groups.*
 
 class DetailsGroupsActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityDetailsGroupsBinding
+
     private var mGroupsId: String = ""
     private var mGroupsName: String = ""
     private var mGroupsPass: String = ""
@@ -27,7 +30,8 @@ class DetailsGroupsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details_groups)
+        binding = ActivityDetailsGroupsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.EXTRA_GROUPS_NAME)) {
             mGroupsName = intent.getStringExtra(Constants.EXTRA_GROUPS_NAME)!!

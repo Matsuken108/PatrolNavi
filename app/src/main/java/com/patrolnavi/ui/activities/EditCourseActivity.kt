@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityEditCourseBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
 import com.patrolnavi.ui.adapters.CustomerEditListAdapter
@@ -16,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_edit_course.*
 import kotlinx.android.synthetic.main.activity_edit_customer.*
 
 class EditCourseActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityEditCourseBinding
 
     private lateinit var mCustomerList: ArrayList<Customer>
     private var mDateSelect: String = ""
@@ -26,7 +29,8 @@ class EditCourseActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_course)
+        binding = ActivityEditCourseBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.EXTRA_DATE_SELECT)) {
             mDateSelect = intent.getStringExtra(Constants.EXTRA_DATE_SELECT)!!

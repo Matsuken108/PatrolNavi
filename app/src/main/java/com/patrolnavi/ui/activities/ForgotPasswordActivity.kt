@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityForgotPasswordBinding
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 
 class ForgotPasswordActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityForgotPasswordBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forgot_password)
+        binding = ActivityForgotPasswordBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupActionBar()
 

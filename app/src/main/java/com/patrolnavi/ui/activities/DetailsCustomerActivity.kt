@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityDetailsCustomerBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
 import com.patrolnavi.models.Groups
@@ -15,6 +16,8 @@ import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_details_customer.*
 
 class DetailsCustomerActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityDetailsCustomerBinding
 
     private var mGroupsId: String = ""
     private var mCustomerId: String = ""
@@ -27,7 +30,8 @@ class DetailsCustomerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details_customer)
+        binding = ActivityDetailsCustomerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupActionBar()
 

@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.patrolnavi.R
+import com.patrolnavi.databinding.FragmentCustomerListBinding
+import com.patrolnavi.databinding.FragmentDetailsCustomerBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
 import com.patrolnavi.ui.adapters.CustomerListAdapter
@@ -18,6 +20,9 @@ import kotlinx.android.synthetic.main.fragment_customer_list.*
 import kotlinx.android.synthetic.main.fragment_details_customer.*
 
 class DetailsCustomerFragment : BaseFragment() {
+
+    private var _binding : FragmentDetailsCustomerBinding? = null
+    private val binding get() = _binding!!
 
     private val args: DetailsCustomerFragmentArgs by navArgs()
     private var mGroupsId: String = ""
@@ -30,7 +35,7 @@ class DetailsCustomerFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_details_customer, container, false)
+        _binding = FragmentDetailsCustomerBinding.inflate(inflater,container,false)
 
         val customer = args.customer
         Log.i(javaClass.simpleName,"customer ${customer}")
@@ -52,7 +57,7 @@ class DetailsCustomerFragment : BaseFragment() {
         btn_start_order_navi.setOnClickListener { getCourseSetList() }
         btn_intent_map.setOnClickListener { singleCustomerMap() }
 
-        return root
+        return binding.root
     }
 
     private fun singleCustomerMap(){

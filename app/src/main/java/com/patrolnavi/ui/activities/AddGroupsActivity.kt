@@ -8,6 +8,8 @@ import android.util.Log
 import android.view.View
 import com.google.firebase.firestore.FirebaseFirestore
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityAddCustomerBinding
+import com.patrolnavi.databinding.ActivityAddGroupsBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Groups
 import com.patrolnavi.utils.Constants
@@ -17,6 +19,8 @@ import kotlinx.android.synthetic.main.activity_add_groups.*
 
 class AddGroupsActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var binding :ActivityAddGroupsBinding
+
     private var mGroupsName: String = ""
     private var mGroupsPass: String = ""
     private var mGroupsLat: String = ""
@@ -24,7 +28,8 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_groups)
+        binding = ActivityAddGroupsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupActionBar()
 

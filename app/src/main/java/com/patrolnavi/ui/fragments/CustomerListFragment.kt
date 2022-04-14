@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.patrolnavi.R
+import com.patrolnavi.databinding.FragmentCustomerListBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.Customer
 import com.patrolnavi.ui.adapters.CustomerListAdapter
@@ -24,6 +25,9 @@ import kotlin.collections.ArrayList
 
 class CustomerListFragment : BaseFragment() {
 
+    private var _binding : FragmentCustomerListBinding? = null
+    private val binding get() = _binding!!
+
     private var mGroupsId: String = ""
     private var mDateSelect: String = ""
     private var mCourseSelect: String = ""
@@ -34,7 +38,7 @@ class CustomerListFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_customer_list, container, false)
+        _binding = FragmentCustomerListBinding.inflate(inflater,container,false)
 
         val extras: Bundle?
         val intent = activity?.intent
@@ -45,7 +49,7 @@ class CustomerListFragment : BaseFragment() {
         mCourseSelect = extras?.getString("courseSelect").toString()
         mGroupsId = extras?.getString("groupsId").toString()
 
-        return root
+        return binding.root
     }
 
     fun courseAllSetListUI(customerList: ArrayList<Customer>) {

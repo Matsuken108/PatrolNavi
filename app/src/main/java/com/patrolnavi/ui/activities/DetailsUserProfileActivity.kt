@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityDetailsUserProfileBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.User
@@ -16,12 +17,15 @@ import kotlinx.android.synthetic.main.activity_details_user_profile.*
 
 class DetailsUserProfileActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityDetailsUserProfileBinding
+
     private lateinit var mUserDetails: User
     private lateinit var mBelongingList: ArrayList<BelongingGroups>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details_user_profile)
+        binding = ActivityDetailsUserProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupActionBar()
 

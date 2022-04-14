@@ -15,8 +15,13 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.patrolnavi.R
+import com.patrolnavi.databinding.FragmentCustomerListBinding
+import com.patrolnavi.databinding.FragmentSingleCustomerMapBinding
 
 class SingleCustomerMapFragment : Fragment() {
+
+    private var _binding : FragmentSingleCustomerMapBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var mMap: GoogleMap
     private val args : SingleCustomerMapFragmentArgs by navArgs()
@@ -39,7 +44,9 @@ class SingleCustomerMapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_single_customer_map, container, false)
+        _binding = FragmentSingleCustomerMapBinding.inflate(inflater,container,false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

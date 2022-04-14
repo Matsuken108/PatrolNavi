@@ -6,10 +6,13 @@ import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivitySettingCourseBinding
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_setting_course.*
 
 class SettingCourseActivity : BaseActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivitySettingCourseBinding
 
     private var mDateSelect: String = ""
     private var mCourseSelect: String = ""
@@ -21,7 +24,8 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_setting_course)
+        binding = ActivitySettingCourseBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!

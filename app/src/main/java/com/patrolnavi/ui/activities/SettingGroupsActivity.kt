@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.DocumentId
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivitySettingGroupsBinding
 import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.Groups
@@ -22,11 +23,14 @@ import kotlinx.android.synthetic.main.activity_setting_groups.*
 
 class SettingGroupsActivity : BaseActivity() {
 
+    private lateinit var binding: ActivitySettingGroupsBinding
+
     private lateinit var mGroupsList: ArrayList<Groups>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_setting_groups)
+        binding = ActivitySettingGroupsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setupActionBar()
     }

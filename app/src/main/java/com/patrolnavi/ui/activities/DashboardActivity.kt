@@ -11,13 +11,17 @@ import com.patrolnavi.ui.fragments.CustomerListFragment
 import com.patrolnavi.utils.Constants
 import androidx.fragment.app.FragmentTransaction
 import com.patrolnavi.R
+import com.patrolnavi.databinding.ActivityDashboardBinding
 
 
 class DashboardActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityDashboardBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dashboard)
+        binding = ActivityDashboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
