@@ -28,26 +28,26 @@ class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
             mUserDetails = intent.getParcelableExtra(Constants.EXTRA_USER_DETAILS)!!
         }
 
-        et_edit_user_profile_first_name.setText(mUserDetails.firstName)
-        et_edit_user_profile_last_name.setText(mUserDetails.lastName)
-        et_edit_user_profile_email.isEnabled = false
-        et_edit_user_profile_email.setText(mUserDetails.email)
-        et_edit_user_profile_mobile_number.setText(mUserDetails.mobile.toString())
+        binding.etEditUserProfileFirstName.setText(mUserDetails.firstName)
+        binding.etEditUserProfileLastName.setText(mUserDetails.lastName)
+        binding.etEditUserProfileEmail.isEnabled = false
+        binding.etEditUserProfileEmail.setText(mUserDetails.email)
+        binding.etEditUserProfileMobileNumber.setText(mUserDetails.mobile.toString())
 
-        btn_edit_user_profile_submit.setOnClickListener(this)
+        binding.btnEditUserProfileSubmit.setOnClickListener(this)
 
         setupActionBar()
     }
 
     private fun setupActionBar() {
-        setSupportActionBar(toolbar_edit_user_profile_activity)
+        setSupportActionBar(binding.toolbarEditUserProfileActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-        toolbar_edit_user_profile_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarEditUserProfileActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onClick(v: View?) {
@@ -67,17 +67,17 @@ class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
     private fun updateUserProfileDetails() {
         val userHashMap = HashMap<String, Any>()
 
-        val firstName = et_edit_user_profile_first_name.text.toString().trim { it <= ' ' }
+        val firstName = binding.etEditUserProfileFirstName.text.toString().trim { it <= ' ' }
         if (firstName != mUserDetails.firstName) {
             userHashMap[Constants.FIRST_NAME] = firstName
         }
 
-        val lastName = et_edit_user_profile_last_name.text.toString().trim { it <= ' ' }
+        val lastName = binding.etEditUserProfileLastName.text.toString().trim { it <= ' ' }
         if (lastName != mUserDetails.lastName) {
             userHashMap[Constants.LAST_NAME] = lastName
         }
 
-        val mobileNumber = et_edit_user_profile_mobile_number.text.toString().trim { it <= ' ' }
+        val mobileNumber = binding.etEditUserProfileMobileNumber.text.toString().trim { it <= ' ' }
 
         if (mobileNumber.isNotEmpty() && mobileNumber != mUserDetails.mobile.toString()) {
             userHashMap[Constants.MOBILE] = mobileNumber.toLong()
@@ -105,7 +105,7 @@ class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
 
     private fun validateUserProfileDetails(): Boolean {
         return when {
-            TextUtils.isEmpty(et_edit_user_profile_mobile_number.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditUserProfileMobileNumber.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar("Please enter mobile number", true)
                 false
             }

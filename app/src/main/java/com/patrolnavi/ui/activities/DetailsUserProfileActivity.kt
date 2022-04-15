@@ -33,14 +33,14 @@ class DetailsUserProfileActivity : BaseActivity() {
     }
 
     private fun setupActionBar() {
-        setSupportActionBar(toolbar_user_profile_activity)
+        setSupportActionBar(binding.toolbarUserProfileActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-        toolbar_user_profile_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarUserProfileActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -78,14 +78,14 @@ class DetailsUserProfileActivity : BaseActivity() {
 
         mUserDetails = user
 
-        et_user_profile_first_name.isEnabled = false
-        et_user_profile_first_name.setText(mUserDetails.firstName)
-        et_user_profile_last_name.isEnabled = false
-        et_user_profile_last_name.setText(mUserDetails.lastName)
-        et_user_profile_email.isEnabled = false
-        et_user_profile_email.setText(mUserDetails.email)
-        et_user_profile_mobile_number.isEnabled = false
-        et_user_profile_mobile_number.setText(mUserDetails.mobile.toString())
+        binding.etUserProfileFirstName.isEnabled = false
+        binding.etUserProfileFirstName.setText(mUserDetails.firstName)
+        binding.etUserProfileLastName.isEnabled = false
+        binding.etUserProfileLastName.setText(mUserDetails.lastName)
+        binding.etUserProfileEmail.isEnabled = false
+        binding.etUserProfileEmail.setText(mUserDetails.email)
+        binding.etUserProfileMobileNumber.isEnabled = false
+        binding.etUserProfileMobileNumber.setText(mUserDetails.mobile.toString())
 
         FirestoreClass().getBelongingGroupsList(this@DetailsUserProfileActivity)
     }
@@ -98,20 +98,20 @@ class DetailsUserProfileActivity : BaseActivity() {
         mBelongingList = belongingList
 
         if (belongingList.size > 0) {
-            rv_user_profile_belonging_groups_list.visibility = View.VISIBLE
-            tv_user_profile_belonging_groups_found.visibility = View.GONE
+            binding.rvUserProfileBelongingGroupsList.visibility = View.VISIBLE
+            binding.tvUserProfileBelongingGroupsFound.visibility = View.GONE
 
-            rv_user_profile_belonging_groups_list.layoutManager =
+            binding.rvUserProfileBelongingGroupsList.layoutManager =
                 LinearLayoutManager(this@DetailsUserProfileActivity)
-            rv_user_profile_belonging_groups_list.setHasFixedSize(true)
+            binding.rvUserProfileBelongingGroupsList.setHasFixedSize(true)
 
             val belongingAdapter =
                 BelongingGroupsListAdapter(this@DetailsUserProfileActivity, mBelongingList)
-            rv_user_profile_belonging_groups_list.adapter = belongingAdapter
+            binding.rvUserProfileBelongingGroupsList.adapter = belongingAdapter
 
         } else {
-            rv_user_profile_belonging_groups_list.visibility = View.GONE
-            tv_user_profile_belonging_groups_found.visibility = View.VISIBLE
+            binding.rvUserProfileBelongingGroupsList.visibility = View.GONE
+            binding.tvUserProfileBelongingGroupsFound.visibility = View.VISIBLE
         }
     }
 }

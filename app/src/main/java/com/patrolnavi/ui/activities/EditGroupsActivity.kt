@@ -56,24 +56,24 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
             mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
         }
 
-        et_edit_groups_name.setText(mGroupsName)
-        et_edit_groups_pass.setText(mGroupsPass)
-        et_edit_groups_id.isEnabled = false
-        et_edit_groups_id.setText(mGroupsId)
-        et_edit_groups_lat.isEnabled = false
-        et_edit_groups_lat.setText(mGroupsLat)
-        et_edit_groups_lng.isEnabled = false
-        et_edit_groups_lng.setText(mGroupsLng)
+        binding.etEditGroupsName.setText(mGroupsName)
+        binding.etEditGroupsPass.setText(mGroupsPass)
+        binding.etEditGroupsId.isEnabled = false
+        binding.etEditGroupsId.setText(mGroupsId)
+        binding.etEditGroupsLat.isEnabled = false
+        binding.etEditGroupsLat.setText(mGroupsLat)
+        binding.etEditGroupsLng.isEnabled = false
+        binding.etEditGroupsLng.setText(mGroupsLng)
 
         setupActionBar()
 
-        btn_edit_groups_update.setOnClickListener(this)
-        btn_edit_groups_location.setOnClickListener(this)
+        binding.btnEditGroupsUpdate.setOnClickListener(this)
+        binding.btnEditGroupsLocation.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_edit_groups_activity)
+        setSupportActionBar(binding.toolbarEditGroupsActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -81,7 +81,7 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_edit_groups_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarEditGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -123,38 +123,38 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
         mGroupsUsersList = GroupsUsersList
 
         if (GroupsUsersList.size > 0) {
-            rv_edit_groups_users_list.visibility = View.VISIBLE
-            tv_edit_groups_found.visibility = View.GONE
+            binding.rvEditGroupsUsersList.visibility = View.VISIBLE
+            binding.tvEditGroupsFound.visibility = View.GONE
 
-            rv_edit_groups_users_list.layoutManager = LinearLayoutManager(this@EditGroupsActivity)
-            rv_edit_groups_users_list.setHasFixedSize(true)
+            binding.rvEditGroupsUsersList.layoutManager = LinearLayoutManager(this@EditGroupsActivity)
+            binding.rvEditGroupsUsersList.setHasFixedSize(true)
 
             val editGroupsUsersUsersAdapter =
                 EditGroupsUsersListAdapter(this@EditGroupsActivity, mGroupsUsersList)
-            rv_edit_groups_users_list.adapter = editGroupsUsersUsersAdapter
+            binding.rvEditGroupsUsersList.adapter = editGroupsUsersUsersAdapter
 
         } else {
-            rv_edit_groups_users_list.visibility = View.GONE
-            tv_edit_groups_found.visibility = View.VISIBLE
+            binding.rvEditGroupsUsersList.visibility = View.GONE
+            binding.tvEditGroupsFound.visibility = View.VISIBLE
         }
     }
 
     private fun updateGroupsDetails() {
         val groupsHashMap = HashMap<String, Any>()
 
-        val name = et_edit_groups_name.text.toString().trim { it <= ' ' }
+        val name = binding.etEditGroupsName.text.toString().trim { it <= ' ' }
         if (name != mGroupsDetails.name) {
             groupsHashMap[Constants.EXTRA_GROUPS_NAME] = name
         }
-        val pass = et_edit_groups_pass.text.toString().trim { it <= ' ' }
+        val pass = binding.etEditGroupsPass.text.toString().trim { it <= ' ' }
         if (name != mGroupsDetails.password) {
             groupsHashMap[Constants.EXTRA_GROUPS_PASS] = pass
         }
-        val groupsLat = et_edit_groups_lat.text.toString().trim { it <= ' ' }
+        val groupsLat = binding.etEditGroupsLat.text.toString().trim { it <= ' ' }
         if (groupsLat != mGroupsDetails.groups_lat) {
             groupsHashMap[Constants.EXTRA_GROUPS_LAT] = groupsLat
         }
-        val groupsLng = et_edit_groups_lng.text.toString().trim { it <= ' ' }
+        val groupsLng = binding.etEditGroupsLng.text.toString().trim { it <= ' ' }
         if (groupsLng != mGroupsDetails.groups_lng) {
             groupsHashMap[Constants.EXTRA_GROUPS_LNG] = groupsLng
         }
@@ -200,19 +200,19 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
     private fun validateGroupsDetails(): Boolean {
         return when {
 
-            TextUtils.isEmpty(et_edit_groups_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditGroupsName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_groups_name), true)
                 false
             }
-            TextUtils.isEmpty(et_edit_groups_pass.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditGroupsPass.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_groups_pass), true)
                 false
             }
-            TextUtils.isEmpty(et_edit_groups_lat.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditGroupsLat.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_groups_lat), true)
                 false
             }
-            TextUtils.isEmpty(et_edit_groups_lng.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditGroupsLng.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_groups_lng), true)
                 false
             }

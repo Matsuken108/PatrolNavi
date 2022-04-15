@@ -47,29 +47,29 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
 
         setupActionBar()
 
-        tv_name_groups.setText(mGroupsName)
+        binding.tvNameGroups.setText(mGroupsName)
 
-        if (tv_name_groups.length() == 0) {
-            tv_name_groups_title.visibility = View.GONE
-            tv_name_groups.visibility = View.GONE
-            tv_name_groups_found.visibility = View.VISIBLE
+        if (binding.tvNameGroups.length() == 0) {
+            binding.tvNameGroupsTitle.visibility = View.GONE
+            binding.tvNameGroups.visibility = View.GONE
+            binding.tvNameGroupsFound.visibility = View.VISIBLE
         } else {
-            tv_name_groups_title.visibility = View.VISIBLE
-            tv_name_groups.visibility = View.VISIBLE
-            tv_name_groups_found.visibility = View.GONE
+            binding.tvNameGroupsTitle.visibility = View.VISIBLE
+            binding.tvNameGroups.visibility = View.VISIBLE
+            binding.tvNameGroupsFound.visibility = View.GONE
         }
 
-        btn_setting_course.setOnClickListener(this)
-        btn_intent_edit.setOnClickListener(this)
-        btn_intent_solicitation.setOnClickListener(this)
-        btn_intent_groups_setting.setOnClickListener(this)
-        btn_intent_my_page.setOnClickListener(this)
+        binding.btnSettingCourse.setOnClickListener(this)
+        binding.btnIntentEdit.setOnClickListener(this)
+        binding.btnIntentSolicitation.setOnClickListener(this)
+        binding.btnIntentGroupsSetting.setOnClickListener(this)
+        binding.btnIntentMyPage.setOnClickListener(this)
 
     }
 
     fun setCourseSelect() {
-        mDateSelect = et_date_set.text.toString().trim { it <= ' ' }
-        mCourseSelect = et_course_set.text.toString().trim { it <= ' ' }
+        mDateSelect = binding.etDateSet.text.toString().trim { it <= ' ' }
+        mCourseSelect = binding.etCourseSet.text.toString().trim { it <= ' ' }
     }
 
 
@@ -148,17 +148,17 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
     private fun validateDateCourseSelect(): Boolean {
         return when {
 
-            tv_name_groups.length() == 0 -> {
+            binding.tvNameGroups.length() == 0 -> {
                 showErrorSnackBar("グループ設定を行ってください", true)
                 false
             }
 
-            TextUtils.isEmpty(et_date_set.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etDateSet.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_date), true)
                 false
             }
 
-            TextUtils.isEmpty(et_course_set.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etCourseSet.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_course), true)
                 false
             }

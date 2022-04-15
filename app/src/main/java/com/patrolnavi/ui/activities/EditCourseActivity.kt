@@ -55,7 +55,7 @@ class EditCourseActivity : BaseActivity() {
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_course_edit_activity)
+        setSupportActionBar(binding.toolbarCourseEditActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -63,7 +63,7 @@ class EditCourseActivity : BaseActivity() {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_course_edit_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarCourseEditActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -112,19 +112,19 @@ class EditCourseActivity : BaseActivity() {
         mCustomerList = customerList
 
         if (customerList.size > 0) {
-            rv_course_edit.visibility = View.VISIBLE
-            tv_course_edit_found.visibility = View.GONE
+            binding.rvCourseEdit.visibility = View.VISIBLE
+            binding.tvCourseEditFound.visibility = View.GONE
 
-            rv_course_edit.layoutManager = LinearLayoutManager(this@EditCourseActivity)
-            rv_course_edit.setHasFixedSize(true)
+            binding.rvCourseEdit.layoutManager = LinearLayoutManager(this@EditCourseActivity)
+            binding.rvCourseEdit.setHasFixedSize(true)
 
             val customerEditAdapter =
                 CustomerEditListAdapter(this@EditCourseActivity, mCustomerList)
-            rv_course_edit.adapter = customerEditAdapter
+            binding.rvCourseEdit.adapter = customerEditAdapter
 
         } else {
-            rv_course_edit.visibility = View.GONE
-            tv_course_edit_found.visibility = View.VISIBLE
+            binding.rvCourseEdit.visibility = View.GONE
+            binding.tvCourseEditFound.visibility = View.VISIBLE
         }
     }
 

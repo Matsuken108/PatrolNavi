@@ -29,19 +29,19 @@ class RegisterActivity : BaseActivity() {
 
         setupActionBar()
 
-        btn_register.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
 
             registerUser()
         }
 
-        tv_login.setOnClickListener {
+        binding.tvLogin.setOnClickListener {
             onBackPressed()
         }
     }
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_register_activity)
+        setSupportActionBar(binding.toolbarRegisterActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -49,38 +49,38 @@ class RegisterActivity : BaseActivity() {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_register_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarRegisterActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
 
     private fun validateRegisterDetails(): Boolean {
         return when {
-            TextUtils.isEmpty(et_first_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etFirstName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_first_name), true)
                 false
             }
 
-            TextUtils.isEmpty(et_last_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etLastName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_last_name), true)
                 false
             }
 
-            TextUtils.isEmpty(et_register_email.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etRegisterEmail.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
 
-            TextUtils.isEmpty(et_register_mobile_number.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etRegisterMobileNumber.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
                 false
             }
 
-            TextUtils.isEmpty(et_register_password.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etRegisterPassword.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
 
-            TextUtils.isEmpty(et_confirm_password.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etConfirmPassword.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_password),
                     true
@@ -88,8 +88,8 @@ class RegisterActivity : BaseActivity() {
                 false
             }
 
-            et_register_password.text.toString()
-                .trim { it <= ' ' } != et_confirm_password.text.toString()
+            binding.etRegisterPassword.text.toString()
+                .trim { it <= ' ' } != binding.etConfirmPassword.text.toString()
                 .trim { it <= ' ' } -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_password_and_confirm_password_mismatch),
@@ -97,7 +97,7 @@ class RegisterActivity : BaseActivity() {
                 )
                 false
             }
-            !cb_terms_and_condition.isChecked -> {
+            !binding.cbTermsAndCondition.isChecked -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_agree_terms_and_condition),
                     true
@@ -116,8 +116,8 @@ class RegisterActivity : BaseActivity() {
 
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            val email: String = et_register_email.text.toString().trim { it <= ' ' }
-            val password: String = et_register_password.text.toString().trim { it <= ' ' }
+            val email: String = binding.etRegisterEmail.text.toString().trim { it <= ' ' }
+            val password: String = binding.etRegisterPassword.text.toString().trim { it <= ' ' }
 
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
@@ -131,10 +131,10 @@ class RegisterActivity : BaseActivity() {
 
                             val user = User(
                                 firebaseUser.uid,
-                                et_first_name.text.toString().trim { it <= ' ' },
-                                et_last_name.text.toString().trim { it <= ' ' },
-                                et_register_email.text.toString().trim { it <= ' ' },
-                                et_register_mobile_number.text.toString().toLong()
+                                binding.etFirstName.text.toString().trim { it <= ' ' },
+                                binding.etLastName.text.toString().trim { it <= ' ' },
+                                binding.etRegisterEmail.text.toString().trim { it <= ' ' },
+                                binding.etRegisterMobileNumber.text.toString().toLong()
                             )
 
                             FirestoreClass().registerUser(this@RegisterActivity, user)

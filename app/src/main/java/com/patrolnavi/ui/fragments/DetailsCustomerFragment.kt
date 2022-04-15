@@ -40,9 +40,9 @@ class DetailsCustomerFragment : BaseFragment() {
         val customer = args.customer
         Log.i(javaClass.simpleName,"customer ${customer}")
 
-        tv_customer_details_fragment_first_name.setText(customer.firstName)  //TODO NullPoint
-        tv_customer_details_fragment_last_name.setText(customer.lastName)
-        tv_customer_details_fragment_memo.setText(customer.memo)
+        binding.tvCustomerDetailsFragmentFirstName.setText(customer.firstName)  //TODO NullPoint
+        binding.tvCustomerDetailsFragmentLastName.setText(customer.lastName)
+        binding.tvCustomerDetailsFragmentMemo.setText(customer.memo)
 
         val extras: Bundle?
         val intent = activity?.intent
@@ -53,9 +53,9 @@ class DetailsCustomerFragment : BaseFragment() {
         mDateSelect = extras?.getString("dateSelect").toString()
         mCourseSelect = extras?.getString("courseSelect").toString()
 
-        btn_start_single_navi.setOnClickListener { singleNavigation() }
-        btn_start_order_navi.setOnClickListener { getCourseSetList() }
-        btn_intent_map.setOnClickListener { singleCustomerMap() }
+        binding.btnStartSingleNavi.setOnClickListener { singleNavigation() }
+        binding.btnStartOrderNavi.setOnClickListener { getCourseSetList() }
+        binding.btnIntentMap.setOnClickListener { singleCustomerMap() }
 
         return binding.root
     }

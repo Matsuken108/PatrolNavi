@@ -46,20 +46,20 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
             mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
         }
 
-        et_add_groups_name.setText(mGroupsName)
-        et_add_groups_pass.setText(mGroupsPass)
-        et_add_groups_lat.isEnabled = false
-        et_add_groups_lat.setText(mGroupsLat)
-        et_add_groups_lng.isEnabled = false
-        et_add_groups_lng.setText(mGroupsLng)
+        binding.etAddGroupsName.setText(mGroupsName)
+        binding.etAddGroupsPass.setText(mGroupsPass)
+        binding.etAddGroupsLat.isEnabled = false
+        binding.etAddGroupsLat.setText(mGroupsLat)
+        binding.etAddGroupsLng.isEnabled = false
+        binding.etAddGroupsLng.setText(mGroupsLng)
 
-        btn_add_groups_save.setOnClickListener(this)
-        btn_add_groups_location.setOnClickListener(this)
+        binding.btnAddGroupsSave.setOnClickListener(this)
+        binding.btnAddGroupsLocation.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_add_groups_activity)
+        setSupportActionBar(binding.toolbarAddGroupsActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -67,7 +67,7 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_add_groups_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarAddGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
     
     override fun onClick(view: View?) {
@@ -80,8 +80,8 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
                 }
                 R.id.btn_add_groups_location -> {
 
-                    mGroupsName = et_add_groups_name.text.toString()
-                    mGroupsPass = et_add_groups_pass.text.toString()
+                    mGroupsName = binding.etAddGroupsName.text.toString()
+                    mGroupsPass = binding.etAddGroupsPass.text.toString()
 
                     val intent = Intent(this@AddGroupsActivity, AddGroupsMapsActivity::class.java)
                     intent.putExtra(Constants.EXTRA_GROUPS_NAME, mGroupsName)
@@ -98,26 +98,26 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
     private fun validateAddGroups(): Boolean {
         return when {
 
-            TextUtils.isEmpty(et_add_groups_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddGroupsName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_groups_name), true)
                 false
             }
 
-            TextUtils.isEmpty(et_add_groups_pass.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddGroupsPass.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_customer_groups_pass),
                     true
                 )
                 false
             }
-            TextUtils.isEmpty(et_add_groups_lat.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddGroupsLat.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_customer_lat),
                     true
                 )
                 false
             }
-            TextUtils.isEmpty(et_add_groups_lng.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddGroupsLng.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_customer_lng),
                     true
@@ -139,10 +139,10 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         val groupsId = collection.document().id
 
         val groups = Groups(
-            et_add_groups_name.text.toString().trim { it <= ' ' },
-            et_add_groups_pass.text.toString().trim { it <= ' ' },
-            et_add_groups_lat.text.toString().trim { it <= ' ' },
-            et_add_groups_lng.text.toString().trim { it <= ' ' },
+            binding.etAddGroupsName.text.toString().trim { it <= ' ' },
+            binding.etAddGroupsPass.text.toString().trim { it <= ' ' },
+            binding.etAddGroupsLat.text.toString().trim { it <= ' ' },
+            binding.etAddGroupsLng.text.toString().trim { it <= ' ' },
             FirestoreClass().getCurrentUserID(),
             groupsId
         )

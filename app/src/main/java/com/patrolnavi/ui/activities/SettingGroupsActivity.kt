@@ -37,7 +37,7 @@ class SettingGroupsActivity : BaseActivity() {
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_setting_groups_activity)
+        setSupportActionBar(binding.toolbarSettingGroupsActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -45,7 +45,7 @@ class SettingGroupsActivity : BaseActivity() {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_setting_groups_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarSettingGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
 
@@ -61,19 +61,19 @@ class SettingGroupsActivity : BaseActivity() {
         mGroupsList = groupsList
 
         if (groupsList.size > 0) {
-            rv_setting_groups.visibility = View.VISIBLE
-            tv_setting_groups_found.visibility = View.GONE
+            binding.rvSettingGroups.visibility = View.VISIBLE
+            binding.tvSettingGroupsFound.visibility = View.GONE
 
-            rv_setting_groups.layoutManager = LinearLayoutManager(this@SettingGroupsActivity)
-            rv_setting_groups.setHasFixedSize(true)
+            binding.rvSettingGroups.layoutManager = LinearLayoutManager(this@SettingGroupsActivity)
+            binding.rvSettingGroups.setHasFixedSize(true)
 
             val settingGroupsAdapter =
                 SettingGroupsListAdapter(this@SettingGroupsActivity, mGroupsList)
-            rv_setting_groups.adapter = settingGroupsAdapter
+            binding.rvSettingGroups.adapter = settingGroupsAdapter
 
         } else {
-            rv_setting_groups.visibility = View.GONE
-            tv_setting_groups_found.visibility = View.VISIBLE
+            binding.rvSettingGroups.visibility = View.GONE
+            binding.tvSettingGroupsFound.visibility = View.VISIBLE
         }
     }
 

@@ -76,30 +76,30 @@ class DetailsCustomerActivity : BaseActivity() {
         mDateSelect = customer.date
         mCourseSelect = customer.course
 
-        tv_customer_details_date.isEnabled = false
-        tv_customer_details_date.setText(customer.date)
-        tv_customer_details_course.isEnabled = false
-        tv_customer_details_course.setText(customer.course)
-        tv_customer_details_no.isEnabled = false
-        tv_customer_details_no.setText(customer.no.toString())
-        tv_customer_details_first_name.isEnabled = false
-        tv_customer_details_first_name.setText(customer.firstName)
-        tv_customer_details_last_name.isEnabled = false
-        tv_customer_details_last_name.setText(customer.lastName)
-        tv_customer_details_lat.isEnabled = false
-        tv_customer_details_lat.setText(customer.customer_lat)
-        tv_customer_details_lng.isEnabled = false
-        tv_customer_details_lng.setText(customer.customer_lng)
+        binding.tvCustomerDetailsDate.isEnabled = false
+        binding.tvCustomerDetailsDate.setText(customer.date)
+        binding.tvCustomerDetailsCourse.isEnabled = false
+        binding.tvCustomerDetailsCourse.setText(customer.course)
+        binding.tvCustomerDetailsNo.isEnabled = false
+        binding.tvCustomerDetailsNo.setText(customer.no.toString())
+        binding.tvCustomerDetailsFirstName.isEnabled = false
+        binding.tvCustomerDetailsFirstName.setText(customer.firstName)
+        binding.tvCustomerDetailsLastName.isEnabled = false
+        binding.tvCustomerDetailsLastName.setText(customer.lastName)
+        binding.tvCustomerDetailsLat.isEnabled = false
+        binding.tvCustomerDetailsLat.setText(customer.customer_lat)
+        binding.tvCustomerDetailsLng.isEnabled = false
+        binding.tvCustomerDetailsLng.setText(customer.customer_lng)
 //         GlideLoader(context).loadProductPicture(mCustomerDetails.installationImage1,iv_installation_image1)
 //         GlideLoader(context).loadProductPicture(mCustomerDetails.installationImage2,iv_installation_image2)
-        tv_customer_details_memo.isEnabled = false
-        tv_customer_details_memo.setText(customer.memo)
+        binding.tvCustomerDetailsMemo.isEnabled = false
+        binding.tvCustomerDetailsMemo.setText(customer.memo)
     }
 
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_customer_details_activity)
+        setSupportActionBar(binding.toolbarCustomerDetailsActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -107,7 +107,7 @@ class DetailsCustomerActivity : BaseActivity() {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_customer_details_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarCustomerDetailsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

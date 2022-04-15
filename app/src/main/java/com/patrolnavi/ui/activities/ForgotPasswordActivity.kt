@@ -19,9 +19,9 @@ class ForgotPasswordActivity : BaseActivity() {
 
         setupActionBar()
 
-        btn_submit.setOnClickListener {
+        binding.btnSubmit.setOnClickListener {
 
-            val email: String = et_forgot_email.text.toString().trim { it <= ' ' }
+            val email: String = binding.etForgotEmail.text.toString().trim { it <= ' ' }
 
             if (email.isEmpty()) {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
@@ -53,7 +53,7 @@ class ForgotPasswordActivity : BaseActivity() {
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_forgot_password_activity)
+        setSupportActionBar(binding.toolbarForgotPasswordActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -61,6 +61,6 @@ class ForgotPasswordActivity : BaseActivity() {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_forgot_password_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarForgotPasswordActivity.setNavigationOnClickListener { onBackPressed() }
     }
 }

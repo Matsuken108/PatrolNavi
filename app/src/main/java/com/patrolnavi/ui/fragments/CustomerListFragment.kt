@@ -60,17 +60,17 @@ class CustomerListFragment : BaseFragment() {
         var latLngStr: String = ""
 
         if (customerList.size > 0) {
-            rv_course_list.visibility = View.VISIBLE
-            tv_course_list_found.visibility = View.GONE
-            btn_start_navi.visibility = View.VISIBLE
+            binding.rvCourseList.visibility = View.VISIBLE
+            binding.tvCourseListFound.visibility = View.GONE
+            binding.btnStartNavi.visibility = View.VISIBLE
 
-            rv_course_list.layoutManager = LinearLayoutManager(activity)
-            rv_course_list.setHasFixedSize(true)
+            binding.rvCourseList.layoutManager = LinearLayoutManager(activity)
+            binding.rvCourseList.setHasFixedSize(true)
 
             val courseListAdapter = CustomerListAdapter(requireActivity(), customerList)
-            rv_course_list.adapter = courseListAdapter
+            binding.rvCourseList.adapter = courseListAdapter
 
-            btn_start_navi.setOnClickListener {
+            binding.btnStartNavi.setOnClickListener {
 
                 val lat1: Double = mCustomerList.get(0).customer_lat.toDouble()
                 val lng1: Double = mCustomerList.get(0).customer_lng.toDouble()
@@ -96,9 +96,9 @@ class CustomerListFragment : BaseFragment() {
             }
 
         } else {
-            rv_course_list.visibility = View.GONE
-            tv_course_list_found.visibility = View.VISIBLE
-            btn_start_navi.visibility = View.GONE
+            binding.rvCourseList.visibility = View.GONE
+            binding.tvCourseListFound.visibility = View.VISIBLE
+            binding.btnStartNavi.visibility = View.GONE
         }
 
     }

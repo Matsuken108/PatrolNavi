@@ -51,7 +51,7 @@ class DetailsGroupsUsersActivity : BaseActivity() {
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_details_groups_users_activity)
+        setSupportActionBar(binding.toolbarDetailsGroupsUsersActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -59,7 +59,7 @@ class DetailsGroupsUsersActivity : BaseActivity() {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_details_groups_users_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarDetailsGroupsUsersActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

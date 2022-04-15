@@ -47,17 +47,17 @@ class EditBelongingGroupsUserActivity : BaseActivity(), View.OnClickListener {
         Log.i(javaClass.simpleName, "groupsId : ${mGroupsId} groupsUserId : ${mGroupsUserId}")
         Log.i(javaClass.simpleName, "mBelongingGroupsUserId : ${mBelongingGroupsId}")
 
-        et_edit_belonging_groups_user_name.setText(mGroupsUserName)
+        binding.etEditBelongingGroupsUserName.setText(mGroupsUserName)
 
         setupActionBar()
 
-        btn_edit_belonging_groups_user_save.setOnClickListener(this@EditBelongingGroupsUserActivity)
+        binding.btnEditBelongingGroupsUserSave.setOnClickListener(this@EditBelongingGroupsUserActivity)
 
     }
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_edit_groups_users_activity)
+        setSupportActionBar(binding.toolbarEditGroupsUsersActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -65,7 +65,7 @@ class EditBelongingGroupsUserActivity : BaseActivity(), View.OnClickListener {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_edit_groups_users_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarEditGroupsUsersActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -104,7 +104,7 @@ class EditBelongingGroupsUserActivity : BaseActivity(), View.OnClickListener {
     private fun validateBelongingGroupsUserDetails(): Boolean {
         return when {
             TextUtils.isEmpty(
-                et_edit_belonging_groups_user_name.text.toString().trim { it <= ' ' }) -> {
+                binding.etEditBelongingGroupsUserName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_groups_user_name),
                     true
@@ -120,7 +120,7 @@ class EditBelongingGroupsUserActivity : BaseActivity(), View.OnClickListener {
     private fun updateBelongingGroupsUserDetails() {
         val belongingGroupsUserHashMap = HashMap<String, Any>()
 
-        val groupsUser = et_edit_belonging_groups_user_name.text.toString().trim { it <= ' ' }
+        val groupsUser = binding.etEditBelongingGroupsUserName.text.toString().trim { it <= ' ' }
         if (groupsUser != mGroupsUserName) {
             belongingGroupsUserHashMap[Constants.EXTRA_GROUPS_USER_NAME] = groupsUser
         }

@@ -74,24 +74,24 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
 //        et_add_customer_date.isEnabled = false
         binding.etAddCustomerDate.setText(mDateSelect)
 //        et_add_customer_course.isEnabled = false
-        et_add_customer_course.setText(mCourseSelect)
-        et_add_customer_lat.isEnabled = false
-        et_add_customer_lat.setText(mCustomerLat)
-        et_add_customer_lng.isEnabled = false
-        et_add_customer_lng.setText(mCustomerLng)
-        et_add_customer_no.setText(mNo)
-        et_add_customer_first_name.setText(mFirstName)
-        et_add_customer_last_name.setText(mLastName)
+        binding.etAddCustomerCourse.setText(mCourseSelect)
+        binding.etAddCustomerLat.isEnabled = false
+        binding.etAddCustomerLat.setText(mCustomerLat)
+        binding.etAddCustomerLng.isEnabled = false
+        binding.etAddCustomerLng.setText(mCustomerLng)
+        binding.etAddCustomerNo.setText(mNo)
+        binding.etAddCustomerFirstName.setText(mFirstName)
+        binding.etAddCustomerLastName.setText(mLastName)
 
         setupActionBar()
 
-        btn_add_customer_save.setOnClickListener(this)
-        btn_add_customer_location.setOnClickListener(this)
+        binding.btnAddCustomerSave.setOnClickListener(this)
+        binding.btnAddCustomerLocation.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_add_customer_activity)
+        setSupportActionBar(binding.toolbarAddCustomerActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -99,7 +99,7 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_add_customer_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarAddCustomerActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onClick(view: View?) {
@@ -112,9 +112,9 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
                 }
                 R.id.btn_add_customer_location -> {
 
-                    mNo = et_add_customer_no.text.toString()
-                    mFirstName = et_add_customer_first_name.text.toString()
-                    mLastName = et_add_customer_last_name.text.toString()
+                    mNo = binding.etAddCustomerNo.text.toString()
+                    mFirstName = binding.etAddCustomerFirstName.text.toString()
+                    mLastName = binding.etAddCustomerLastName.text.toString()
 
                     val intent =
                         Intent(this@AddCustomerActivity, AddCustomerMapsActivity::class.java)
@@ -138,12 +138,12 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
         return when {
 
 
-            TextUtils.isEmpty(et_add_customer_no.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddCustomerNo.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_no), true)
                 false
-            }
+            }                                       
 
-            TextUtils.isEmpty(et_add_customer_first_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddCustomerFirstName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_customer_first_name),
                     true
@@ -151,7 +151,7 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
                 false
             }
 
-            TextUtils.isEmpty(et_add_customer_last_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddCustomerLastName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_customer_last_name),
                     true
@@ -159,12 +159,12 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
                 false
             }
 
-            TextUtils.isEmpty(et_add_customer_lat.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddCustomerLat.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_lat), true)
                 false
             }
 
-            TextUtils.isEmpty(et_add_customer_lng.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddCustomerLng.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_lng), true)
                 false
             }
@@ -183,14 +183,14 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
         val customerId = collection.document().id
 
         val customer = Customer(
-            et_add_customer_date.text.toString().trim { it <= ' ' },
-            et_add_customer_course.text.toString().trim { it <= ' ' },
-            et_add_customer_no.text.toString().toInt(),
-            et_add_customer_first_name.text.toString().trim { it <= ' ' },
-            et_add_customer_last_name.text.toString().trim { it <= ' ' },
-            et_add_customer_lat.text.toString().trim { it <= ' ' },
-            et_add_customer_lng.text.toString().trim { it <= ' ' },
-            et_add_customer_memo.text.toString().trim { it <= ' ' },
+            binding.etAddCustomerDate.text.toString().trim { it <= ' ' },
+            binding.etAddCustomerCourse.text.toString().trim { it <= ' ' },
+            binding.etAddCustomerNo.text.toString().toInt(),
+            binding.etAddCustomerFirstName.text.toString().trim { it <= ' ' },
+            binding.etAddCustomerLastName.text.toString().trim { it <= ' ' },
+            binding.etAddCustomerLat.text.toString().trim { it <= ' ' },
+            binding.etAddCustomerLng.text.toString().trim { it <= ' ' },
+            binding.etAddCustomerMemo.text.toString().trim { it <= ' ' },
             customerId,
             mGroupsId
         )

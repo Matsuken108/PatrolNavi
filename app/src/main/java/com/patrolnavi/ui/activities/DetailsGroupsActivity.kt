@@ -51,23 +51,23 @@ class DetailsGroupsActivity : BaseActivity() {
 
         Log.i(javaClass.simpleName,"DetailsGroups : ${mGroupsId}")
 
-        et_details_groups_name.isEnabled = false
-        et_details_groups_name.setText(mGroupsName)
-        et_details_groups_pass.isEnabled = false
-        et_details_groups_pass.setText(mGroupsPass)
-        et_details_groups_id.isEnabled = false
-        et_details_groups_id.setText(mGroupsId)
-        et_details_groups_lat.isEnabled = false
-        et_details_groups_lat.setText(mGroupsLat)
-        et_details_groups_lng.isEnabled = false
-        et_details_groups_lng.setText(mGroupsLng)
+        binding.etDetailsGroupsName.isEnabled = false
+        binding.etDetailsGroupsName.setText(mGroupsName)
+        binding.etDetailsGroupsPass.isEnabled = false
+        binding.etDetailsGroupsPass.setText(mGroupsPass)
+        binding.etDetailsGroupsId.isEnabled = false
+        binding.etDetailsGroupsId.setText(mGroupsId)
+        binding.etDetailsGroupsLat.isEnabled = false
+        binding.etDetailsGroupsLat.setText(mGroupsLat)
+        binding.etDetailsGroupsLng.isEnabled = false
+        binding.etDetailsGroupsLng.setText(mGroupsLng)
 
         setupActionBar()
     }
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_details_groups_activity)
+        setSupportActionBar(binding.toolbarDetailsGroupsActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -75,7 +75,7 @@ class DetailsGroupsActivity : BaseActivity() {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_details_groups_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarDetailsGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -117,19 +117,19 @@ class DetailsGroupsActivity : BaseActivity() {
         mGroupsUsersList = groupsUsersList
 
         if (groupsUsersList.size > 0) {
-            rv_groups_users_list.visibility = View.VISIBLE
-            tv_details_groups_found.visibility = View.GONE
+            binding.rvGroupsUsersList.visibility = View.VISIBLE
+            binding.tvDetailsGroupsFound.visibility = View.GONE
 
-            rv_groups_users_list.layoutManager = LinearLayoutManager(this@DetailsGroupsActivity)
-            rv_groups_users_list.setHasFixedSize(true)
+            binding.rvGroupsUsersList.layoutManager = LinearLayoutManager(this@DetailsGroupsActivity)
+            binding.rvGroupsUsersList.setHasFixedSize(true)
 
             val groupsUsersUsersAdapter =
                 GroupsUsersListAdapter(this@DetailsGroupsActivity, mGroupsUsersList)
-            rv_groups_users_list.adapter = groupsUsersUsersAdapter
+            binding.rvGroupsUsersList.adapter = groupsUsersUsersAdapter
 
         } else {
-            rv_groups_users_list.visibility = View.GONE
-            tv_details_groups_found.visibility = View.VISIBLE
+            binding.rvGroupsUsersList.visibility = View.GONE
+            binding.tvDetailsGroupsFound.visibility = View.VISIBLE
         }
     }
 

@@ -26,9 +26,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        tv_forgot_password.setOnClickListener(this)
-        btn_login.setOnClickListener(this)
-        tv_register.setOnClickListener(this)
+        binding.tvForgotPassword.setOnClickListener(this)
+        binding.btnLogin.setOnClickListener(this)
+        binding.tvRegister.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
@@ -57,11 +57,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private fun validateLoginDetails(): Boolean {
         return when {
-            TextUtils.isEmpty(et_login_email.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etLoginEmail.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
-            TextUtils.isEmpty(et_login_password.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etLoginPassword.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
@@ -78,8 +78,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            val email = et_login_email.text.toString().trim { it <= ' ' }
-            val password = et_login_password.text.toString().trim { it <= ' ' }
+            val email = binding.etLoginEmail.text.toString().trim { it <= ' ' }
+            val password = binding.etLoginPassword.text.toString().trim { it <= ' ' }
 
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->

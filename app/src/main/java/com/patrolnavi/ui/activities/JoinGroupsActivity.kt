@@ -36,12 +36,12 @@ class JoinGroupsActivity : BaseActivity(), View.OnClickListener {
 
         setupActionBar()
 
-        btn_join_groups.setOnClickListener(this)
+        binding.btnJoinGroups.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_join_groups_activity)
+        setSupportActionBar(binding.toolbarJoinGroupsActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -49,15 +49,15 @@ class JoinGroupsActivity : BaseActivity(), View.OnClickListener {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_join_groups_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarJoinGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     private fun getJoinGroupsDetails() {
         showProgressDialog(resources.getString(R.string.please_wait))
 
-        mGroupsName = et_join_groups_name.text.toString().trim { it <= ' ' }
-        mGroupsPass = et_join_groups_pass.text.toString().trim { it <= ' ' }
-        mGroupsId = et_join_groups_id.text.toString().trim { it <= ' ' }
+        mGroupsName = binding.etJoinGroupsName.text.toString().trim { it <= ' ' }
+        mGroupsPass = binding.etJoinGroupsPass.text.toString().trim { it <= ' ' }
+        mGroupsId = binding.etJoinGroupsId.text.toString().trim { it <= ' ' }
 
         FirestoreClass().getJoinGroupsDetails(this@JoinGroupsActivity, mGroupsId)
     }
@@ -107,17 +107,17 @@ class JoinGroupsActivity : BaseActivity(), View.OnClickListener {
     private fun validateJoinGroups(): Boolean {
         return when {
 
-            TextUtils.isEmpty(et_join_groups_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etJoinGroupsName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_groups_name), true)
                 false
             }
 
-            TextUtils.isEmpty(et_join_groups_pass.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etJoinGroupsPass.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_groups_pass), true)
                 false
             }
 
-            TextUtils.isEmpty(et_join_groups_id.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etJoinGroupsId.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_groups_id), true)
                 false
             }

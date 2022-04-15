@@ -48,28 +48,27 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
 
         val editCustomerNo = mCustomerDetails.no.toString()
 
-        et_edit_customer_date.setText(mCustomerDetails.date)
-        et_edit_customer_course.setText(mCustomerDetails.course)
-        et_edit_customer_no.setText(editCustomerNo)
-        et_edit_customer_first_name.setText(mCustomerDetails.firstName)
-        et_edit_customer_last_name.setText(mCustomerDetails.lastName)
-        et_edit_customer_lat.isEnabled = false
-        et_edit_customer_lat.setText(mCustomerDetails.customer_lat)
-        et_edit_customer_lng.isEnabled = false
-        et_edit_customer_lng.setText(mCustomerDetails.customer_lng)
+        binding.etEditCustomerDate.setText(mCustomerDetails.date)
+        binding.etEditCustomerCourse.setText(mCustomerDetails.course)
+        binding.etEditCustomerNo.setText(editCustomerNo)
+        binding.etEditCustomerFirstName.setText(mCustomerDetails.firstName)
+        binding.etEditCustomerLastName.setText(mCustomerDetails.lastName)
+        binding.etEditCustomerLat.isEnabled = false
+        binding.etEditCustomerLat.setText(mCustomerDetails.customer_lat)
+        binding.etEditCustomerLng.isEnabled = false
+        binding.etEditCustomerLng.setText(mCustomerDetails.customer_lng)
 //        GlideLoader(context).loadProductPicture(mCustomerDetails.installationImage1,iv_installation_image1)
 //        GlideLoader(context).loadProductPicture(mCustomerDetails.installationImage2,iv_installation_image2)
-        et_edit_customer_memo.setText(mCustomerDetails.memo)
+        binding.etEditCustomerMemo.setText(mCustomerDetails.memo)
 
-
-        btn_edit_customer_update.setOnClickListener(this@EditCustomerActivity)
+        binding.btnEditCustomerUpdate.setOnClickListener(this@EditCustomerActivity)
 
         setupActionBar()
     }
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_edit_customer_activity)
+        setSupportActionBar(binding.toolbarEditCustomerActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -77,7 +76,7 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_edit_customer_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarEditCustomerActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onClick(view: View?) {
@@ -106,42 +105,42 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
     private fun updateCustomerDetails() {
         val customerHashMap = HashMap<String, Any>()
 
-        val date = et_edit_customer_date.text.toString().trim { it <= ' ' }
+        val date = binding.etEditCustomerDate.text.toString().trim { it <= ' ' }
         if (date != mCustomerDetails.date) {
             customerHashMap[Constants.DATE] = date
         }
 
-        val course = et_edit_customer_course.text.toString().trim { it <= ' ' }
+        val course = binding.etEditCustomerCourse.text.toString().trim { it <= ' ' }
         if (course != mCustomerDetails.course) {
             customerHashMap[Constants.COURSE] = course
         }
 
-        val no = et_edit_customer_no.text.toString().trim { it <= ' ' }
+        val no = binding.etEditCustomerNo.text.toString().trim { it <= ' ' }
         if (no != mCustomerDetails.no.toString()) {
             customerHashMap[Constants.NO] = no.toInt()
         }
 
-        val firstName = et_edit_customer_first_name.text.toString().trim { it <= ' ' }
+        val firstName = binding.etEditCustomerFirstName.text.toString().trim { it <= ' ' }
         if (firstName != mCustomerDetails.firstName) {
             customerHashMap[Constants.FIRST_NAME] = firstName
         }
 
-        val lastName = et_edit_customer_last_name.text.toString().trim { it <= ' ' }
+        val lastName = binding.etEditCustomerLastName.text.toString().trim { it <= ' ' }
         if (lastName != mCustomerDetails.lastName) {
             customerHashMap[Constants.LAST_NAME] = lastName
         }
 
-        val lat = et_edit_customer_lat.text.toString().trim { it <= ' ' }
+        val lat = binding.etEditCustomerLat.text.toString().trim { it <= ' ' }
         if (lat != mCustomerDetails.customer_lat) {
             customerHashMap[Constants.LATLNG] = lat
         }
 
-        val lng = et_edit_customer_lng.text.toString().trim { it <= ' ' }
+        val lng = binding.etEditCustomerLng.text.toString().trim { it <= ' ' }
         if (lng != mCustomerDetails.customer_lng) {
             customerHashMap[Constants.LATLNG] = lng
         }
 
-        val memo = et_edit_customer_memo.text.toString().trim { it <= ' ' }
+        val memo = binding.etEditCustomerLng.text.toString().trim { it <= ' ' }
         if (memo != mCustomerDetails.memo) {
             customerHashMap[Constants.MEMO] = memo
         }
@@ -156,22 +155,22 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
     private fun validateCustomerProfileDetails(): Boolean {
         return when {
 
-            TextUtils.isEmpty(et_edit_customer_date.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditCustomerDate.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_date), true)
                 false
             }
 
-            TextUtils.isEmpty(et_edit_customer_course.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditCustomerCourse.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_course), true)
                 false
             }
 
-            TextUtils.isEmpty(et_edit_customer_no.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditCustomerNo.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_no), true)
                 false
             }
 
-            TextUtils.isEmpty(et_edit_customer_first_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditCustomerFirstName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_customer_first_name),
                     true
@@ -179,7 +178,7 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
                 false
             }
 
-            TextUtils.isEmpty(et_edit_customer_last_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditCustomerLastName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_customer_last_name),
                     true
@@ -187,12 +186,12 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
                 false
             }
 
-            TextUtils.isEmpty(et_edit_customer_lat.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditCustomerLat.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_lat), true)
                 false
             }
 
-            TextUtils.isEmpty(et_edit_customer_lng.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etEditCustomerLng.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_customer_lng), true)
                 false
             }

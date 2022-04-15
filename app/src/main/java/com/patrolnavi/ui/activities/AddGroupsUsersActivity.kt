@@ -57,12 +57,12 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
 
         setupActionBar()
 
-        btn_add_groups_user_save.setOnClickListener(this)
+        binding.btnAddGroupsUserSave.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
 
-        setSupportActionBar(toolbar_add_groups_users_activity)
+        setSupportActionBar(binding.toolbarAddGroupsUsersActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
@@ -70,7 +70,7 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
-        toolbar_add_groups_users_activity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarAddGroupsUsersActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onClick(view: View?) {
@@ -101,7 +101,7 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
 
     private fun validateAddGroupsUsers(): Boolean {
         return when {
-            TextUtils.isEmpty(et_add_groups_users_name.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(binding.etAddGroupsUsersName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_groups_user_name),
                     true
@@ -122,7 +122,7 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
             mGroupsName,
             mGroupsUserId,
             mBelongingGroupsId,
-            et_add_groups_users_name.text.toString().trim { it <= ' ' },
+            binding.etAddGroupsUsersName.text.toString().trim { it <= ' ' },
             FirestoreClass().getCurrentUserID(),
         )
 
@@ -151,7 +151,7 @@ class AddGroupsUsersActivity : BaseActivity(), View.OnClickListener {
             mGroupsName,
             mGroupsUserId,
             mBelongingGroupsId,
-            et_add_groups_users_name.text.toString().trim { it <= ' ' },
+            binding.etAddGroupsUsersName.text.toString().trim { it <= ' ' },
             FirestoreClass().getCurrentUserID()
         )
 
