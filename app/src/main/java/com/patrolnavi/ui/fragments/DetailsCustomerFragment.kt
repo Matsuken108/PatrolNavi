@@ -39,9 +39,14 @@ class DetailsCustomerFragment : BaseFragment() {
 
         val customer = args.customer
         Log.i(javaClass.simpleName,"customer ${customer}")
+        val customerId = args.customerId
+        Log.i(javaClass.simpleName,"customerId ${customerId}")
 
-        binding.tvCustomerDetailsFragmentFirstName.setText(customer.firstName)  //TODO NullPoint
+        binding.tvCustomerDetailsFragmentFirstName.isEnabled = false
+        binding.tvCustomerDetailsFragmentFirstName.setText(customer.firstName)
+        binding.tvCustomerDetailsFragmentLastName.isEnabled = false
         binding.tvCustomerDetailsFragmentLastName.setText(customer.lastName)
+        binding.tvCustomerDetailsFragmentMemo.isEnabled = false
         binding.tvCustomerDetailsFragmentMemo.setText(customer.memo)
 
         val extras: Bundle?
@@ -62,14 +67,19 @@ class DetailsCustomerFragment : BaseFragment() {
 
     private fun singleCustomerMap(){
 
-        findNavController().navigate(R.id.action_detailsCustomerFragment_to_singleCustomerMapFragment)
+        val customer = args.customer
 
+        val action = DetailsCustomerFragmentDirections.actionDetailsCustomerFragmentToSingleCustomerMapFragment(customer)
+        findNavController().navigate(action)
+        
     }
 
     private fun singleNavigation(){
 
         val lat: Double = args.customer.customer_lat.toDouble()
         val lng: Double = args.customer.customer_lng.toDouble()
+
+        Log.i(javaClass.simpleName,"Lat : ${lat} Lng : ${lng}")
 
         val str =
             "http://maps.google.com/maps?saddr=&daddr=${lat},${lng}&dirflg=d"
@@ -93,10 +103,9 @@ class DetailsCustomerFragment : BaseFragment() {
 
         //TODO for文で繰り返すために何番目かを指定する必要あり
 
-//        val customerId : String = args.customerId
+        val customer = args.customer
 
-        val customerNumber : Int = 2
-//        mCustomerList.indexOf()
+        val customerNumber : Int = mCustomerList.indexOf(customer)
 
         Log.i(javaClass.simpleName,"index : ${customerNumber}")
 

@@ -143,6 +143,7 @@
     <string name="btn_start_single_navi">単体ナビ開始</string>
     <string name="btn_start_order_navi">順序ナビ開始</string>
     <string name="btn_intent_map">マップ表示</string>
+    <string name="details_customer_title">お客様情報</string>
 
 
 </resources>

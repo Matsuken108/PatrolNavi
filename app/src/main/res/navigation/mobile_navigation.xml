@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/detailsCustomerFragment"
         android:name="com.patrolnavi.ui.fragments.DetailsCustomerFragment"
-        android:label="fragment_details_customer"
+        android:label="@string/details_customer_title"
         tools:layout="@layout/fragment_details_customer" >
         <action
             android:id="@+id/action_detailsCustomerFragment_to_singleCustomerMapFragment"
