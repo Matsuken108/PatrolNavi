@@ -33,6 +33,7 @@
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_groups_details.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/activity_groups_users_details.xml" value="0.27794871794871795" />
+        <entry key="app/src/main/res/layout/activity_invitation_groups.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_join_groups.xml" value="0.26944444444444443" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.23703703703703705" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28229166666666666" />

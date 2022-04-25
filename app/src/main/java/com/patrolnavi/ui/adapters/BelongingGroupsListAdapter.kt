@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.patrolnavi.R
+import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.BelongingGroups
-import com.patrolnavi.ui.activities.EditBelongingGroupsUserActivity
+import com.patrolnavi.ui.activities.DeleteBelongingGroupsUserActivity
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.item_belonging_groups_layout.view.*
+import kotlinx.android.synthetic.main.item_edit_groups_users_list_layout.view.*
 
 class BelongingGroupsListAdapter(
     private val context: Context,
@@ -33,15 +35,16 @@ class BelongingGroupsListAdapter(
         if (holder is MyViewHolder) {
             holder.itemView.tv_belonging_groups_list_name.text = model.groups_name
 
-            holder.itemView.iv_belonging_groups_list_edit.setOnClickListener {
-                val intent = Intent(context, EditBelongingGroupsUserActivity::class.java)
-                intent.putExtra(Constants.EXTRA_GROUPS_ID,model.groups_id)
-                intent.putExtra(Constants.EXTRA_GROUPS_USER_NAME,model.groups_user_name)
-                intent.putExtra(Constants.BELONGING_GROUPS_ID,model.belonging_groups_id)
-                intent.putExtra(Constants.EXTRA_GROUPS_USER_ID,model.groups_user_id)
+            if(model.groups_user_id !== FirestoreClass().getCurrentUserID()){
+                holder.itemView.iv_belonging_groups_list_delete.visibility = View.VISIBLE
+            holder.itemView.iv_belonging_groups_list_delete.setOnClickListener {
+                val intent = Intent(context, DeleteBelongingGroupsUserActivity::class.java)
+                intent.putExtra(Constants.EXTRA_GROUPS_ID, model.groups_id)
                 context.startActivity(intent)
             }
-
+            } else{
+                holder.itemView.iv_belonging_groups_list_delete.visibility = View.GONE
+            }
         }
     }
 

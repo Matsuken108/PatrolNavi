@@ -49,10 +49,10 @@ class DetailsCustomerActivity : BaseActivity() {
 
     private fun getGroupsCenter() {
 
-        FirestoreClass().getDetailsCustomerMapsCenter(this@DetailsCustomerActivity, mGroupsId)
+        FirestoreClass().getGroupsDetails(this@DetailsCustomerActivity, mGroupsId)
     }
 
-    fun getDetailsCustomerMapsCenterSuccess(groups: Groups) {
+    fun getGroupsDetailsSuccess(groups: Groups) {
 
         mGroups = groups
 

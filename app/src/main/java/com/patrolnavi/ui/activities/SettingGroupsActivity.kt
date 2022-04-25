@@ -2,24 +2,15 @@ package com.patrolnavi.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.DocumentId
 import com.patrolnavi.R
 import com.patrolnavi.databinding.ActivitySettingGroupsBinding
 import com.patrolnavi.firestore.FirestoreClass
-import com.patrolnavi.models.BelongingGroups
 import com.patrolnavi.models.Groups
-import com.patrolnavi.models.GroupsUsers
 import com.patrolnavi.ui.adapters.SettingGroupsListAdapter
-import com.patrolnavi.utils.Constants
-import kotlinx.android.synthetic.main.activity_add_customer.*
-import kotlinx.android.synthetic.main.activity_setting_groups.*
 
 class SettingGroupsActivity : BaseActivity() {
 
@@ -97,11 +88,7 @@ class SettingGroupsActivity : BaseActivity() {
                 startActivity(intent)
                 return true
             }
-            R.id.navigation_join_groups -> {
-                val intent = Intent(this@SettingGroupsActivity, JoinGroupsActivity::class.java)
-                startActivity(intent)
-                return true
-            }
+
         }
         return super.onOptionsItemSelected(item)
     }

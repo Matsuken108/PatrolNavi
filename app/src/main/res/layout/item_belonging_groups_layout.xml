@@ -21,11 +21,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/iv_belonging_groups_list_edit"
+        android:id="@+id/iv_belonging_groups_list_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_vector_edit_white" />
+        app:srcCompat="@drawable/ic_vector_delete_white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -122,8 +122,8 @@
     <string name="hint_groups_pass">グループパスワード</string>
     <string name="hint_groups_id">グループID</string>
     <string name="groups_users">グループメンバー</string>
-    <string name="join_groups_title">既存のグループに参加</string>
-    <string name="join_groups">参加</string>
+    <string name="invitation_groups_title">グループに招待</string>
+    <string name="invitation_groups">招待</string>
     <string name="err_msg_enter_groups_id">グループIDを入力してください</string>
     <string name="hint_groups_lat">地図の中央設定(緯度)</string>
     <string name="hint_groups_lng">地図の中央設定(経度)</string>
@@ -144,6 +144,11 @@
     <string name="btn_start_order_navi">順序ナビ開始</string>
     <string name="btn_intent_map">マップ表示</string>
     <string name="details_customer_title">お客様情報</string>
+    <string name="hint_user_id">ユーザーID</string>
+    <string name="err_msg_user_id">ユーザーIDを入力してください</string>
+    <string name="edit_groups_name_title">グループ名修正</string>
+    <string name="delete_groups_users_title">グループメンバー削除</string>
+    <string name="belonging_groups">参加グループ</string>
 
 
 </resources>

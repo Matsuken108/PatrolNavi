@@ -32,7 +32,7 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
     private var mGroupsPass: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
-    private lateinit var mGroupsUsersList:ArrayList<GroupsUsers>
+    private lateinit var mGroupsUsersList: ArrayList<GroupsUsers>
     private lateinit var mGroupsDetails: Groups
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,9 +96,8 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
-            R.id.navigation_add_groups_users -> {
-                val intent =
-                    Intent(this@EditGroupsActivity, AddGroupsUsersActivity::class.java)
+            R.id.navigation_invitation_groups -> {
+                val intent = Intent(this@EditGroupsActivity, InvitationGroupsActivity::class.java)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
                 intent.putExtra(Constants.EXTRA_GROUPS_NAME,mGroupsName)
                 intent.putExtra(Constants.EXTRA_GROUPS_PASS,mGroupsPass)
@@ -126,7 +125,8 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
             binding.rvEditGroupsUsersList.visibility = View.VISIBLE
             binding.tvEditGroupsFound.visibility = View.GONE
 
-            binding.rvEditGroupsUsersList.layoutManager = LinearLayoutManager(this@EditGroupsActivity)
+            binding.rvEditGroupsUsersList.layoutManager =
+                LinearLayoutManager(this@EditGroupsActivity)
             binding.rvEditGroupsUsersList.setHasFixedSize(true)
 
             val editGroupsUsersUsersAdapter =

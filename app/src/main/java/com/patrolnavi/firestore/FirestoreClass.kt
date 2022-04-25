@@ -20,7 +20,7 @@ class FirestoreClass {
 
     fun registerUser(activity: RegisterActivity, userInfo: User) {
         mFireStore.collection(Constants.USERS)
-            .document(userInfo.id)
+            .document(userInfo.user_id)
             .set(userInfo, SetOptions.merge())
             .addOnSuccessListener {
                 activity.userRegistrationSuccess()
@@ -83,47 +83,80 @@ class FirestoreClass {
             }
     }
 
-    fun getUserProfileDetails(activityDetails: DetailsUserProfileActivity) {
+    fun getUserProfileDetails(activity: Activity) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .get()
             .addOnSuccessListener { document ->
-                Log.i(activityDetails.javaClass.simpleName, document.toString())
+                Log.i(activity.javaClass.simpleName, document.toString())
                 val user = document.toObject(User::class.java)
                 if (user != null) {
-                    activityDetails.userProfileGetSuccess(user)
+                    when (activity) {
+                        is DetailsUserProfileActivity -> {
+                            activity.userProfileGetSuccess(user)
+                        }
+                        is AddGroupsActivity -> {
+                            activity.userProfileGetSuccess(user)
+                        }
+                    }
                 }
             }
             .addOnFailureListener { e ->
-                activityDetails.hideProgressDialog()
-                Log.e(
-                    activityDetails.javaClass.simpleName,
-                    "ユーザー情報読み込みエラー",
-                    e
-                )
+                when (activity) {
+                    is DetailsUserProfileActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(
+                            activity.javaClass.simpleName,
+                            "ユーザー情報読み込みエラー",
+                            e
+                        )
+                    }
+                    is AddGroupsActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(
+                            activity.javaClass.simpleName,
+                            "ユーザー情報読み込みエラー",
+                            e
+                        )
+                    }
+                }
             }
     }
 
     fun uploadBelongingGroups(
-        activity: AddGroupsUsersActivity,
+        activity: Activity,
         belongingGroupsInfo: BelongingGroups,
-        belongingGroupsId: String
+        groupsId: String
     ) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .collection(Constants.BELONGING_GROUPS)
-            .document(belongingGroupsId)
+            .document(groupsId)
             .set(belongingGroupsInfo)
             .addOnSuccessListener {
-                activity.belongingGroupsUploadSuccess()
-                Log.i(activity.javaClass.simpleName, "グループ追加完了")
+                when(activity) {
+                    is AddGroupsActivity -> {
+                        activity.belongingGroupsUploadSuccess()
+                        Log.i(activity.javaClass.simpleName, "グループ追加完了")
+                    }
+                    is InvitationGroupsActivity -> {
+                        activity.belongingGroupsUploadSuccess()
+                        Log.i(activity.javaClass.simpleName, "グループ追加完了")
+                    }
+                }
             }
             .addOnFailureListener { e ->
-                activity.hideProgressDialog()
-                Log.e(activity.javaClass.simpleName, "グループ追加エラー", e)
+                when(activity){
+                    is AddGroupsActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName, "グループ追加エラー", e)
+                    }
+                    is InvitationGroupsActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName, "グループ追加エラー", e)
+                    }
+                }
             }
-
-
     }
 
     fun getBelongingGroupsList(activityDetails: DetailsUserProfileActivity) {
@@ -157,45 +190,22 @@ class FirestoreClass {
             }
     }
 
-    fun updateBelongingGroupsUserDetails(
-        activity: EditBelongingGroupsUserActivity,
-        belongingUserId: String,
-        belongingGroupsUserHashMap: HashMap<String, Any>
-    ) {
-        mFireStore.collection(Constants.USERS)
-            .document(getCurrentUserID())
-            .collection(Constants.BELONGING_GROUPS)
-            .document(belongingUserId)
-            .update(belongingGroupsUserHashMap)
-            .addOnSuccessListener {
-                activity.belongingGroupsUserDetailsUpdateSuccess()
-                Log.i(activity.javaClass.simpleName, "ユーザー情報更新完了")
-            }
-            .addOnFailureListener {
-                activity.hideProgressDialog()
-                Log.e(
-                    activity.javaClass.simpleName,
-                    "ユーザー情報更新エラー"
-                )
-            }
-    }
-
     fun deleteBelongingGroupsUsers(
         activity: Activity,
-        belongingUserId: String
+        groupsId: String
     ) {
         mFireStore.collection(Constants.USERS)
             .document(getCurrentUserID())
             .collection(Constants.BELONGING_GROUPS)
-            .document(belongingUserId)
+            .document(groupsId)
             .delete()
             .addOnSuccessListener {
                 when (activity) {
-                    is EditBelongingGroupsUserActivity -> {
+                    is DeleteBelongingGroupsUserActivity -> {
                         activity.belongingGroupsUsersDeleteSuccess()
                         Log.i(javaClass.simpleName, "BelongingGroups お客様情報削除完了")
                     }
-                    is DetailsGroupsUsersActivity -> {
+                    is DeleteGroupsUsersActivity -> {
                         activity.belongingGroupsUsersDeleteSuccess()
                         Log.i(javaClass.simpleName, "BelongingGroups お客様情報削除完了")
                     }
@@ -204,11 +214,11 @@ class FirestoreClass {
             }
             .addOnFailureListener { e ->
                 when (activity) {
-                    is EditBelongingGroupsUserActivity -> {
+                    is DeleteBelongingGroupsUserActivity -> {
                         activity.hideProgressDialog()
                         Log.e(activity.javaClass.simpleName, "BelongingGroups お客様情報削除エラー", e)
                     }
-                    is DetailsGroupsUsersActivity -> {
+                    is DeleteGroupsUsersActivity -> {
                         activity.hideProgressDialog()
                         Log.e(activity.javaClass.simpleName, "BelongingGroups お客様情報削除エラー", e)
                     }
@@ -238,6 +248,47 @@ class FirestoreClass {
                 )
             }
     }
+
+    fun getGroupsDetails(activity: Activity, groupsId: String) {
+        mFireStore.collection(Constants.GROUPS)
+            .document(groupsId)
+            .get()
+            .addOnSuccessListener { document ->
+                Log.i(activity.javaClass.simpleName, document.toString())
+                val groups = document.toObject(Groups::class.java)
+                if (groups != null) {
+                    when (activity) {
+                        is DetailsCustomerActivity -> {
+                            activity.getGroupsDetailsSuccess(groups)
+                            Log.i(javaClass.simpleName, "グループ情報取得完了")
+                        }
+                        is DeleteGroupsUsersActivity -> {
+                            activity.getGroupsDetailsSuccess(groups)
+                            Log.i(javaClass.simpleName, "グループ情報取得完了")
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener {
+                when(activity) {
+                    is DetailsCustomerActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(
+                            activity.javaClass.simpleName,
+                            "グループ情報取得エラー"
+                        )
+                    }
+                    is DeleteGroupsUsersActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(
+                            activity.javaClass.simpleName,
+                            "グループ情報取得エラー"
+                        )
+                    }
+                }
+            }
+    }
+
 
     fun uploadGroupsDetails(activity: AddGroupsActivity, groupsId: String, groupsInfo: Groups) {
 
@@ -305,10 +356,9 @@ class FirestoreClass {
     }
 
     fun uploadGroupsUsers(
-        activity: AddGroupsUsersActivity,
+        activity: Activity,
         groupsId: String,
         groupsUsers: GroupsUsers,
-        groupsUserId: String
     ) {
 
         Log.i(activity.javaClass.simpleName, "AddGroupsUsers : get data groupsId: ${groupsId}")
@@ -316,15 +366,31 @@ class FirestoreClass {
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.GROUPS_USERS)
-            .document(groupsUserId)
+            .document(getCurrentUserID())
             .set(groupsUsers)
             .addOnSuccessListener {
-                activity.groupsUsersUploadSuccess()
-                Log.i(activity.javaClass.simpleName, "グループユーザー登録完了")
+                when (activity) {
+                    is AddGroupsActivity -> {
+                        activity.groupsUsersUploadSuccess()
+                        Log.i(activity.javaClass.simpleName, "グループユーザー登録完了")
+                    }
+                    is InvitationGroupsActivity -> {
+                        activity.groupsUsersUploadSuccess()
+                        Log.i(activity.javaClass.simpleName, "グループユーザー登録完了")
+                    }
+                }
             }
             .addOnFailureListener { e ->
-                activity.hideProgressDialog()
-                Log.e(activity.javaClass.simpleName, "グループ追加エラー", e)
+                when(activity){
+                    is AddGroupsActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName, "グループ追加エラー", e)
+                    }
+                    is InvitationGroupsActivity -> {
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName, "グループ追加エラー", e)
+                    }
+                }
             }
     }
 
@@ -340,7 +406,7 @@ class FirestoreClass {
 
                 for (i in document.documents) {
                     val groupsUsers = i.toObject(GroupsUsers::class.java)!!
-                    groupsUsers.user_id = i.id
+                    groupsUsers.groups_user_id = i.id
                     groupsUsersList.add(groupsUsers)
                 }
                 activity.successGroupsUsersList(groupsUsersList)
@@ -371,7 +437,7 @@ class FirestoreClass {
 
                 for (i in document.documents) {
                     val groupsUsers = i.toObject(GroupsUsers::class.java)!!
-                    groupsUsers.user_id = i.id
+                    groupsUsers.groups_user_id = i.id
                     groupsUsersList.add(groupsUsers)
                 }
                 activity.successEditGroupsUsersList(groupsUsersList)
@@ -393,20 +459,19 @@ class FirestoreClass {
     fun deleteGroupsUsers(
         activity: Activity,
         groupsId: String,
-        groupsUserId: String
     ) {
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.GROUPS_USERS)
-            .document(groupsUserId)
+            .document(getCurrentUserID())
             .delete()
             .addOnSuccessListener {
                 when (activity) {
-                    is DetailsGroupsUsersActivity -> {
+                    is DeleteGroupsUsersActivity -> {
                         activity.groupsUsersDeleteSuccess()
                         Log.i(javaClass.simpleName, "GroupsUsers お客様情報削除完了")
                     }
-                    is EditBelongingGroupsUserActivity -> {
+                    is DeleteBelongingGroupsUserActivity -> {
                         activity.deleteGroupsUsersSuccess()
                         Log.i(javaClass.simpleName, "GroupsUsers お客様情報削除完了")
                     }
@@ -414,68 +479,16 @@ class FirestoreClass {
             }
             .addOnFailureListener { e ->
                 when (activity) {
-                    is DetailsGroupsUsersActivity -> {
+                    is DeleteGroupsUsersActivity -> {
                         activity.hideProgressDialog()
                         Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
                     }
-                    is EditBelongingGroupsUserActivity -> {
+                    is DeleteBelongingGroupsUserActivity -> {
                         activity.hideProgressDialog()
                         Log.e(activity.javaClass.simpleName, "お客様情報削除エラー", e)
                     }
                 }
 
-            }
-    }
-
-
-    fun getJoinGroupsDetails(activity: JoinGroupsActivity, groupsId: String) {
-
-        mFireStore.collection(Constants.GROUPS)
-            .document(groupsId)
-            .get()
-            .addOnSuccessListener { document ->
-                Log.i(activity.javaClass.simpleName, document.toString())
-                val groups = document.toObject(Groups::class.java)
-                if (groups != null) {
-                    activity.successGroupsJoinDetails(groups)
-                    Log.i(
-                        javaClass.simpleName,
-                        "Groups 読み込み完了"
-                    )
-                }
-            }
-            .addOnFailureListener {
-                activity.hideProgressDialog()
-                Log.e(
-                    activity.javaClass.simpleName,
-                    "Groups 読み込みエラー"
-                )
-            }
-    }
-
-    fun JoinGroups(
-        activity: JoinGroupsActivity,
-        groupsHashMap: HashMap<String, Any>,
-        groupsId: String
-    ) {
-        mFireStore.collection(Constants.USERS)
-            .document(getCurrentUserID())
-            .collection(Constants.BELONGING_GROUPS_ID)
-            .document(groupsId)
-            .update(groupsHashMap)
-            .addOnSuccessListener {
-                activity.successGroupsJoin()
-                Log.i(
-                    javaClass.simpleName,
-                    "Groups 読み込み完了"
-                )
-            }
-            .addOnFailureListener {
-                activity.hideProgressDialog()
-                Log.e(
-                    activity.javaClass.simpleName,
-                    "Groups 読み込みエラー"
-                )
             }
     }
 
@@ -568,27 +581,6 @@ class FirestoreClass {
                 )
             }
     }
-
-    fun getDetailsCustomerMapsCenter(activity: DetailsCustomerActivity, groupsId: String) {
-        mFireStore.collection(Constants.GROUPS)
-            .document(groupsId)
-            .get()
-            .addOnSuccessListener { document ->
-                Log.i(activity.javaClass.simpleName, document.toString())
-                val groups = document.toObject(Groups::class.java)
-                if (groups != null) {
-                    activity.getDetailsCustomerMapsCenterSuccess(groups)
-                }
-            }
-            .addOnFailureListener {
-                activity.hideProgressDialog()
-                Log.e(
-                    activity.javaClass.simpleName,
-                    "MapsCenter読み込みエラー"
-                )
-            }
-    }
-
 
     fun updateCustomerDetails(
         activity: EditCustomerActivity,

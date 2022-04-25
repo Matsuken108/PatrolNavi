@@ -101,8 +101,6 @@ class DetailsCustomerFragment : BaseFragment() {
 
         var latLngStr: String = ""
 
-        //TODO for文で繰り返すために何番目かを指定する必要あり
-
         val customer = args.customer
 
         val customerNumber : Int = mCustomerList.indexOf(customer)

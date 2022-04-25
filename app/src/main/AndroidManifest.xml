@@ -92,7 +92,7 @@
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activities.DetailsGroupsUsersActivity"
+            android:name=".ui.activities.DeleteGroupsUsersActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -108,7 +108,7 @@
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activities.JoinGroupsActivity"
+            android:name=".ui.activities.InvitationGroupsActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -120,7 +120,7 @@
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.activities.EditBelongingGroupsUserActivity"
+            android:name=".ui.activities.DeleteBelongingGroupsUserActivity"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
