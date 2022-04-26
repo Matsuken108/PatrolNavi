@@ -67,7 +67,7 @@ class EditCourseActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        return super.onCreateOptionsMenu(menu)
+        super.onCreateOptionsMenu(menu)
 
         val inflater = menuInflater
 

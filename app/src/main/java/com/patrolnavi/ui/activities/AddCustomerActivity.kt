@@ -206,7 +206,15 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
             Toast.LENGTH_SHORT
         ).show()
 
-        startActivity(Intent(this@AddCustomerActivity, EditCourseActivity::class.java))
+        val intent = Intent(this@AddCustomerActivity, EditCourseActivity::class.java)
+        intent.putExtra(Constants.EXTRA_DATE_SELECT,mDateSelect)
+        intent.putExtra(Constants.EXTRA_COURSE_SELECT,mCourseSelect)
+        intent.putExtra(Constants.EXTRA_GROUPS_ID,mGroupsId)
+        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+        intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
+
+        startActivity(intent)
+        
         finish()
     }
 
