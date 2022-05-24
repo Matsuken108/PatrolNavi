@@ -411,6 +411,7 @@ class FirestoreClass {
         activity: Activity,
         groupsId: String,
         groupsUsers: GroupsUsers,
+        userId: String
     ) {
 
         Log.i(activity.javaClass.simpleName, "AddGroupsUsers : get data groupsId: ${groupsId}")
@@ -418,7 +419,7 @@ class FirestoreClass {
         mFireStore.collection(Constants.GROUPS)
             .document(groupsId)
             .collection(Constants.GROUPS_USERS)
-            .document(getCurrentUserID())
+            .document(userId)
             .set(groupsUsers)
             .addOnSuccessListener {
                 when (activity) {

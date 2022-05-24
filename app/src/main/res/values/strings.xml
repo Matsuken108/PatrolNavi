@@ -97,7 +97,7 @@
     <string name="btn_map">Map</string>
     <string name="set">設定</string>
     <string name="latLng_add">設定</string>
-    <string name="message_latLng_add">設定しますか？</string>
+    <string name="message_latLng_add">スタート位置はここで良いですか？</string>
     <string name="btn_intent_solicitation">拡販マップ</string>
     <string name="title_activity_solicitation_maps">SolicitationMapsActivity</string>
     <string name="setting_groups">グループ設定</string>

@@ -199,6 +199,7 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
             this@AddGroupsActivity,
             mGroupsId,
             groupsUsers,
+            FirestoreClass().getCurrentUserID()
         )
     }
 
@@ -227,15 +228,8 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
 
     fun belongingGroupsUploadSuccess(){
         hideProgressDialog()
-        
-        //TODO 登録後はセッティング画面に！
 
-        val intent = Intent(this@AddGroupsActivity, DetailsGroupsActivity::class.java)
-        intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
-        intent.putExtra(Constants.EXTRA_GROUPS_NAME, mGroupsName)
-        intent.putExtra(Constants.EXTRA_GROUPS_PASS, mGroupsPass)
-        intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
-        intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
+        val intent = Intent(this@AddGroupsActivity, SettingGroupsActivity::class.java)
         startActivity(intent)
         finish()
 

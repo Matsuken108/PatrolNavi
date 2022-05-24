@@ -103,6 +103,8 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    //TODO 一致確認が出来てない
+
     private fun getInvitationUserDetails(){
 
         showProgressDialog(resources.getString(R.string.please_wait))
@@ -118,6 +120,8 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
             mInvitationUserId,
         )
     }
+
+    //TODO 不一致でフリーズする
 
     fun userProfileGetSuccess(user:User){
 
@@ -159,6 +163,7 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
             this@InvitationGroupsActivity,
             mGroupsId,
             groupsUsers,
+            mInvitationUserId
         )
     }
 

@@ -135,8 +135,7 @@ class AddGroupsMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val snackBar =
             Snackbar.make(
                 findViewById(android.R.id.content),
-                "lat: ${mGroupsLat} lng: ${mGroupsLng}",
-//                R.string.message_latLng_add,
+                R.string.message_latLng_add,
                 Snackbar.LENGTH_LONG
             )
 
@@ -148,7 +147,10 @@ class AddGroupsMapsActivity : AppCompatActivity(), OnMapReadyCallback {
             intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
             intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
 
-            Log.i(javaClass.simpleName,"AddGroupsMap name:${mGroupsName} pass:${mGroupsPass} lat:${mGroupsLat} lng:${mGroupsLng}")
+            Log.i(
+                javaClass.simpleName,
+                "AddGroupsMap name:${mGroupsName} pass:${mGroupsPass} lat:${mGroupsLat} lng:${mGroupsLng}"
+            )
 
             startActivity(intent)
             finish()
