@@ -144,11 +144,15 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         val collection = db.collection(Constants.GROUPS)
         mGroupsId = collection.document().id
 
+        val groupsUserId :ArrayList<String> = ArrayList()
+        groupsUserId.add(FirestoreClass().getCurrentUserID())
+
         val groups = Groups(
             binding.etAddGroupsName.text.toString().trim { it <= ' ' },
             binding.etAddGroupsPass.text.toString().trim { it <= ' ' },
             binding.etAddGroupsLat.text.toString().trim { it <= ' ' },
             binding.etAddGroupsLng.text.toString().trim { it <= ' ' },
+            groupsUserId,
             FirestoreClass().getCurrentUserID(),
             mGroupsId
         )
@@ -216,12 +220,15 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         FirestoreClass().uploadBelongingGroups(
             this@AddGroupsActivity,
             belongingGroups,
+            FirestoreClass().getCurrentUserID(),
             mGroupsId
         )
     }
 
     fun belongingGroupsUploadSuccess(){
         hideProgressDialog()
+        
+        //TODO 登録後はセッティング画面に！
 
         val intent = Intent(this@AddGroupsActivity, DetailsGroupsActivity::class.java)
         intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)

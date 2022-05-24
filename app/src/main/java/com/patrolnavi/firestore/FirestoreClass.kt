@@ -1,10 +1,13 @@
 package com.patrolnavi.firestore
 
 import android.app.Activity
+import android.content.ComponentName
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.patrolnavi.models.*
@@ -126,15 +129,16 @@ class FirestoreClass {
     fun uploadBelongingGroups(
         activity: Activity,
         belongingGroupsInfo: BelongingGroups,
+        userId: String,
         groupsId: String
     ) {
         mFireStore.collection(Constants.USERS)
-            .document(getCurrentUserID())
+            .document(userId)
             .collection(Constants.BELONGING_GROUPS)
             .document(groupsId)
             .set(belongingGroupsInfo)
             .addOnSuccessListener {
-                when(activity) {
+                when (activity) {
                     is AddGroupsActivity -> {
                         activity.belongingGroupsUploadSuccess()
                         Log.i(activity.javaClass.simpleName, "グループ追加完了")
@@ -146,7 +150,7 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener { e ->
-                when(activity){
+                when (activity) {
                     is AddGroupsActivity -> {
                         activity.hideProgressDialog()
                         Log.e(activity.javaClass.simpleName, "グループ追加エラー", e)
@@ -270,7 +274,7 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener {
-                when(activity) {
+                when (activity) {
                     is DetailsCustomerActivity -> {
                         activity.hideProgressDialog()
                         Log.e(
@@ -307,6 +311,7 @@ class FirestoreClass {
 
     fun getGroupsList(activity: SettingGroupsActivity) {
         mFireStore.collection(Constants.GROUPS)
+            .whereArrayContains(Constants.GROUPS_USER_ID, getCurrentUserID())
             .get()
             .addOnSuccessListener { document ->
                 Log.i(activity.javaClass.simpleName, document.documents.toString())
@@ -355,6 +360,53 @@ class FirestoreClass {
             }
     }
 
+    fun getInvitationUserDetails(
+        activity: InvitationGroupsActivity,
+        userId: String
+    ) {
+        mFireStore.collection(Constants.USERS)
+            .document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                Log.i(activity.javaClass.simpleName, document.toString())
+                val user = document.toObject(User::class.java)
+                if (user != null) {
+                    activity.userProfileGetSuccess(user)
+                }
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "ユーザー情報読み込みエラー",
+                    e
+                )
+                Toast.makeText(activity,"一致するユーザーIDがありません",Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    fun addGroupsUser(activity: InvitationGroupsActivity,userId: String,groupsId: String){
+        mFireStore.collection(Constants.GROUPS)
+            .document(groupsId)
+            .update(Constants.GROUPS_USER_ID,FieldValue.arrayUnion(userId))
+            .addOnSuccessListener {
+                activity.addGroupsUserSuccess()
+                Log.i(
+                    javaClass.simpleName,
+                    "groupsUser 追加完了"
+                )
+            }
+            .addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "groupsUser 追加エラー",
+                    e
+                )
+            }
+    }
+
+
     fun uploadGroupsUsers(
         activity: Activity,
         groupsId: String,
@@ -381,7 +433,7 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener { e ->
-                when(activity){
+                when (activity) {
                     is AddGroupsActivity -> {
                         activity.hideProgressDialog()
                         Log.e(activity.javaClass.simpleName, "グループ追加エラー", e)

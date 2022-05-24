@@ -24,8 +24,8 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
     private var mGroupsPass: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
-    private var mUserId :String =""
-    private var mUserFullName: String = ""
+    private var mInvitationUserId :String =""
+    private var mInvitationUserFullName: String = ""
     private lateinit var mGroupsList: Groups
     private lateinit var mUserDetails: User
 
@@ -68,71 +68,12 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
         binding.toolbarJoinGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    private fun uploadGroupsUsers() {
-
-        val firstName = binding.etInvitationGroupsUserFirstName.text.toString().trim { it <= ' ' }
-        val lastName = binding.etInvitationGroupsUserLastName.text.toString().trim { it <= ' ' }
-        mUserId = binding.etInvitationGroupsUserId.text.toString().trim { it <= ' ' }
-
-        mUserFullName = "${firstName} ${lastName}"
-
-        val groupsUsers = GroupsUsers(
-            mGroupsId,
-            mGroupsName,
-            mUserId,
-            mUserFullName
-        )
-
-        Log.i(javaClass.simpleName, "AddGroupsUsers : send data")
-
-        FirestoreClass().uploadGroupsUsers(
-            this@InvitationGroupsActivity,
-            mGroupsId,
-            groupsUsers,
-        )
-    }
-
-    fun groupsUsersUploadSuccess(){
-
-        uploadBelongingGroups()
-    }
-
-    private fun uploadBelongingGroups() {
-
-        val belongingGroups = BelongingGroups(
-            mGroupsId,
-            mGroupsName,
-            FirestoreClass().getCurrentUserID(),
-        )
-
-        Log.i(javaClass.simpleName, "AddGroupsUsers : SuccessUpload")
-
-        FirestoreClass().uploadBelongingGroups(
-            this@InvitationGroupsActivity,
-            belongingGroups,
-            mGroupsId
-        )
-    }
-
-    fun belongingGroupsUploadSuccess(){
-        hideProgressDialog()
-
-        val intent = Intent(this@InvitationGroupsActivity, DetailsGroupsActivity::class.java)
-        intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
-        intent.putExtra(Constants.EXTRA_GROUPS_NAME,mGroupsName)
-        intent.putExtra(Constants.EXTRA_GROUPS_PASS,mGroupsPass)
-        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
-        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLng)
-
-        startActivity(intent)
-    }
-
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
                 R.id.btn_invitation_groups -> {
                     if (validateJoinGroups()) {
-                        uploadGroupsUsers()
+                        getInvitationUserDetails()
                     }
                 }
             }
@@ -160,5 +101,114 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
                 true
             }
         }
+    }
+
+    private fun getInvitationUserDetails(){
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        val firstName = binding.etInvitationGroupsUserFirstName.text.toString().trim { it <= ' ' }
+        val lastName = binding.etInvitationGroupsUserLastName.text.toString().trim { it <= ' ' }
+        mInvitationUserId = binding.etInvitationGroupsUserId.text.toString().trim { it <= ' ' }
+
+        mInvitationUserFullName = "${firstName} ${lastName}"
+
+        FirestoreClass().getInvitationUserDetails(
+            this@InvitationGroupsActivity,
+            mInvitationUserId,
+        )
+    }
+
+    fun userProfileGetSuccess(user:User){
+
+        mUserDetails = user
+
+        if(validateInvitationUser()){
+            uploadGroupsUsers()
+        }
+    }
+
+    private fun validateInvitationUser(): Boolean {
+        return when {
+            binding.etInvitationGroupsUserFirstName.equals(mUserDetails.firstName) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_wrong_first_name), true)
+                false
+            }
+            binding.etInvitationGroupsUserLastName.equals(mUserDetails.lastName) -> {
+                showErrorSnackBar(resources.getString(R.string.err_msg_wrong_last_name), true)
+                false
+            }
+            else -> {
+                true
+            }
+        }
+    }
+
+    private fun uploadGroupsUsers() {
+
+        val groupsUsers = GroupsUsers(
+            mGroupsId,
+            mGroupsName,
+            mInvitationUserId,
+            mInvitationUserFullName
+        )
+
+        Log.i(javaClass.simpleName, "AddGroupsUsers : send data")
+
+        FirestoreClass().uploadGroupsUsers(
+            this@InvitationGroupsActivity,
+            mGroupsId,
+            groupsUsers,
+        )
+    }
+
+    fun groupsUsersUploadSuccess(){
+
+       addGroupsUsers()
+    }
+
+    private fun addGroupsUsers(){
+
+        FirestoreClass().addGroupsUser(
+          this@InvitationGroupsActivity,
+            mInvitationUserId,
+            mGroupsId
+        )
+    }
+
+    fun addGroupsUserSuccess(){
+
+        uploadBelongingGroups()
+    }
+
+    private fun uploadBelongingGroups() {
+
+        val belongingGroups = BelongingGroups(
+            mGroupsId,
+            mGroupsName,
+            mInvitationUserId,
+        )
+
+        Log.i(javaClass.simpleName, "AddGroupsUsers : SuccessUpload")
+
+        FirestoreClass().uploadBelongingGroups(
+            this@InvitationGroupsActivity,
+            belongingGroups,
+            mInvitationUserId,
+            mGroupsId
+        )
+    }
+
+    fun belongingGroupsUploadSuccess(){
+        hideProgressDialog()
+
+        val intent = Intent(this@InvitationGroupsActivity, DetailsGroupsActivity::class.java)
+        intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+        intent.putExtra(Constants.EXTRA_GROUPS_NAME,mGroupsName)
+        intent.putExtra(Constants.EXTRA_GROUPS_PASS,mGroupsPass)
+        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLng)
+
+        startActivity(intent)
     }
 }

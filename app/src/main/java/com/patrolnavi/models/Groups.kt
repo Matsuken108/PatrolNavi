@@ -11,6 +11,7 @@ data class Groups(
     val password: String = "",
     val groups_lat: String = "",
     val groups_lng: String = "",
+    val groups_user_id:ArrayList<String> = arrayListOf(),
     val owner: String = "",
     var groups_id: String = "",
     val userCount: String = "",

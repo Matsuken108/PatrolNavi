@@ -13,6 +13,7 @@ object Constants {
     const val GROUPS: String = "groups"
     const val GROUPS_USERS: String = "groups_users"
     const val BELONGING_GROUPS: String = "belonging_groups"
+    const val GROUPS_USER_ID: String = "groups_user_id"
 
     const val EXTRA_GROUPS_ID: String = "extra_groups_id"
     const val EXTRA_GROUPS_NAME: String = "extra_groups_name"

@@ -149,6 +149,8 @@
     <string name="edit_groups_name_title">グループ名修正</string>
     <string name="delete_groups_users_title">グループメンバー削除</string>
     <string name="belonging_groups">参加グループ</string>
+    <string name="err_msg_wrong_first_name">苗字が違います</string>
+    <string name="err_msg_wrong_last_name">名前が違います</string>
 
 
 </resources>
