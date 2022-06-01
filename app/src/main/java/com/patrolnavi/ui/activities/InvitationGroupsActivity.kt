@@ -24,7 +24,9 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
     private var mGroupsPass: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
-    private var mInvitationUserId :String =""
+    private var mInvitationUserId: String = ""
+    private var mInvitationUserFirstName: String = ""
+    private var mInvitationUserLastName: String = ""
     private var mInvitationUserFullName: String = ""
     private lateinit var mGroupsList: Groups
     private lateinit var mUserDetails: User
@@ -65,6 +67,7 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
 
+        //TODO setupActionBarの設定！戻りたい場所に戻らない！
         binding.toolbarJoinGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
@@ -73,6 +76,7 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
             when (view.id) {
                 R.id.btn_invitation_groups -> {
                     if (validateJoinGroups()) {
+                        inputInfo()
                         getInvitationUserDetails()
                     }
                 }
@@ -80,20 +84,34 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    private fun inputInfo() {
+
+        mInvitationUserFirstName =
+            binding.etInvitationGroupsUserFirstName.text.toString().trim { it <= ' ' }
+        mInvitationUserLastName =
+            binding.etInvitationGroupsUserLastName.text.toString().trim { it <= ' ' }
+        mInvitationUserId = binding.etInvitationGroupsUserId.text.toString().trim { it <= ' ' }
+
+        mInvitationUserFullName = "${mInvitationUserFirstName} ${mInvitationUserLastName}"
+    }
+
     private fun validateJoinGroups(): Boolean {
         return when {
 
-            TextUtils.isEmpty(binding.etInvitationGroupsUserFirstName.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(
+                binding.etInvitationGroupsUserFirstName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_first_name), true)
                 false
             }
 
-            TextUtils.isEmpty(binding.etInvitationGroupsUserLastName.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(
+                binding.etInvitationGroupsUserLastName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_last_name), true)
                 false
             }
 
-            TextUtils.isEmpty(binding.etInvitationGroupsUserId.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(
+                binding.etInvitationGroupsUserId.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_user_id), true)
                 false
             }
@@ -103,17 +121,9 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    //TODO 一致確認が出来てない
-
-    private fun getInvitationUserDetails(){
+    private fun getInvitationUserDetails() {
 
         showProgressDialog(resources.getString(R.string.please_wait))
-
-        val firstName = binding.etInvitationGroupsUserFirstName.text.toString().trim { it <= ' ' }
-        val lastName = binding.etInvitationGroupsUserLastName.text.toString().trim { it <= ' ' }
-        mInvitationUserId = binding.etInvitationGroupsUserId.text.toString().trim { it <= ' ' }
-
-        mInvitationUserFullName = "${firstName} ${lastName}"
 
         FirestoreClass().getInvitationUserDetails(
             this@InvitationGroupsActivity,
@@ -121,24 +131,36 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
         )
     }
 
-    //TODO 不一致でフリーズする
-
-    fun userProfileGetSuccess(user:User){
+    fun userProfileGetSuccess(user: User) {
 
         mUserDetails = user
 
-        if(validateInvitationUser()){
+        Log.i(
+            javaClass.simpleName,
+            "et: ${mInvitationUserFirstName},db:${mUserDetails.firstName}"
+        )
+        Log.i(
+            javaClass.simpleName,
+            "et: ${mInvitationUserLastName},db:${mUserDetails.lastName}"
+        )
+
+        if (validateInvitationUser()) {
             uploadGroupsUsers()
+        } else {
+            hideProgressDialog()
         }
     }
 
     private fun validateInvitationUser(): Boolean {
         return when {
-            binding.etInvitationGroupsUserFirstName.equals(mUserDetails.firstName) -> {
+
+            mInvitationUserFirstName != mUserDetails.firstName
+            -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_wrong_first_name), true)
                 false
             }
-            binding.etInvitationGroupsUserLastName.equals(mUserDetails.lastName) -> {
+            mInvitationUserLastName != mUserDetails.lastName
+            -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_wrong_last_name), true)
                 false
             }
@@ -167,21 +189,21 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
         )
     }
 
-    fun groupsUsersUploadSuccess(){
+    fun groupsUsersUploadSuccess() {
 
-       addGroupsUsers()
+        addGroupsUsers()
     }
 
-    private fun addGroupsUsers(){
+    private fun addGroupsUsers() {
 
         FirestoreClass().addGroupsUser(
-          this@InvitationGroupsActivity,
+            this@InvitationGroupsActivity,
             mInvitationUserId,
             mGroupsId
         )
     }
 
-    fun addGroupsUserSuccess(){
+    fun addGroupsUserSuccess() {
 
         uploadBelongingGroups()
     }
@@ -204,15 +226,15 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
         )
     }
 
-    fun belongingGroupsUploadSuccess(){
+    fun belongingGroupsUploadSuccess() {
         hideProgressDialog()
 
         val intent = Intent(this@InvitationGroupsActivity, DetailsGroupsActivity::class.java)
         intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
-        intent.putExtra(Constants.EXTRA_GROUPS_NAME,mGroupsName)
-        intent.putExtra(Constants.EXTRA_GROUPS_PASS,mGroupsPass)
-        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
-        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLng)
+        intent.putExtra(Constants.EXTRA_GROUPS_NAME, mGroupsName)
+        intent.putExtra(Constants.EXTRA_GROUPS_PASS, mGroupsPass)
+        intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+        intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLng)
 
         startActivity(intent)
     }
