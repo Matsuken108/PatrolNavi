@@ -164,8 +164,7 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
         val snackBar =
             Snackbar.make(
                 findViewById(android.R.id.content),
-                "lat: ${mCustomerLat} lng: ${mCustomerLng}",
-//                R.string.message_latLng_add,
+                R.string.message_latLng_customer_add,
                 Snackbar.LENGTH_LONG
             )
 
@@ -180,6 +179,8 @@ class AddCustomerMapsActivity : BaseActivity(), OnMapReadyCallback {
             intent.putExtra(Constants.EXTRA_LAST_NAME, mLastName)
             intent.putExtra(Constants.EXTRA_CUSTOMER_LAT, mCustomerLat)
             intent.putExtra(Constants.EXTRA_CUSTOMER_LNG, mCustomerLng)
+            intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
+            intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
 
             startActivity(intent)
             finish()

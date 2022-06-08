@@ -6,13 +6,13 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 
 android {
-    compileSdk 30
+    compileSdk 31
     buildToolsVersion '30.0.2'
 
     defaultConfig {
         applicationId "com.patrolnavi"
         minSdk 21
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 

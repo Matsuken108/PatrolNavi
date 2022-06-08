@@ -82,7 +82,6 @@ class DetailsUserProfileActivity : BaseActivity() {
         binding.etUserProfileFirstName.setText(mUserDetails.firstName)
         binding.etUserProfileLastName.isEnabled = false
         binding.etUserProfileLastName.setText(mUserDetails.lastName)
-        binding.etUserProfileUserId.isEnabled = false
         binding.etUserProfileUserId.setText(mUserDetails.user_id)
         binding.etUserProfileEmail.isEnabled = false
         binding.etUserProfileEmail.setText(mUserDetails.email)

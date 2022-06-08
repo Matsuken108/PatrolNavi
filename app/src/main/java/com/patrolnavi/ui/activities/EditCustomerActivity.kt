@@ -22,6 +22,8 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
     private var mGroupsId: String = ""
     private var mGroupsLat: String = ""
     private var mGroupsLng: String = ""
+    private var mDateSelect: String = ""
+    private var mCourseSelect: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,21 +87,30 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
                 R.id.btn_edit_customer_update -> {
                     if (validateCustomerProfileDetails()) {
                         showProgressDialog(resources.getString(R.string.please_wait))
+                        selectInfo()
                         updateCustomerDetails()
                     }
                 }
                 R.id.btn_edit_customer_location -> {
                     val intent =
                         Intent(this@EditCustomerActivity, EditCustomerMapsActivity::class.java)
-                    intent.putExtra(Constants.EXTRA_GROUPS_ID,mGroupsId)
-                    intent.putExtra(Constants.EXTRA_CUSTOMER_ID,mCustomerId)
-                    intent.putExtra(Constants.EXTRA_CUSTOMER_DETAILS,mCustomerDetails)
-                    intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
-                    intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
+                    intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+                    intent.putExtra(Constants.EXTRA_CUSTOMER_ID, mCustomerId)
+                    intent.putExtra(Constants.EXTRA_CUSTOMER_DETAILS, mCustomerDetails)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+                    intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
                     startActivity(intent)
                 }
             }
         }
+    }
+
+    private fun selectInfo() {
+
+        mDateSelect = binding.etEditCustomerDate.text.toString().trim { it <= ' ' }
+        mCourseSelect = binding.etEditCustomerCourse.text.toString().trim { it <= ' ' }
+
+        Log.i(javaClass.simpleName, "date : ${mDateSelect} course : ${mCourseSelect}")
     }
 
     private fun updateCustomerDetails() {
@@ -170,7 +181,8 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
                 false
             }
 
-            TextUtils.isEmpty(binding.etEditCustomerFirstName.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(
+                binding.etEditCustomerFirstName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_customer_first_name),
                     true
@@ -178,7 +190,8 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
                 false
             }
 
-            TextUtils.isEmpty(binding.etEditCustomerLastName.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(
+                binding.etEditCustomerLastName.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(
                     resources.getString(R.string.err_msg_enter_customer_last_name),
                     true
@@ -211,7 +224,16 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
             Toast.LENGTH_SHORT
         ).show()
 
-        startActivity(Intent(this@EditCustomerActivity, EditCourseActivity::class.java))
+        val intent = Intent(this@EditCustomerActivity, EditCourseActivity::class.java)
+
+        intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+        intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+        intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
+        intent.putExtra(Constants.EXTRA_DATE_SELECT, mDateSelect)
+        intent.putExtra(Constants.EXTRA_COURSE_SELECT, mCourseSelect)
+
+        startActivity(intent)
+
         finish()
     }
 }

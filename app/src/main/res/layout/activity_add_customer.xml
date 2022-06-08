@@ -320,6 +320,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="75dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/frame_style_button"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"

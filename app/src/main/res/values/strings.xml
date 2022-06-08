@@ -151,6 +151,7 @@
     <string name="belonging_groups">参加グループ</string>
     <string name="err_msg_wrong_first_name">苗字が違います</string>
     <string name="err_msg_wrong_last_name">名前が違います</string>
+    <string name="message_latLng_customer_add">この位置で登録します</string>
 
 
 </resources>

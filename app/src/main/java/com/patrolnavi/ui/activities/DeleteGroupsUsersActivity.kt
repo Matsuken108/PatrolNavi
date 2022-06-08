@@ -82,7 +82,8 @@ class DeleteGroupsUsersActivity : BaseActivity() {
         if (mGroupsUserId == mGroupsOwnerId) {
             hideProgressDialog()
 
-            showErrorSnackBar("責任者の削除は出来ません",true)
+            Toast.makeText(this, "責任者の削除は出来ません", Toast.LENGTH_SHORT).show()
+//            showErrorSnackBar("責任者の削除は出来ません",true)
             
             Log.i(javaClass.simpleName, "owner削除制限 ")
             finish()
