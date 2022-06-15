@@ -39,8 +39,6 @@ class DetailsCustomerFragment : BaseFragment() {
 
         val customer = args.customer
         Log.i(javaClass.simpleName,"customer ${customer}")
-        val customerId = args.customerId
-        Log.i(javaClass.simpleName,"customerId ${customerId}")
 
         binding.tvCustomerDetailsFragmentFirstName.isEnabled = false
         binding.tvCustomerDetailsFragmentFirstName.setText(customer.firstName)

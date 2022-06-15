@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/frame_style_button"
         android:text="@string/btn_start_navi"
         android:textColor="@color/white"

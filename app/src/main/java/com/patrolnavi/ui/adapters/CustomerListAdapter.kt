@@ -44,10 +44,10 @@ open class CustomerListAdapter (
             holder.itemView.tv_customer_list_last_name.text = model.lastName
 
             holder.itemView.setOnClickListener{ view ->
-                val customerId = model.customer_id
+
                 Log.i(javaClass.simpleName,"CustomerListAdapter ${model}")
 
-                val action = CustomerListFragmentDirections.actionNavigationCustomerListToDetailsCustomerFragment(customerId,model)
+                val action = CustomerListFragmentDirections.actionNavigationCustomerListToDetailsCustomerFragment(model)
                 view.findNavController().navigate(action)
             }
         }

@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_edit_customer.*
 
 class EditCourseActivity : BaseActivity() {
 
+    //TODO ホームに戻るボタン要！！
+
     private lateinit var binding: ActivityEditCourseBinding
 
     private lateinit var mCustomerList: ArrayList<Customer>

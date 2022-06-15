@@ -5,42 +5,66 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_customer_list">
 
-
     <fragment
         android:id="@+id/navigation_customer_list"
         android:name="com.patrolnavi.ui.fragments.CustomerListFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_customer_list" >
+        tools:layout="@layout/fragment_customer_list">
         <action
             android:id="@+id/action_navigation_customer_list_to_detailsCustomerFragment"
             app:destination="@id/detailsCustomerFragment" />
+        <action
+            android:id="@+id/action_navigation_customer_list_to_customerGroupsFragment"
+            app:destination="@id/customerGroupsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_map"
         android:name="com.patrolnavi.ui.fragments.MapsFragment"
         android:label="@string/title_map"
-        tools:layout="@layout/fragment_maps" >
-    </fragment>
+        tools:layout="@layout/fragment_maps"></fragment>
     <fragment
         android:id="@+id/detailsCustomerFragment"
         android:name="com.patrolnavi.ui.fragments.DetailsCustomerFragment"
         android:label="@string/details_customer_title"
-        tools:layout="@layout/fragment_details_customer" >
+        tools:layout="@layout/fragment_details_customer">
         <action
             android:id="@+id/action_detailsCustomerFragment_to_singleCustomerMapFragment"
             app:destination="@id/singleCustomerMapFragment" />
         <argument
-            android:name="customerId"
-            app:argType="string" />
-        <argument
             android:name="customer"
             app:argType="com.patrolnavi.models.Customer" />
+        <action
+            android:id="@+id/action_detailsCustomerFragment_to_customerOrderGroupsFragment"
+            app:destination="@id/customerOrderGroupsFragment" />
     </fragment>
     <fragment
         android:id="@+id/singleCustomerMapFragment"
         android:name="com.patrolnavi.ui.fragments.SingleCustomerMapFragment"
         android:label="fragment_single_customer_map"
-        tools:layout="@layout/fragment_single_customer_map" >
+        tools:layout="@layout/fragment_single_customer_map">
+        <argument
+            android:name="customer"
+            app:argType="com.patrolnavi.models.Customer" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerGroupsFragment"
+        android:name="com.patrolnavi.ui.fragments.CustomerGroupsFragment"
+        android:label="fragment_customer_groups"
+        tools:layout="@layout/fragment_customer_groups">
+
+        <argument
+            android:name="customerList"
+            app:argType="com.patrolnavi.models.Customer" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerOrderGroupsFragment"
+        android:name="com.patrolnavi.ui.fragments.CustomerOrderGroupsFragment"
+        android:label="fragment_customer_order_groups"
+        tools:layout="@layout/fragment_customer_order_groups">
+
+        <argument
+            android:name="customerId"
+            app:argType="string" />
         <argument
             android:name="customer"
             app:argType="com.patrolnavi.models.Customer" />

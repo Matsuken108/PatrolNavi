@@ -6,15 +6,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.patrolnavi.models.*
 import com.patrolnavi.ui.activities.*
-import com.patrolnavi.ui.fragments.CustomerListFragment
-import com.patrolnavi.ui.fragments.DetailsCustomerFragment
-import com.patrolnavi.ui.fragments.MapsFragment
+import com.patrolnavi.ui.fragments.*
 import com.patrolnavi.utils.Constants
 
 class FirestoreClass {
@@ -678,7 +677,7 @@ class FirestoreClass {
     }
 
     fun getCourseAllSetList(
-        fragment: CustomerListFragment,
+        fragment: Fragment,
         groupsId: String,
         dateSelect: String,
         courseSelect: String
@@ -700,19 +699,56 @@ class FirestoreClass {
                     customer.customer_id = i.id
                     customerList.add(customer)
                 }
-                fragment.courseAllSetListUI(customerList)
-                Log.i(
-                    javaClass.simpleName,
-                    "CustomerListFragment date : ${dateSelect} course : ${courseSelect}"
-                )
+
+                when(fragment){
+                    is CustomerListFragment -> {
+                        fragment.courseAllSetListUI(customerList)
+                        Log.i(
+                            javaClass.simpleName,
+                            "CustomerListFragment date : ${dateSelect} course : ${courseSelect}"
+                        )
+                    }
+                    is CustomerGroupsFragment -> {
+                        fragment.courseAllSetListUI(customerList)
+                        Log.i(
+                            javaClass.simpleName,
+                            "CustomerListFragment date : ${dateSelect} course : ${courseSelect}"
+                        )
+                    }
+                    is CustomerOrderGroupsFragment -> {
+                        fragment.courseAllSetListUI(customerList)
+                        Log.i(
+                            javaClass.simpleName,
+                            "CustomerListFragment date : ${dateSelect} course : ${courseSelect}"
+                        )
+                    }
+                }
             }
 
             .addOnFailureListener {
-                fragment.hideProgressDialog()
-                Log.e(
-                    fragment.javaClass.simpleName,
-                    "お客様リスト取り込みエラー"
-                )
+                when(fragment){
+                    is CustomerListFragment -> {
+                        fragment.hideProgressDialog()
+                        Log.e(
+                            fragment.javaClass.simpleName,
+                            "お客様リスト取り込みエラー"
+                        )
+                    }
+                    is CustomerGroupsFragment -> {
+                        fragment.hideProgressDialog()
+                        Log.e(
+                            fragment.javaClass.simpleName,
+                            "お客様リスト取り込みエラー"
+                        )
+                    }
+                    is CustomerOrderGroupsFragment -> {
+                        fragment.hideProgressDialog()
+                        Log.e(
+                            fragment.javaClass.simpleName,
+                            "お客様リスト取り込みエラー"
+                        )
+                    }
+                }
             }
     }
 

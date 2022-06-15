@@ -152,6 +152,11 @@
     <string name="err_msg_wrong_first_name">苗字が違います</string>
     <string name="err_msg_wrong_last_name">名前が違います</string>
     <string name="message_latLng_customer_add">この位置で登録します</string>
+    <string name="btn_start_navi_group_1">グループ1 ナビ開始</string>
+    <string name="btn_start_navi_group_2">グループ2 ナビ開始</string>
+    <string name="btn_start_navi_group_3">グループ3 ナビ開始</string>
+    <string name="btn_start_navi_group_4">グループ4 ナビ開始</string>
+    <string name="btn_start_navi_group_5">グループ5 ナビ開始</string>
 
 
 </resources>
