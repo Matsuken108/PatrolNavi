@@ -115,12 +115,22 @@ class CustomerGroupsFragment : BaseFragment() {
         val lat1: Double = mCustomerList.get(0).customer_lat.toDouble()
         val lng1: Double = mCustomerList.get(0).customer_lng.toDouble()
 
-        for (i in 1..19) {
+        if (mCustomerList.size > 19) {
+            for (i in 1..19) {
 
-            val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-            val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
 
-            latLngStr = "${latLngStr}+to:${latx},${lngx}"
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
+        } else {
+            for (i in 1..mCustomerList.size) {
+
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
         }
         val str =
             "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
@@ -134,17 +144,28 @@ class CustomerGroupsFragment : BaseFragment() {
         startActivity(intent)
     }
 
+
     private fun btnNaviStartGroup2() {
         var latLngStr = ""
         val lat1: Double = mCustomerList.get(20).customer_lat.toDouble()
         val lng1: Double = mCustomerList.get(20).customer_lng.toDouble()
 
-        for (i in 21..39) {
+        if (mCustomerList.size > 39) {
+            for (i in 21..39) {
 
-            val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-            val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
 
-            latLngStr = "${latLngStr}+to:${latx},${lngx}"
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
+        } else {
+            for (i in 21..mCustomerList.size) {
+
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
         }
         val str =
             "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
@@ -156,6 +177,7 @@ class CustomerGroupsFragment : BaseFragment() {
         )
         intent.setData(Uri.parse(str))
         startActivity(intent)
+
     }
 
     private fun btnNaviStartGroup3() {
@@ -163,12 +185,22 @@ class CustomerGroupsFragment : BaseFragment() {
         val lat1: Double = mCustomerList.get(40).customer_lat.toDouble()
         val lng1: Double = mCustomerList.get(40).customer_lng.toDouble()
 
-        for (i in 41..59) {
+        if(mCustomerList.size > 59) {
+            for (i in 41..59) {
 
-            val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-            val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
 
-            latLngStr = "${latLngStr}+to:${latx},${lngx}"
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
+        }else{
+            for (i in 41..mCustomerList.size) {
+
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
         }
         val str =
             "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
@@ -187,12 +219,22 @@ class CustomerGroupsFragment : BaseFragment() {
         val lat1: Double = mCustomerList.get(60).customer_lat.toDouble()
         val lng1: Double = mCustomerList.get(60).customer_lng.toDouble()
 
-        for (i in 61..79) {
+        if(mCustomerList.size > 79) {
+            for (i in 61..79) {
 
-            val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-            val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
 
-            latLngStr = "${latLngStr}+to:${latx},${lngx}"
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
+        }else {
+            for (i in 61..mCustomerList.size) {
+
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
         }
         val str =
             "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
@@ -212,12 +254,22 @@ class CustomerGroupsFragment : BaseFragment() {
         val lat1: Double = mCustomerList.get(80).customer_lat.toDouble()
         val lng1: Double = mCustomerList.get(80).customer_lng.toDouble()
 
-        for (i in 81..99) {
+        if(mCustomerList.size > 99) {
+            for (i in 81..99) {
 
-            val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-            val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
 
-            latLngStr = "${latLngStr}+to:${latx},${lngx}"
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
+        }else{
+            for (i in 81..mCustomerList.size) {
+
+                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+
+                latLngStr = "${latLngStr}+to:${latx},${lngx}"
+            }
         }
         val str =
             "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"

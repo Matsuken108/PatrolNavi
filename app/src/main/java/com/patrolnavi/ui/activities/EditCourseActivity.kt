@@ -18,8 +18,6 @@ import kotlinx.android.synthetic.main.activity_edit_customer.*
 
 class EditCourseActivity : BaseActivity() {
 
-    //TODO ホームに戻るボタン要！！
-
     private lateinit var binding: ActivityEditCourseBinding
 
     private lateinit var mCustomerList: ArrayList<Customer>
@@ -28,6 +26,8 @@ class EditCourseActivity : BaseActivity() {
     private var mGroupsId: String = ""
     private var mGroupsLat :String =""
     private var mGroupsLng :String=""
+
+    //TODO HOMEボタン追加
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +62,13 @@ class EditCourseActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        binding.toolbarCourseEditActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarCourseEditActivity.setOnClickListener {
+            val intent = Intent(this@EditCourseActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

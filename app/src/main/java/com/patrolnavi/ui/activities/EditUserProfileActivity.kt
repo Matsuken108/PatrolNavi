@@ -45,9 +45,12 @@ class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
-        binding.toolbarEditUserProfileActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarEditUserProfileActivity.setOnClickListener {
+            val intent = Intent(this@EditUserProfileActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onClick(v: View?) {

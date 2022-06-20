@@ -70,10 +70,7 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
 
         Log.i(javaClass.simpleName, "Add groupsId: ${mGroupsId}")
 
-
-//        et_add_customer_date.isEnabled = false
         binding.etAddCustomerDate.setText(mDateSelect)
-//        et_add_customer_course.isEnabled = false
         binding.etAddCustomerCourse.setText(mCourseSelect)
         binding.etAddCustomerLat.isEnabled = false
         binding.etAddCustomerLat.setText(mCustomerLat)
@@ -96,10 +93,13 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        binding.toolbarAddCustomerActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarAddCustomerActivity.setOnClickListener {
+            val intent = Intent(this@AddCustomerActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onClick(view: View?) {

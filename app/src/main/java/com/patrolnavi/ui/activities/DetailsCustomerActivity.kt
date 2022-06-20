@@ -104,10 +104,13 @@ class DetailsCustomerActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        binding.toolbarCustomerDetailsActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarCustomerDetailsActivity.setOnClickListener {
+            val intent = Intent(this@DetailsCustomerActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

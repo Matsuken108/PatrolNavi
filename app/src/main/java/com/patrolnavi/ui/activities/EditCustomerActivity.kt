@@ -75,10 +75,13 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        binding.toolbarEditCustomerActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarEditCustomerActivity.setOnClickListener {
+            val intent = Intent(this@EditCustomerActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onClick(view: View?) {

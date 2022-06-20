@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_details_customer.*
 
 class DetailsCustomerFragment : BaseFragment() {
 
-    private var _binding : FragmentDetailsCustomerBinding? = null
+    private var _binding: FragmentDetailsCustomerBinding? = null
     private val binding get() = _binding!!
 
     private val args: DetailsCustomerFragmentArgs by navArgs()
@@ -35,10 +35,10 @@ class DetailsCustomerFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDetailsCustomerBinding.inflate(inflater,container,false)
+        _binding = FragmentDetailsCustomerBinding.inflate(inflater, container, false)
 
         val customer = args.customer
-        Log.i(javaClass.simpleName,"customer ${customer}")
+        Log.i(javaClass.simpleName, "customer ${customer}")
 
         binding.tvCustomerDetailsFragmentFirstName.isEnabled = false
         binding.tvCustomerDetailsFragmentFirstName.setText(customer.firstName)
@@ -57,27 +57,30 @@ class DetailsCustomerFragment : BaseFragment() {
         mCourseSelect = extras?.getString("courseSelect").toString()
 
         binding.btnStartSingleNavi.setOnClickListener { singleNavigation() }
-        binding.btnStartOrderNavi.setOnClickListener { getCourseSetList() }
+        binding.btnStartOrderNavi.setOnClickListener { orderNavigation() }
         binding.btnIntentMap.setOnClickListener { singleCustomerMap() }
 
         return binding.root
     }
 
-    private fun singleCustomerMap(){
+    private fun singleCustomerMap() {
 
         val customer = args.customer
 
-        val action = DetailsCustomerFragmentDirections.actionDetailsCustomerFragmentToSingleCustomerMapFragment(customer)
+        val action =
+            DetailsCustomerFragmentDirections.actionDetailsCustomerFragmentToSingleCustomerMapFragment(
+                customer
+            )
         findNavController().navigate(action)
-        
+
     }
 
-    private fun singleNavigation(){
+    private fun singleNavigation() {
 
         val lat: Double = args.customer.customer_lat.toDouble()
         val lng: Double = args.customer.customer_lng.toDouble()
 
-        Log.i(javaClass.simpleName,"Lat : ${lat} Lng : ${lng}")
+        Log.i(javaClass.simpleName, "Lat : ${lat} Lng : ${lng}")
 
         val str =
             "http://maps.google.com/maps?saddr=&daddr=${lat},${lng}&dirflg=d"
@@ -92,55 +95,15 @@ class DetailsCustomerFragment : BaseFragment() {
 
     }
 
-    fun courseSetListUI(customerList: ArrayList<Customer>) {
-        hideProgressDialog()
-
-        mCustomerList = customerList
-
-        var latLngStr: String = ""
-
+    private fun orderNavigation() {
         val customer = args.customer
 
-        val customerNumber : Int = mCustomerList.indexOf(customer)
-
-        Log.i(javaClass.simpleName,"index : ${customerNumber}")
-
-        if (customerList.size > 0) {
-
-            val lat1: Double = mCustomerList.get(customerNumber).customer_lat.toDouble()
-            val lng1: Double = mCustomerList.get(customerNumber).customer_lng.toDouble()
-
-            for (i in customerNumber..mCustomerList.size - 1) {
-
-                val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-                val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
-
-                latLngStr = "${latLngStr}+to:${latx},${lngx}"
-            }
-            val str =
-                "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
-
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.setClassName(
-                "com.google.android.apps.maps",
-                "com.google.android.maps.MapsActivity"
+        val action =
+            DetailsCustomerFragmentDirections.actionDetailsCustomerFragmentToCustomerOrderGroupsFragment(
+                customer
             )
-            intent.setData(Uri.parse(str))
-            startActivity(intent)
-
-        }
-    }
-
-
-    private fun getCourseSetList() {
-        showProgressDialog(resources.getString(R.string.please_wait))
-
-        FirestoreClass().getCourseSetList(
-            this@DetailsCustomerFragment,
-            mGroupsId,
-            mDateSelect,
-            mCourseSelect
-        )
+        findNavController().navigate(action)
     }
 
 }
+

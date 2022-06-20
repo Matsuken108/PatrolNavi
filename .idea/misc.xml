@@ -6,9 +6,11 @@
         <entry key="app/src/main/res/drawable/frame_style.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/frame_style_buttom.xml" value="0.28425925925925927" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.29384615384615387" />
+        <entry key="app/src/main/res/drawable/ic_vector_home.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/ic_vector_person_add.xml" value="0.29384615384615387" />
         <entry key="app/src/main/res/drawable/user_image_background.xml" value="0.2984375" />
         <entry key="app/src/main/res/layout/activity_add_customer.xml" value="0.28229166666666666" />
@@ -35,7 +37,7 @@
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/activity_groups_details.xml" value="0.27794871794871795" />
         <entry key="app/src/main/res/layout/activity_groups_users_details.xml" value="0.27794871794871795" />
-        <entry key="app/src/main/res/layout/activity_invitation_groups.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_invitation_groups.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_join_groups.xml" value="0.26944444444444443" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.23703703703703705" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28229166666666666" />

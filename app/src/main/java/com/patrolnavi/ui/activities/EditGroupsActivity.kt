@@ -78,10 +78,13 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        binding.toolbarEditGroupsActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarEditGroupsActivity.setOnClickListener {
+            val intent = Intent(this@EditGroupsActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

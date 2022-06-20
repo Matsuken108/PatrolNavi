@@ -38,9 +38,12 @@ class DetailsUserProfileActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
-        binding.toolbarUserProfileActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarUserProfileActivity.setOnClickListener {
+            val intent = Intent(this@DetailsUserProfileActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

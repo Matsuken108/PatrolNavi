@@ -70,10 +70,13 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        binding.toolbarAddGroupsActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarAddGroupsActivity.setOnClickListener {
+            val intent = Intent(this@AddGroupsActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onClick(view: View?) {

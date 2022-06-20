@@ -45,8 +45,6 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        setupActionBar()
-
         binding.tvNameGroups.setText(mGroupsName)
 
         if (binding.tvNameGroups.length() == 0) {
@@ -130,19 +128,6 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
                 }
             }
         }
-    }
-
-    private fun setupActionBar() {
-
-        setSupportActionBar(toolbar_course_setting_activity)
-
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
-        }
-
-        toolbar_course_setting_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
     private fun validateDateCourseSelect(): Boolean {

@@ -63,9 +63,6 @@
         tools:layout="@layout/fragment_customer_order_groups">
 
         <argument
-            android:name="customerId"
-            app:argType="string" />
-        <argument
             android:name="customer"
             app:argType="com.patrolnavi.models.Customer" />
     </fragment>

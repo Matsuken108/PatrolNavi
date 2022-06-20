@@ -1,5 +1,6 @@
 package com.patrolnavi.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager
@@ -46,10 +47,13 @@ class RegisterActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        binding.toolbarRegisterActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarRegisterActivity.setOnClickListener {
+            val intent = Intent(this@RegisterActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.patrolnavi.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -58,9 +59,12 @@ class ForgotPasswordActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        binding.toolbarForgotPasswordActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarForgotPasswordActivity.setOnClickListener {
+            val intent = Intent(this@ForgotPasswordActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

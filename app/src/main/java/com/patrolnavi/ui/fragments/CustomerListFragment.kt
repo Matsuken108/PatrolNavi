@@ -28,8 +28,6 @@ import kotlin.collections.ArrayList
 
 class CustomerListFragment : BaseFragment() {
 
-    //TODO 経由地の数に上限あり！分割して遷移すること！
-
     private var _binding : FragmentCustomerListBinding? = null
     private val binding get() = _binding!!
 

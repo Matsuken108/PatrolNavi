@@ -8,7 +8,7 @@
     tools:context=".ui.activities.InvitationGroupsActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_join_groups_activity"
+        android:id="@+id/toolbar_invitation_groups_activity"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/black"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_join_groups_title"
+            android:id="@+id/tv_invitation_groups_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -36,7 +36,7 @@
         android:fillViewport="true"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_join_groups_activity"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_invitation_groups_activity"
         app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout

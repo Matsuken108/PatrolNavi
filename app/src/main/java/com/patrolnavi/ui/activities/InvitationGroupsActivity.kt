@@ -31,6 +31,8 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
     private lateinit var mGroupsList: Groups
     private lateinit var mUserDetails: User
 
+    //TODO ホームボタン追加
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInvitationGroupsBinding.inflate(layoutInflater)
@@ -59,16 +61,18 @@ class InvitationGroupsActivity : BaseActivity(), View.OnClickListener {
 
     private fun setupActionBar() {
 
-        setSupportActionBar(binding.toolbarJoinGroupsActivity)
+        setSupportActionBar(binding.toolbarInvitationGroupsActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        //TODO setupActionBarの設定！戻りたい場所に戻らない！
-        binding.toolbarJoinGroupsActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarInvitationGroupsActivity.setOnClickListener {
+            val intent = Intent(this@InvitationGroupsActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onClick(view: View?) {

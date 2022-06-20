@@ -33,10 +33,13 @@ class SettingGroupsActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
         }
 
-        binding.toolbarSettingGroupsActivity.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarSettingGroupsActivity.setOnClickListener {
+            val intent = Intent(this@SettingGroupsActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 
