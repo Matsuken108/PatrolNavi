@@ -46,7 +46,8 @@ object Constants {
     const val NO: String = "no"
     const val FIRST_NAME: String = "firstName"
     const val LAST_NAME: String = "lastName"
-    const val LATLNG: String = "latlng"
+    const val LAT: String = "lat"
+    const val LNG :String = "lng"
     const val MEMO: String = "memo"
 
 

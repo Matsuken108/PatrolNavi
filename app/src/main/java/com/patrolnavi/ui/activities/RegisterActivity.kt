@@ -3,6 +3,7 @@ package com.patrolnavi.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
@@ -15,7 +16,7 @@ import com.patrolnavi.firestore.FirestoreClass
 import com.patrolnavi.models.User
 import kotlinx.android.synthetic.main.activity_register.*
 
-class RegisterActivity : BaseActivity() {
+class RegisterActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,16 +29,11 @@ class RegisterActivity : BaseActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
+        binding.ivRegisterHome.setOnClickListener(this)
+        binding.btnRegister.setOnClickListener(this)
+        binding.tvLogin.setOnClickListener(this)
+
         setupActionBar()
-
-        binding.btnRegister.setOnClickListener {
-
-            registerUser()
-        }
-
-        binding.tvLogin.setOnClickListener {
-            onBackPressed()
-        }
     }
 
     private fun setupActionBar() {
@@ -47,15 +43,27 @@ class RegisterActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-
-        binding.toolbarRegisterActivity.setOnClickListener {
-            val intent = Intent(this@RegisterActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
-        }
+        binding.toolbarRegisterActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
+    override fun onClick(view: View?) {
+        if (view != null) {
+            when (view.id) {
+                R.id.iv_register_home -> {
+                    val intent = Intent(this@RegisterActivity, SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.btn_register -> {
+                    registerUser()
+                }
+                R.id.tv_login -> {
+                    onBackPressed()
+                }
+            }
+        }
+    }
 
     private fun validateRegisterDetails(): Boolean {
         return when {
@@ -74,7 +82,8 @@ class RegisterActivity : BaseActivity() {
                 false
             }
 
-            TextUtils.isEmpty(binding.etRegisterMobileNumber.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(
+                binding.etRegisterMobileNumber.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
                 false
             }
@@ -142,7 +151,7 @@ class RegisterActivity : BaseActivity() {
                             )
 
                             FirestoreClass().registerUser(this@RegisterActivity, user)
-                            
+
                         } else {
 
                             hideProgressDialog()

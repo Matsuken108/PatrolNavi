@@ -16,7 +16,7 @@ import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_edit_course.*
 import kotlinx.android.synthetic.main.activity_edit_customer.*
 
-class EditCourseActivity : BaseActivity() {
+class EditCourseActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityEditCourseBinding
 
@@ -24,10 +24,8 @@ class EditCourseActivity : BaseActivity() {
     private var mDateSelect: String = ""
     private var mCourseSelect: String = ""
     private var mGroupsId: String = ""
-    private var mGroupsLat :String =""
-    private var mGroupsLng :String=""
-
-    //TODO HOMEボタン追加
+    private var mGroupsLat: String = ""
+    private var mGroupsLng: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +49,9 @@ class EditCourseActivity : BaseActivity() {
         }
         Log.i(javaClass.simpleName, "groupsId: ${mGroupsId}")
 
-        setupActionBar()
+        binding.ivEditCourseHome.setOnClickListener(this)
 
+        setupActionBar()
     }
 
     private fun setupActionBar() {
@@ -62,12 +61,19 @@ class EditCourseActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
+        binding.toolbarCourseEditActivity.setNavigationOnClickListener { onBackPressed() }
+    }
 
-        binding.toolbarCourseEditActivity.setOnClickListener {
-            val intent = Intent(this@EditCourseActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
+    override fun onClick(view: View?) {
+        if (view != null) {
+            when (view.id) {
+                R.id.iv_edit_course_home -> {
+                    val intent = Intent(this@EditCourseActivity, SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
     }
 
@@ -90,8 +96,8 @@ class EditCourseActivity : BaseActivity() {
                 intent.putExtra(Constants.EXTRA_DATE_SELECT, mDateSelect)
                 intent.putExtra(Constants.EXTRA_COURSE_SELECT, mCourseSelect)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
-                intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
-                intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
+                intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+                intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
                 startActivity(intent)
                 return true
             }
@@ -137,4 +143,6 @@ class EditCourseActivity : BaseActivity() {
         super.onResume()
         getCustomerList()
     }
+
+
 }

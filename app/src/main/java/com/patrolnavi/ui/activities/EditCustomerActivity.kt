@@ -64,6 +64,9 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
         binding.etEditCustomerMemo.setText(mCustomerDetails.memo)
 
         binding.btnEditCustomerUpdate.setOnClickListener(this@EditCustomerActivity)
+        binding.btnEditCustomerLocation.setOnClickListener(this@EditCustomerActivity)
+
+        binding.ivEditCustomerHome.setOnClickListener(this)
 
         setupActionBar()
     }
@@ -75,18 +78,19 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-
-        binding.toolbarEditCustomerActivity.setOnClickListener {
-            val intent = Intent(this@EditCustomerActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
-        }
+        binding.toolbarEditCustomerActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
+                R.id.iv_edit_customer_home -> {
+                    val intent = Intent(this@EditCustomerActivity,SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+
                 R.id.btn_edit_customer_update -> {
                     if (validateCustomerProfileDetails()) {
                         showProgressDialog(resources.getString(R.string.please_wait))
@@ -94,6 +98,7 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
                         updateCustomerDetails()
                     }
                 }
+
                 R.id.btn_edit_customer_location -> {
                     val intent =
                         Intent(this@EditCustomerActivity, EditCustomerMapsActivity::class.java)
@@ -146,15 +151,15 @@ class EditCustomerActivity : BaseActivity(), View.OnClickListener {
 
         val lat = binding.etEditCustomerLat.text.toString().trim { it <= ' ' }
         if (lat != mCustomerDetails.customer_lat) {
-            customerHashMap[Constants.LATLNG] = lat
+            customerHashMap[Constants.LAT] = lat
         }
 
         val lng = binding.etEditCustomerLng.text.toString().trim { it <= ' ' }
         if (lng != mCustomerDetails.customer_lng) {
-            customerHashMap[Constants.LATLNG] = lng
+            customerHashMap[Constants.LNG] = lng
         }
 
-        val memo = binding.etEditCustomerLng.text.toString().trim { it <= ' ' }
+        val memo = binding.etEditCustomerMemo.text.toString().trim { it <= ' ' }
         if (memo != mCustomerDetails.memo) {
             customerHashMap[Constants.MEMO] = memo
         }

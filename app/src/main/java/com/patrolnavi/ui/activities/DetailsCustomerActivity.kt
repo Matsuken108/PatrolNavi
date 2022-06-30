@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.patrolnavi.R
 import com.patrolnavi.databinding.ActivityDetailsCustomerBinding
@@ -15,7 +16,7 @@ import com.patrolnavi.models.Groups
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_details_customer.*
 
-class DetailsCustomerActivity : BaseActivity() {
+class DetailsCustomerActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityDetailsCustomerBinding
 
@@ -33,8 +34,6 @@ class DetailsCustomerActivity : BaseActivity() {
         binding = ActivityDetailsCustomerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupActionBar()
-
         if (intent.hasExtra(Constants.EXTRA_GROUPS_ID)) {
             mGroupsId = intent.getStringExtra(Constants.EXTRA_GROUPS_ID)!!
         }
@@ -42,9 +41,37 @@ class DetailsCustomerActivity : BaseActivity() {
             mCustomerId = intent.getStringExtra(Constants.EXTRA_CUSTOMER_ID)!!
         }
 
-        Log.i(javaClass.simpleName,"DetailsCustomer Top groupsId : ${mGroupsId}")
+        Log.i(javaClass.simpleName, "DetailsCustomer Top groupsId : ${mGroupsId}")
 
         getGroupsCenter()
+
+        binding.ivDetailsCustomerHome.setOnClickListener(this)
+
+        setupActionBar()
+    }
+
+    private fun setupActionBar() {
+
+        setSupportActionBar(binding.toolbarCustomerDetailsActivity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+        }
+        binding.toolbarCustomerDetailsActivity.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    override fun onClick(view: View?) {
+        if (view != null) {
+            when (view.id) {
+                R.id.iv_details_customer_home -> {
+                    val intent =
+                        Intent(this@DetailsCustomerActivity, SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 
     private fun getGroupsCenter() {
@@ -97,22 +124,6 @@ class DetailsCustomerActivity : BaseActivity() {
     }
 
 
-    private fun setupActionBar() {
-
-        setSupportActionBar(binding.toolbarCustomerDetailsActivity)
-
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
-        }
-
-        binding.toolbarCustomerDetailsActivity.setOnClickListener {
-            val intent = Intent(this@DetailsCustomerActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         super.onCreateOptionsMenu(menu)
 
@@ -132,8 +143,8 @@ class DetailsCustomerActivity : BaseActivity() {
                 intent.putExtra(Constants.EXTRA_CUSTOMER_DETAILS, mCustomerDetails)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
                 intent.putExtra(Constants.EXTRA_CUSTOMER_ID, mCustomerId)
-                intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
-                intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
+                intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+                intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
                 startActivity(intent)
                 return true
             }
@@ -184,10 +195,12 @@ class DetailsCustomerActivity : BaseActivity() {
         intent.putExtra(Constants.EXTRA_DATE_SELECT, mDateSelect)
         intent.putExtra(Constants.EXTRA_COURSE_SELECT, mCourseSelect)
         intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
-        intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
-        intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
+        intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+        intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
         startActivity(intent)
 
         finish()
     }
+
+
 }

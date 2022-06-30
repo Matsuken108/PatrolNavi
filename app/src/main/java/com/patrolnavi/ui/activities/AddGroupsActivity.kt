@@ -37,8 +37,6 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityAddGroupsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupActionBar()
-
         if (intent.hasExtra(Constants.EXTRA_GROUPS_NAME)) {
             mGroupsName = intent.getStringExtra(Constants.EXTRA_GROUPS_NAME)!!
         }
@@ -59,8 +57,11 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         binding.etAddGroupsLng.isEnabled = false
         binding.etAddGroupsLng.setText(mGroupsLng)
 
+        binding.ivAddGroupsHome.setOnClickListener(this)
         binding.btnAddGroupsSave.setOnClickListener(this)
         binding.btnAddGroupsLocation.setOnClickListener(this)
+
+        setupActionBar()
     }
 
     private fun setupActionBar() {
@@ -70,18 +71,19 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-
-        binding.toolbarAddGroupsActivity.setOnClickListener {
-            val intent = Intent(this@AddGroupsActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
-        }
+        binding.toolbarAddGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
+                R.id.iv_add_groups_home -> {
+                    val intent = Intent(this@AddGroupsActivity, SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+
                 R.id.btn_add_groups_save -> {
                     if (validateAddGroups()) {
                         uploadGroupsDetails()
@@ -147,7 +149,7 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         val collection = db.collection(Constants.GROUPS)
         mGroupsId = collection.document().id
 
-        val groupsUserId :ArrayList<String> = ArrayList()
+        val groupsUserId: ArrayList<String> = ArrayList()
         groupsUserId.add(FirestoreClass().getCurrentUserID())
 
         val groups = Groups(
@@ -182,7 +184,7 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
 
         mUserFullName = "${firstName} ${lastName}"
 
-        Log.i(javaClass.simpleName,"fullName ${mUserFullName}")
+        Log.i(javaClass.simpleName, "fullName ${mUserFullName}")
 
         uploadGroupsUsers()
     }
@@ -194,7 +196,7 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
             mGroupsName,
             FirestoreClass().getCurrentUserID(),
             mUserFullName
-            )
+        )
 
         Log.i(javaClass.simpleName, "AddGroupsUsers : send data")
 
@@ -206,7 +208,7 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         )
     }
 
-    fun groupsUsersUploadSuccess(){
+    fun groupsUsersUploadSuccess() {
 
         uploadBelongingGroups()
     }
@@ -229,7 +231,7 @@ class AddGroupsActivity : BaseActivity(), View.OnClickListener {
         )
     }
 
-    fun belongingGroupsUploadSuccess(){
+    fun belongingGroupsUploadSuccess() {
         hideProgressDialog()
 
         val intent = Intent(this@AddGroupsActivity, SettingGroupsActivity::class.java)

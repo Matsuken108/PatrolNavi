@@ -63,6 +63,19 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
         binding.btnIntentGroupsSetting.setOnClickListener(this)
         binding.btnIntentMyPage.setOnClickListener(this)
 
+        setupActionBar()
+    }
+
+    private fun setupActionBar() {
+
+        setSupportActionBar(binding.toolbarCourseSettingActivity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
+        }
+        binding.toolbarCourseSettingActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     fun setCourseSelect() {
@@ -115,12 +128,16 @@ class SettingCourseActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
                 R.id.btn_intent_solicitation -> {
-                    val intent =
-                        Intent(this@SettingCourseActivity, SolicitationMapsActivity::class.java)
-                    intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
-                    intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
-                    intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
-                    startActivity(intent)
+                    if (mGroupsId.isNotEmpty()) {
+                        val intent =
+                            Intent(this@SettingCourseActivity, SolicitationMapsActivity::class.java)
+                        intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
+                        intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+                        intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
+                        startActivity(intent)
+                    }else{
+                        showErrorSnackBar("グループ設定を行ってください",true)
+                    }
                 }
                 R.id.btn_intent_my_page -> {
                     val intent = Intent(this@SettingCourseActivity, DetailsUserProfileActivity::class.java)

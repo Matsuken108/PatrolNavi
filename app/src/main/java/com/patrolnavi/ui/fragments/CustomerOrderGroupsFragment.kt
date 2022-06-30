@@ -191,15 +191,6 @@ class CustomerOrderGroupsFragment : BaseFragment() {
 
                     latLngStr = "${latLngStr}+to:${latx},${lngx}"
                 }
-            }else{
-                for (i in customerNumber + 1..mCustomerList.size) {
-
-                    val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-                    val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
-
-                    latLngStr = "${latLngStr}+to:${latx},${lngx}"
-                }
-            }
                 val str =
                     "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
 
@@ -210,6 +201,42 @@ class CustomerOrderGroupsFragment : BaseFragment() {
                 )
                 intent.setData(Uri.parse(str))
                 startActivity(intent)
+
+            }else if (mCustomerList.size == customerNumber) {
+
+                    Log.i(javaClass.simpleName, "Lat : ${lat1} Lng : ${lng1}")
+
+                    val str =
+                        "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}&dirflg=d"
+
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setClassName(
+                        "com.google.android.apps.maps",
+                        "com.google.android.maps.MapsActivity"
+                    )
+                    intent.setData(Uri.parse(str))
+                    startActivity(intent)
+
+            }else{
+                for (i in customerNumber + 1..mCustomerList.size) {
+
+                    val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                    val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+
+                    latLngStr = "${latLngStr}+to:${latx},${lngx}"
+                }
+                val str =
+                    "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
+
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setClassName(
+                    "com.google.android.apps.maps",
+                    "com.google.android.maps.MapsActivity"
+                )
+                intent.setData(Uri.parse(str))
+                startActivity(intent)
+            }
+
         }
 
         private fun btnNaviStartGroup2() {
@@ -232,6 +259,32 @@ class CustomerOrderGroupsFragment : BaseFragment() {
 
                         latLngStr = "${latLngStr}+to:${latx},${lngx}"
                     }
+                    val str =
+                        "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
+
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setClassName(
+                        "com.google.android.apps.maps",
+                        "com.google.android.maps.MapsActivity"
+                    )
+                    intent.setData(Uri.parse(str))
+                    startActivity(intent)
+
+                }else if (mCustomerList.size == customerNumber) {
+
+                    Log.i(javaClass.simpleName, "Lat : ${lat1} Lng : ${lng1}")
+
+                    val str =
+                        "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}&dirflg=d"
+
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setClassName(
+                        "com.google.android.apps.maps",
+                        "com.google.android.maps.MapsActivity"
+                    )
+                    intent.setData(Uri.parse(str))
+                    startActivity(intent)
+
                 }else{
                         for (i in customerNumber + 21..mCustomerList.size) {
 
@@ -240,17 +293,18 @@ class CustomerOrderGroupsFragment : BaseFragment() {
 
                             latLngStr = "${latLngStr}+to:${latx},${lngx}"
                         }
-                }
-                val str =
-                    "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
+                    val str =
+                        "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
 
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.setClassName(
-                    "com.google.android.apps.maps",
-                    "com.google.android.maps.MapsActivity"
-                )
-                intent.setData(Uri.parse(str))
-                startActivity(intent)
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.setClassName(
+                        "com.google.android.apps.maps",
+                        "com.google.android.maps.MapsActivity"
+                    )
+                    intent.setData(Uri.parse(str))
+                    startActivity(intent)
+                }
+
         }
 
 
@@ -274,15 +328,6 @@ class CustomerOrderGroupsFragment : BaseFragment() {
 
                     latLngStr = "${latLngStr}+to:${latx},${lngx}"
                 }
-            }else{
-                for (i in customerNumber + 41..mCustomerList.size) {
-
-                    val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-                    val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
-
-                    latLngStr = "${latLngStr}+to:${latx},${lngx}"
-                }
-            }
                 val str =
                     "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
 
@@ -293,6 +338,42 @@ class CustomerOrderGroupsFragment : BaseFragment() {
                 )
                 intent.setData(Uri.parse(str))
                 startActivity(intent)
+
+            }else if (mCustomerList.size == customerNumber) {
+
+                Log.i(javaClass.simpleName, "Lat : ${lat1} Lng : ${lng1}")
+
+                val str =
+                    "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}&dirflg=d"
+
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setClassName(
+                    "com.google.android.apps.maps",
+                    "com.google.android.maps.MapsActivity"
+                )
+                intent.setData(Uri.parse(str))
+                startActivity(intent)
+
+            }else{
+                for (i in customerNumber + 41..mCustomerList.size) {
+
+                    val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                    val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+
+                    latLngStr = "${latLngStr}+to:${latx},${lngx}"
+                }
+                val str =
+                    "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
+
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setClassName(
+                    "com.google.android.apps.maps",
+                    "com.google.android.maps.MapsActivity"
+                )
+                intent.setData(Uri.parse(str))
+                startActivity(intent)
+            }
+
         }
 
         private fun btnNaviStartGroup4() {
@@ -315,15 +396,6 @@ class CustomerOrderGroupsFragment : BaseFragment() {
 
                     latLngStr = "${latLngStr}+to:${latx},${lngx}"
                 }
-            }else{
-                for (i in customerNumber + 61..mCustomerList.size) {
-
-                    val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-                    val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
-
-                    latLngStr = "${latLngStr}+to:${latx},${lngx}"
-                }
-            }
                 val str =
                     "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
 
@@ -334,6 +406,42 @@ class CustomerOrderGroupsFragment : BaseFragment() {
                 )
                 intent.setData(Uri.parse(str))
                 startActivity(intent)
+
+            }else if (mCustomerList.size == customerNumber) {
+
+                Log.i(javaClass.simpleName, "Lat : ${lat1} Lng : ${lng1}")
+
+                val str =
+                    "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}&dirflg=d"
+
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setClassName(
+                    "com.google.android.apps.maps",
+                    "com.google.android.maps.MapsActivity"
+                )
+                intent.setData(Uri.parse(str))
+                startActivity(intent)
+
+            }else{
+                for (i in customerNumber + 61..mCustomerList.size) {
+
+                    val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                    val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+
+                    latLngStr = "${latLngStr}+to:${latx},${lngx}"
+                }
+                val str =
+                    "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
+
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setClassName(
+                    "com.google.android.apps.maps",
+                    "com.google.android.maps.MapsActivity"
+                )
+                intent.setData(Uri.parse(str))
+                startActivity(intent)
+            }
+
         }
 
         private fun btnNaviStartGroup5() {
@@ -357,15 +465,6 @@ class CustomerOrderGroupsFragment : BaseFragment() {
 
                     latLngStr = "${latLngStr}+to:${latx},${lngx}"
                 }
-            }else{
-                for (i in customerNumber + 81..mCustomerList.size) {
-
-                    val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
-                    val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
-
-                    latLngStr = "${latLngStr}+to:${latx},${lngx}"
-                }
-            }
                 val str =
                     "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
 
@@ -376,6 +475,42 @@ class CustomerOrderGroupsFragment : BaseFragment() {
                 )
                 intent.setData(Uri.parse(str))
                 startActivity(intent)
+
+            }else if (mCustomerList.size == customerNumber) {
+
+                Log.i(javaClass.simpleName, "Lat : ${lat1} Lng : ${lng1}")
+
+                val str =
+                    "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}&dirflg=d"
+
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setClassName(
+                    "com.google.android.apps.maps",
+                    "com.google.android.maps.MapsActivity"
+                )
+                intent.setData(Uri.parse(str))
+                startActivity(intent)
+
+            }else{
+                for (i in customerNumber + 81..mCustomerList.size) {
+
+                    val latx: Double = mCustomerList.get(i).customer_lat.toDouble()
+                    val lngx: Double = mCustomerList.get(i).customer_lng.toDouble()
+
+                    latLngStr = "${latLngStr}+to:${latx},${lngx}"
+                }
+                val str =
+                    "http://maps.google.com/maps?saddr=&daddr=${lat1},${lng1}${latLngStr}&dirflg=d"
+
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setClassName(
+                    "com.google.android.apps.maps",
+                    "com.google.android.maps.MapsActivity"
+                )
+                intent.setData(Uri.parse(str))
+                startActivity(intent)
+            }
+
         }
 
 

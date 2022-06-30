@@ -15,7 +15,7 @@ import com.patrolnavi.ui.adapters.BelongingGroupsListAdapter
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_details_user_profile.*
 
-class DetailsUserProfileActivity : BaseActivity() {
+class DetailsUserProfileActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityDetailsUserProfileBinding
 
@@ -27,22 +27,34 @@ class DetailsUserProfileActivity : BaseActivity() {
         binding = ActivityDetailsUserProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupActionBar()
-
         getUserProfileDetails()
+
+        binding.ivDetailsUserProfiles.setOnClickListener(this)
+
+        setupActionBar()
     }
 
     private fun setupActionBar() {
+
         setSupportActionBar(binding.toolbarUserProfileActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-        binding.toolbarUserProfileActivity.setOnClickListener {
-            val intent = Intent(this@DetailsUserProfileActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
+        binding.toolbarUserProfileActivity.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    override fun onClick(view: View?) {
+        if (view != null) {
+            when (view.id) {
+                R.id.iv_details_groups_home -> {
+                    val intent =
+                        Intent(this@DetailsUserProfileActivity, SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
     }
 
@@ -61,8 +73,9 @@ class DetailsUserProfileActivity : BaseActivity() {
         when (id) {
 
             R.id.navigation_edit_user_profile -> {
-                val intent = Intent(this@DetailsUserProfileActivity, EditUserProfileActivity::class.java)
-                intent.putExtra(Constants.EXTRA_USER_DETAILS,mUserDetails)
+                val intent =
+                    Intent(this@DetailsUserProfileActivity, EditUserProfileActivity::class.java)
+                intent.putExtra(Constants.EXTRA_USER_DETAILS, mUserDetails)
                 startActivity(intent)
                 return true
             }
@@ -118,4 +131,6 @@ class DetailsUserProfileActivity : BaseActivity() {
             binding.tvUserProfileBelongingGroupsFound.visibility = View.VISIBLE
         }
     }
+
+
 }

@@ -65,10 +65,11 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
         binding.etEditGroupsLng.isEnabled = false
         binding.etEditGroupsLng.setText(mGroupsLng)
 
-        setupActionBar()
-
+        binding.ivEditGroupsHome.setOnClickListener(this)
         binding.btnEditGroupsUpdate.setOnClickListener(this)
         binding.btnEditGroupsLocation.setOnClickListener(this)
+
+        setupActionBar()
     }
 
     private fun setupActionBar() {
@@ -78,13 +79,9 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-
-        binding.toolbarEditGroupsActivity.setOnClickListener {
-            val intent = Intent(this@EditGroupsActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
-        }
+        binding.toolbarEditGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -185,6 +182,11 @@ class EditGroupsActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
+                R.id.iv_edit_groups_home -> {
+                    val intent = Intent(this@EditGroupsActivity,SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+
                 R.id.btn_edit_groups_update -> {
                     if (validateGroupsDetails()) {
                         updateGroupsDetails()

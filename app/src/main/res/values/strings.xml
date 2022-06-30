@@ -13,7 +13,7 @@
     <string name="please_wait">しばらくお待ちください&#8230;</string>
     <string name="please_click_back_again_to_exit">終了するにはもう一度戻るをクリックしてください</string>
     <string name="forgot_password_screen">パスワードの再発行</string>
-    <string name="msg_forgot_password">e-mailアドレスを入力後、送信ボタンを押すとパスワードがリセットされます</string>
+    <string name="msg_forgot_password">e-mailアドレスを入力し、送信ボタンを押すとパスワードがリセットされます</string>
     <string name="btn_submit">送信</string>
     <string name="email_id">メールアドレス</string>
 

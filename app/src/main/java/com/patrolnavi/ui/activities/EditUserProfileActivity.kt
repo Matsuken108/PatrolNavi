@@ -13,7 +13,7 @@ import com.patrolnavi.models.User
 import com.patrolnavi.utils.Constants
 import kotlinx.android.synthetic.main.activity_edit_user_profile.*
 
-class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
+class EditUserProfileActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityEditUserProfileBinding
 
@@ -34,28 +34,33 @@ class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
         binding.etEditUserProfileEmail.setText(mUserDetails.email)
         binding.etEditUserProfileMobileNumber.setText(mUserDetails.mobile.toString())
 
+        binding.ivEditUserProfileHome.setOnClickListener(this)
         binding.btnEditUserProfileSubmit.setOnClickListener(this)
 
         setupActionBar()
     }
 
     private fun setupActionBar() {
+
         setSupportActionBar(binding.toolbarEditUserProfileActivity)
 
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-        binding.toolbarEditUserProfileActivity.setOnClickListener {
-            val intent = Intent(this@EditUserProfileActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
-        }
+        binding.toolbarEditUserProfileActivity.setNavigationOnClickListener { onBackPressed() }
     }
 
-    override fun onClick(v: View?) {
-        if (v != null) {
-            when (v.id) {
+    override fun onClick(view: View?) {
+        if (view != null) {
+            when (view.id) {
+                R.id.iv_edit_user_profile_home -> {
+                    val intent =
+                        Intent(this@EditUserProfileActivity, SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+
                 R.id.btn_edit_user_profile_submit -> {
                     if (validateUserProfileDetails()) {
                         showProgressDialog(resources.getString(R.string.please_wait))
@@ -108,7 +113,8 @@ class EditUserProfileActivity : BaseActivity(),View.OnClickListener {
 
     private fun validateUserProfileDetails(): Boolean {
         return when {
-            TextUtils.isEmpty(binding.etEditUserProfileMobileNumber.text.toString().trim { it <= ' ' }) -> {
+            TextUtils.isEmpty(
+                binding.etEditUserProfileMobileNumber.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar("Please enter mobile number", true)
                 false
             }

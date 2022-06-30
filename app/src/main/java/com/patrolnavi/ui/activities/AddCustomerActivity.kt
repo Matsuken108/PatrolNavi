@@ -80,10 +80,11 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
         binding.etAddCustomerFirstName.setText(mFirstName)
         binding.etAddCustomerLastName.setText(mLastName)
 
-        setupActionBar()
-
         binding.btnAddCustomerSave.setOnClickListener(this)
         binding.btnAddCustomerLocation.setOnClickListener(this)
+        binding.ivAddCustomerHome.setOnClickListener(this)
+
+        setupActionBar()
     }
 
     private fun setupActionBar() {
@@ -93,18 +94,21 @@ class AddCustomerActivity : BaseActivity(), View.OnClickListener {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-
-        binding.toolbarAddCustomerActivity.setOnClickListener {
-            val intent = Intent(this@AddCustomerActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
-        }
+        binding.toolbarAddCustomerActivity.setNavigationOnClickListener { onBackPressed() }
     }
+
 
     override fun onClick(view: View?) {
         if (view != null) {
             when (view.id) {
+
+                R.id.iv_add_customer_home -> {
+                    val intent = Intent(this@AddCustomerActivity,SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+
                 R.id.btn_add_customer_save -> {
                     if (validateCustomerProfileDetails()) {
                         uploadCustomerDetails()

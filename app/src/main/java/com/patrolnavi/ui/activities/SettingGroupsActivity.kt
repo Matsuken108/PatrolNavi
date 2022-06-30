@@ -23,6 +23,11 @@ class SettingGroupsActivity : BaseActivity() {
         binding = ActivitySettingGroupsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.ivSettingGroupsHome.setOnClickListener{
+            val intent = Intent(this@SettingGroupsActivity,SettingCourseActivity::class.java)
+            startActivity(intent)
+        }
+
         setupActionBar()
     }
 
@@ -33,15 +38,10 @@ class SettingGroupsActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
-
-        binding.toolbarSettingGroupsActivity.setOnClickListener {
-            val intent = Intent(this@SettingGroupsActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
-        }
+        binding.toolbarSettingGroupsActivity.setNavigationOnClickListener { onBackPressed() }
     }
-
 
     private fun getGroupsList() {
         showProgressDialog(resources.getString(R.string.please_wait))

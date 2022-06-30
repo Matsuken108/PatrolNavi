@@ -7,13 +7,23 @@
     android:background="@color/black"
     tools:context=".ui.activities.EditCourseActivity">
 
+    <ImageView
+        android:id="@+id/iv_edit_course_home"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_course_edit_activity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_vector_home" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_course_edit_activity"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_edit_course_home"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView

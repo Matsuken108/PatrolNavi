@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_add_groups.*
 import kotlinx.android.synthetic.main.activity_details_groups.*
 import kotlinx.android.synthetic.main.activity_setting_groups.*
 
-class DetailsGroupsActivity : BaseActivity() {
+class DetailsGroupsActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityDetailsGroupsBinding
 
@@ -49,7 +49,7 @@ class DetailsGroupsActivity : BaseActivity() {
             mGroupsLng = intent.getStringExtra(Constants.EXTRA_GROUPS_LNG)!!
         }
 
-        Log.i(javaClass.simpleName,"DetailsGroups : ${mGroupsId}")
+        Log.i(javaClass.simpleName, "DetailsGroups : ${mGroupsId}")
 
         binding.etDetailsGroupsName.isEnabled = false
         binding.etDetailsGroupsName.setText(mGroupsName)
@@ -62,6 +62,8 @@ class DetailsGroupsActivity : BaseActivity() {
         binding.etDetailsGroupsLng.isEnabled = false
         binding.etDetailsGroupsLng.setText(mGroupsLng)
 
+        binding.ivDetailsGroupsHome.setOnClickListener(this)
+
         setupActionBar()
     }
 
@@ -72,12 +74,20 @@ class DetailsGroupsActivity : BaseActivity() {
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_home)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_vector_back_white)
         }
+        binding.toolbarDetailsGroupsActivity.setNavigationOnClickListener { onBackPressed() }
+    }
 
-        binding.toolbarDetailsGroupsActivity.setOnClickListener {
-            val intent = Intent(this@DetailsGroupsActivity,SettingCourseActivity::class.java)
-            startActivity(intent)
+    override fun onClick(view: View?) {
+        if (view != null) {
+            when (view.id) {
+                R.id.iv_details_groups_home -> {
+                    val intent =
+                        Intent(this@DetailsGroupsActivity, SettingCourseActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
     }
 
@@ -97,10 +107,10 @@ class DetailsGroupsActivity : BaseActivity() {
                 val intent =
                     Intent(this@DetailsGroupsActivity, EditGroupsActivity::class.java)
                 intent.putExtra(Constants.EXTRA_GROUPS_ID, mGroupsId)
-                intent.putExtra(Constants.EXTRA_GROUPS_NAME,mGroupsName)
-                intent.putExtra(Constants.EXTRA_GROUPS_PASS,mGroupsPass)
-                intent.putExtra(Constants.EXTRA_GROUPS_LAT,mGroupsLat)
-                intent.putExtra(Constants.EXTRA_GROUPS_LNG,mGroupsLng)
+                intent.putExtra(Constants.EXTRA_GROUPS_NAME, mGroupsName)
+                intent.putExtra(Constants.EXTRA_GROUPS_PASS, mGroupsPass)
+                intent.putExtra(Constants.EXTRA_GROUPS_LAT, mGroupsLat)
+                intent.putExtra(Constants.EXTRA_GROUPS_LNG, mGroupsLng)
                 startActivity(intent)
                 return true
             }
@@ -124,7 +134,8 @@ class DetailsGroupsActivity : BaseActivity() {
             binding.rvGroupsUsersList.visibility = View.VISIBLE
             binding.tvDetailsGroupsFound.visibility = View.GONE
 
-            binding.rvGroupsUsersList.layoutManager = LinearLayoutManager(this@DetailsGroupsActivity)
+            binding.rvGroupsUsersList.layoutManager =
+                LinearLayoutManager(this@DetailsGroupsActivity)
             binding.rvGroupsUsersList.setHasFixedSize(true)
 
             val groupsUsersUsersAdapter =
@@ -141,4 +152,6 @@ class DetailsGroupsActivity : BaseActivity() {
         super.onResume()
         getGroupsUsersList()
     }
+
+
 }
